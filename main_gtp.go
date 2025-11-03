@@ -3,27 +3,28 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 	"strconv"
 	"strings"
-	"time"
 
-	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
-
-	// Entities
+	// 1 Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
-	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_3_controllers/chapter_1_computer_player/section_1/play_computer_move_lesson_09_a"
+
+	// 2 Use Cases
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
-	uct_calc_info "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_3_uct/section_1/uct_calc_info"
+
+	// 7 Presenters
+	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
+	z_code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
+	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
+
+	// Interfaces
+	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 )
 
 // LoopGtp - レッスン９a
@@ -169,52 +170,17 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 		case "genmove":
 			// genmove black
 			// genmove white
-			var color color.Color
+			var color1 color.Color
 			if 1 < len(tokens) && strings.ToLower(tokens[1][0:1]) == "w" {
-				color = 2
+				color1 = 2
 			} else {
-				color = 1
+				color1 = 1
 			}
-			var z = PlayComputerMoveLesson09a(text_io1, position, color)
+			var z = play_computer_move_lesson_09_a.PlayComputerMoveLesson09a(text_io1, position, color1)
 			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", z_code.GetGtpZ(position, z)))
 
 		default:
 			text_io1.SendCommand("? unknown_command\n\n")
 		}
 	}
-}
-
-// PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
-func PlayComputerMoveLesson09a(
-	text_io1 i_text_io.ITextIO,
-	position1 *position.Position,
-	color1 color.Color) point.Point {
-
-	var st1 = time.Now()
-	all_playouts.AllPlayouts = 0
-
-	var z1, winRate1 = uct.GetBestZByUct(
-		position1,
-		color1,
-		uct_calc_info.CreatePrintingOfCalc(text_io1),
-		uct_calc_info.CreatePrintingOfCalcFin(text_io1))
-
-	if 1 < position1.MovesNum && // 初手ではないとして
-		position1.Record[position1.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
-		0.95 <= math.Abs(winRate1) { // 95%以上の確率で勝ちか負けなら
-		// こちらもパスします
-		return 0
-	}
-
-	var sec1 = time.Since(st1).Seconds()
-	text_io1.LogInfo(fmt.Sprintf("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec1, float64(all_playouts.AllPlayouts)/sec1, position1.GetZ4(z1), winRate1, position1.MovesNum, color1, all_playouts.AllPlayouts))
-
-	var recItem1 = new(game_record_item.GameRecordItem)
-	recItem1.Z = z1
-	recItem1.Time = sec1
-	position1.PutStoneOnRecord(z1, color1, recItem1)
-	board_view.PrintBoard(position1, position1.MovesNum)
-
-	return z1
 }
