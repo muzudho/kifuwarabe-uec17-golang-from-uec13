@@ -6,4 +6,7 @@ type ITextIO interface {
 
 	// ReceivedCommand - コマンド受信
 	ReceivedCommand(command string)
+
+	// LogInfo - 情報ログ
+	LogInfo(info string)
 }

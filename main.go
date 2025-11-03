@@ -64,7 +64,7 @@ func main() {
 	// ========================================
 
 	if lessonVer == "SelfPlay" {
-		SelfPlay(position)
+		SelfPlay(text_io1, position)
 	} else {
 		LoopGtp(text_io1, position) // GTP
 	}
