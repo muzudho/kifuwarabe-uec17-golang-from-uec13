@@ -4,7 +4,6 @@ import (
 	"time"
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
@@ -15,6 +14,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_1/z_code"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_2/sgf"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_3/board_view"
 )
 
 // SelfPlay - コンピューター同士の対局。
@@ -32,7 +32,7 @@ func SelfPlay(position *position.Position) {
 
 		code.Console.Print("z=%s,color=%d", z_code.GetGtpZ(position, z), color) // テスト
 		// p.PrintCheckBoard(position)                                        // テスト
-		p.PrintBoard(position, position.MovesNum)
+		board_view.PrintBoard(position, position.MovesNum)
 
 		// パスで２手目以降で棋譜の１つ前（相手）もパスなら終了します。
 		if z == point.Pass && 1 < position.MovesNum && position.Record[position.MovesNum-2].GetZ() == point.Pass {

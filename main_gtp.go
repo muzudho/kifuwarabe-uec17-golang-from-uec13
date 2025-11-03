@@ -11,7 +11,6 @@ import (
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
-	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
@@ -23,6 +22,7 @@ import (
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_1/z_code"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_3/board_view"
 )
 
 // LoopGtp - レッスン９a
@@ -156,7 +156,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 				recItem.Z = z
 				recItem.Time = 0
 				position.PutStoneOnRecord(z, color, recItem)
-				p.PrintBoard(position, position.MovesNum)
+				board_view.PrintBoard(position, position.MovesNum)
 
 				text_io1.SendCommand("= \n\n")
 			}
@@ -212,7 +212,7 @@ func PlayComputerMoveLesson09a(
 	recItem.Z = z
 	recItem.Time = sec
 	position.PutStoneOnRecord(z, color, recItem)
-	p.PrintBoard(position, position.MovesNum)
+	board_view.PrintBoard(position, position.MovesNum)
 
 	return z
 }

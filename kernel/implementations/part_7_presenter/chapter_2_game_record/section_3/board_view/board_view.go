@@ -1,4 +1,4 @@
-package presenter
+package board_view
 
 import (
 	"strconv"
@@ -13,7 +13,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_1/z_code"
 )
 
-var sz8k = 8 * 1024
+var Sz8k = 8 * 1024
 
 // 案
 //     A B C D E F G H J K L M N O P Q R S T
@@ -43,13 +43,13 @@ var sz8k = 8 * 1024
 // ASCII文字を使います（全角、半角の狂いがないため）
 // 黒石は x 、 白石は o （ダークモードでもライトモードでも識別できるため）
 
-// labelOfColumns - 各列の表示符号。
+// LabelOfColumns - 各列の表示符号。
 // 国際囲碁連盟のフォーマット
-var labelOfColumns = [20]string{"xx", " A", " B", " C", " D", " E", " F", " G", " H", " J",
+var LabelOfColumns = [20]string{"xx", " A", " B", " C", " D", " E", " F", " G", " H", " J",
 	" K", " L", " M", " N", " O", " P", " Q", " R", " S", " T"}
 
-// labelOfRows - 各行の表示符号。
-var labelOfRows = [20]string{" 0", " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9",
+// LabelOfRows - 各行の表示符号。
+var LabelOfRows = [20]string{" 0", " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9",
 	"10", "11", "12", "13", "14", "15", "16", "17", "18", "19"}
 
 // " ." - 空点
@@ -72,14 +72,14 @@ var rightVerticalEdgeLabels = [4]string{" .", " x", " o", " |"}
 func PrintBoard(position *position.Position, movesNum int) {
 
 	var b = &strings.Builder{}
-	b.Grow(sz8k)
+	b.Grow(Sz8k)
 
 	var boardSize = game_rule_settings.BoardSize
 
 	// Header (numbers)
 	b.WriteString("\n   ")
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(labelOfColumns[x+1])
+		b.WriteString(LabelOfColumns[x+1])
 	}
 	// Header (line)
 	b.WriteString("\n  ")                                // number space
@@ -92,7 +92,7 @@ func PrintBoard(position *position.Position, movesNum int) {
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(labelOfRows[y+1])                                                                              // number
+		b.WriteString(LabelOfRows[y+1])                                                                              // number
 		b.WriteString(leftVerticalEdgeLabels[position.ColorAt(point.Point((y+1)*game_rule_settings.SentinelWidth))]) // |
 		for x := 0; x < boardSize; x++ {
 			b.WriteString(stoneLabels[position.ColorAtXy(x, y)])

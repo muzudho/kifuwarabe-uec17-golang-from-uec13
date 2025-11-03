@@ -6,6 +6,7 @@ import (
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
+	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_3/board_view"
 )
 
 // " 0" - 空点
@@ -16,14 +17,14 @@ var numberLabels = [2]string{" 0", " 1"}
 func PrintCheckBoard(position *position.Position) {
 
 	var b = &strings.Builder{}
-	b.Grow(sz8k)
+	b.Grow(board_view.Sz8k)
 
 	var boardSize = game_rule_settings.BoardSize
 
 	// Header
 	b.WriteString("\n   ")
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(labelOfColumns[x+1])
+		b.WriteString(board_view.LabelOfColumns[x+1])
 	}
 	b.WriteString("\n  +")
 	for x := 0; x < boardSize; x++ {
@@ -33,7 +34,7 @@ func PrintCheckBoard(position *position.Position) {
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(labelOfRows[y+1])
+		b.WriteString(board_view.LabelOfRows[y+1])
 		b.WriteString("|")
 		for x := 0; x < boardSize; x++ {
 			var z = position.GetZFromXy(x, y)
