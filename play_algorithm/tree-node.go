@@ -4,8 +4,10 @@ import (
 	"os"
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+
+	// Entity
+	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 )
 
 // Child - 子。
@@ -41,7 +43,7 @@ func addChild(pN *Node, z point.Point) {
 }
 
 // CreateNode - ノード作成。 searchUctV8, GetBestZByUct, searchUctLesson09 から呼び出されます。
-func CreateNode(position *e.Position) int {
+func CreateNode(position *position.Position) int {
 
 	if NodeNum == NodeMax {
 		code.Console.Error("node over Err\n")

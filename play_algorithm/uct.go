@@ -6,11 +6,11 @@ import (
 	"os"
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 )
 
 // UCT
@@ -25,10 +25,10 @@ const (
 // # Return
 // (bestZ int, winRate float64)
 func GetBestZByUct(
-	position *e.Position,
+	position *position.Position,
 	color color.Color,
-	print_calc *func(*e.Position, int, point.Point, float64, int),
-	print_calc_fin *func(*e.Position, point.Point, float64, int, int, int)) (point.Point, float64) {
+	print_calc *func(*position.Position, int, point.Point, float64, int),
+	print_calc_fin *func(*position.Position, point.Point, float64, int, int, int)) (point.Point, float64) {
 
 	// UCT計算フェーズ
 	NodeNum = 0 // カウンターリセット
@@ -68,7 +68,7 @@ func GetBestZByUct(
 
 // SearchUct - 再帰関数。 GetBestZByUct() から呼び出されます
 func SearchUct(
-	position *e.Position,
+	position *position.Position,
 	color color.Color,
 	nodeN int) int {
 
@@ -80,7 +80,7 @@ func SearchUct(
 		c = &pN.Children[selectI]
 		var z = c.Z
 
-		var err = e.PutStone(position, z, color)
+		var err = position.PutStone(z, color)
 		if err == 0 { // 石が置けたなら
 			break
 		}

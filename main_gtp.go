@@ -10,7 +10,6 @@ import (
 	"time"
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
@@ -21,11 +20,12 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
+	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 )
 
 // LoopGtp - レッスン９a
 // GTP2NNGS に対応しているのでは？
-func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
+func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 	code.Console.Trace("# GoGo RunGtpEngine プログラム開始☆（＾～＾）\n")
 	code.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
 
@@ -183,7 +183,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 
 // PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
 func PlayComputerMoveLesson09a(
-	position *e.Position,
+	position *position.Position,
 	color color.Color) point.Point {
 
 	var st = time.Now()

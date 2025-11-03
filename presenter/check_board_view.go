@@ -4,8 +4,8 @@ import (
 	"strings"
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
+	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 )
 
 // " 0" - 空点
@@ -13,7 +13,7 @@ import (
 var numberLabels = [2]string{" 0", " 1"}
 
 // PrintCheckBoard - チェックボードを描画。
-func PrintCheckBoard(position *e.Position) {
+func PrintCheckBoard(position *position.Position) {
 
 	var b = &strings.Builder{}
 	b.Grow(sz8k)

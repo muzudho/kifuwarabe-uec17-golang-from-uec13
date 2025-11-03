@@ -5,9 +5,11 @@ import (
 	"strings"
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+
+	// Entity
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
+	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 )
 
 var sz8k = 8 * 1024
@@ -66,7 +68,7 @@ var leftVerticalEdgeLabels = [4]string{".", "x", "o", "|"}
 var rightVerticalEdgeLabels = [4]string{" .", " x", " o", " |"}
 
 // PrintBoard - 盤を描画。
-func PrintBoard(position *e.Position, movesNum int) {
+func PrintBoard(position *position.Position, movesNum int) {
 
 	var b = &strings.Builder{}
 	b.Grow(sz8k)

@@ -3,12 +3,11 @@ package play_algorithm
 import (
 	"math/rand"
 
-	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
-
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
+	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 )
 
 // Playout - 最後まで石を打ちます。得点を返します
@@ -18,7 +17,7 @@ import (
 //
 // 手番が勝ったら 1、引分けなら 0、 相手が勝ったら -1
 func Playout(
-	position *e.Position,
+	position *position.Position,
 	turnColor color.Color,
 	getWinner *func(color.Color) int,
 	isDislike *func(color.Color, point.Point) bool) int {
@@ -57,7 +56,7 @@ func Playout(
 				z = empty[r]
 			}
 
-			var err = e.PutStone(position, z, color)
+			var err = position.PutStone(z, color)
 			if err == 0 { // 石が置けたか、パスなら
 
 				if z == point.Pass || // パスか、

@@ -1,4 +1,4 @@
-package entities
+package position
 
 import (
 	"math/rand"
@@ -240,7 +240,7 @@ func (position *Position) CreateBoardIteratorWithoutWall() func(func(point.Point
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます
 func (position *Position) PutStoneOnRecord(z point.Point, color color.Color, recItem *game_record_item.GameRecordItem) {
-	var err = PutStone(position, z, color)
+	var err = position.PutStone(z, color)
 	if err != 0 {
 		code.Console.Error("(PutStoneOnRecord) Err!\n")
 		os.Exit(0)
@@ -256,7 +256,7 @@ func (position *Position) PutStoneOnRecord(z point.Point, color color.Color, rec
 //
 // # Returns
 // エラーコード
-func PutStone(position *Position, z point.Point, color1 color.Color) int {
+func (position *Position) PutStone(z point.Point, color1 color.Color) int {
 	var around = [4]*ren.Ren{}   // 隣接する４つの交点
 	var libertyArea int          // 呼吸点の数
 	var renArea int              // 連の石の数
