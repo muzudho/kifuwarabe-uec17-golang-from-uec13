@@ -30,7 +30,7 @@ func GetBestZByUct(
 
 	// UCT計算フェーズ
 	node_struct.NodeNum = 0 // カウンターリセット
-	var next = CreateNode(position)
+	var next = node_struct.CreateNode(position)
 	var uctLoopCount = parameter_adjustment.UctLoopCount
 	for i := 0; i < uctLoopCount; i++ {
 		// 一時記憶
@@ -92,7 +92,7 @@ func SearchUct(
 		winner = -Playout(position, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
 	} else {
 		if c.Next == uct_struct.NodeEmpty {
-			c.Next = CreateNode(position)
+			c.Next = node_struct.CreateNode(position)
 		}
 		winner = -SearchUct(position, color.Flip(), c.Next)
 	}
