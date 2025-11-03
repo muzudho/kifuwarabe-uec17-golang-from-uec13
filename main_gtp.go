@@ -153,7 +153,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 				var recItem = new(game_record_item.GameRecordItem)
 				recItem.Z = z
 				recItem.Time = 0
-				e.PutStoneOnRecord(position, z, color, recItem)
+				position.PutStoneOnRecord(z, color, recItem)
 				p.PrintBoard(position, position.MovesNum)
 
 				text_io1.SendCommand("= \n\n")
@@ -209,7 +209,7 @@ func PlayComputerMoveLesson09a(
 	var recItem = new(game_record_item.GameRecordItem)
 	recItem.Z = z
 	recItem.Time = sec
-	e.PutStoneOnRecord(position, z, color, recItem)
+	position.PutStoneOnRecord(z, color, recItem)
 	p.PrintBoard(position, position.MovesNum)
 
 	return z

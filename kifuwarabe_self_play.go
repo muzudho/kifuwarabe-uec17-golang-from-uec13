@@ -25,7 +25,7 @@ func SelfPlay(position *e.Position) {
 
 		var recItem = new(game_record_item.GameRecordItem)
 		recItem.Z = z
-		e.PutStoneOnRecord(position, z, color, recItem)
+		position.PutStoneOnRecord(z, color, recItem)
 
 		code.Console.Print("z=%s,color=%d", p.GetGtpZ(position, z), color) // テスト
 		// p.PrintCheckBoard(position)                                        // テスト

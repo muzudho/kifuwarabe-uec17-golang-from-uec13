@@ -70,7 +70,7 @@ func (position *Position) InitPosition() {
 	var boardMax = game_rule_settings.SentinelBoardArea
 	position.board = make([]color.Color, boardMax)
 	position.checkBoard = make([]int, boardMax)
-	position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(position)
+	position.iteratorWithoutWall = position.CreateBoardIteratorWithoutWall()
 	game_rule_settings.Directions4Array = [4]point.Point{1, -1, point.Point(game_rule_settings.SentinelWidth), point.Point(-game_rule_settings.SentinelWidth)}
 
 	// 枠線
@@ -221,7 +221,7 @@ func (position *Position) UctChildrenSize() int {
 }
 
 // CreateBoardIteratorWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
-func CreateBoardIteratorWithoutWall(position *Position) func(func(point.Point)) {
+func (position *Position) CreateBoardIteratorWithoutWall() func(func(point.Point)) {
 
 	var boardSize = game_rule_settings.BoardSize
 	var boardIterator = func(onPoint func(point.Point)) {
@@ -239,7 +239,7 @@ func CreateBoardIteratorWithoutWall(position *Position) func(func(point.Point)) 
 }
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます
-func PutStoneOnRecord(position *Position, z point.Point, color color.Color, recItem *game_record_item.GameRecordItem) {
+func (position *Position) PutStoneOnRecord(z point.Point, color color.Color, recItem *game_record_item.GameRecordItem) {
 	var err = PutStone(position, z, color)
 	if err != 0 {
 		code.Console.Error("(PutStoneOnRecord) Err!\n")
