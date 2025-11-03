@@ -1,4 +1,4 @@
-package play_algorithm
+package playout
 
 import (
 	"math/rand"

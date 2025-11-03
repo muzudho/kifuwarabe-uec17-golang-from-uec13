@@ -16,6 +16,7 @@ import (
 	uct_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	node_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/node_struct"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/playout"
 )
 
 // GetBestZByUct - Lesson08,09,09aで使用。 一番良いUCTである着手を選びます。 GetComputerMoveDuringSelfPlay などから呼び出されます。
@@ -89,7 +90,7 @@ func SearchUct(
 
 	var winner int // 手番が勝ちなら1、引分けなら0、手番の負けなら-1 としてください
 	if c.Games <= 0 {
-		winner = -Playout(position, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
+		winner = -playout.Playout(position, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
 	} else {
 		if c.Next == uct_struct.NodeEmpty {
 			c.Next = node_struct.CreateNode(position)
