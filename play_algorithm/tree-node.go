@@ -9,23 +9,17 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 	child "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/child"
+	node "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/node"
 )
 
-// Node - ノード。
-type Node struct {
-	ChildNum     int
-	Children     []child.Child
-	ChildGameSum int
-}
-
 // Nodes -ノードの配列？
-var Nodes = [NodeMax]Node{}
+var Nodes = [NodeMax]node.Node{}
 
 // NodeNum - ノード数？
 var NodeNum = 0
 
 // CreateNode から呼び出されます。
-func addChild(pN *Node, z point.Point) {
+func addChild(pN *node.Node, z point.Point) {
 	var n = pN.ChildNum
 	pN.Children[n].Z = z
 	pN.Children[n].Games = 0
