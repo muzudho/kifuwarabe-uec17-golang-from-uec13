@@ -4,12 +4,11 @@ import (
 	"strconv"
 	"strings"
 
-	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-
 	// Entity
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
 )
 
@@ -124,5 +123,5 @@ func PrintBoard(position *position.Position, movesNum int) {
 	}
 	b.WriteString("\n")
 
-	code.Console.Print(b.String())
+	coding_obj.Console.Print(b.String())
 }

@@ -9,7 +9,6 @@ import (
 	"strings"
 	"time"
 
-	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 
 	// Entities
@@ -21,6 +20,7 @@ import (
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
 )
@@ -28,8 +28,8 @@ import (
 // LoopGtp - レッスン９a
 // GTP2NNGS に対応しているのでは？
 func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
-	code.Console.Trace("# GoGo RunGtpEngine プログラム開始☆（＾～＾）\n")
-	code.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
+	coding_obj.Console.Trace("# GoGo RunGtpEngine プログラム開始☆（＾～＾）\n")
+	coding_obj.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
 
 	// GUI から 囲碁エンジン へ入力があった、と考えてください
 	var scanner = bufio.NewScanner(os.Stdin)
@@ -94,7 +94,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 				var boardSize, err = strconv.Atoi(tokens[1])
 
 				if err != nil {
-					code.Console.Fatal(fmt.Sprintf("command=%s", command))
+					coding_obj.Console.Fatal(fmt.Sprintf("command=%s", command))
 					panic(err)
 				}
 
@@ -112,7 +112,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 				var komi, err = strconv.ParseFloat(tokens[1], 64)
 
 				if err != nil {
-					code.Console.Fatal(fmt.Sprintf("command=%s", command))
+					coding_obj.Console.Fatal(fmt.Sprintf("command=%s", command))
 					panic(err)
 				}
 
@@ -205,7 +205,7 @@ func PlayComputerMoveLesson09a(
 	}
 
 	var sec = time.Since(st).Seconds()
-	code.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
+	coding_obj.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
 		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, all_playouts.AllPlayouts)
 
 	var recItem = new(game_record_item.GameRecordItem)

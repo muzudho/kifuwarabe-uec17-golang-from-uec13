@@ -8,8 +8,8 @@ import (
 	"math/rand"
 	"time"
 
-	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_6_gateways/chapter_1_game_config/section_1/game_conf_toml"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_1_io/section_1"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
@@ -31,8 +31,8 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	// ログの書込み先設定
-	code.GtpLog.SetPath("output/gtp_print.log")
-	code.ConsoleLog.SetPath(
+	coding_obj.GtpLog.SetPath("output/gtp_print.log")
+	coding_obj.ConsoleLog.SetPath(
 		"output/trace.log",
 		"output/debug.log",
 		"output/info.log",
@@ -42,7 +42,7 @@ func main() {
 		"output/fatal.log",
 		"output/print.log")
 
-	code.Console.Trace("# Author: %s\n", game_rule_settings.Author)
+	coding_obj.Console.Trace("# Author: %s\n", game_rule_settings.Author)
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
 	var config = game_conf_toml.LoadGameConf("input/game_conf.toml", OnFatal)
@@ -71,13 +71,13 @@ func main() {
 }
 
 func OnFatal(errorMessage string) {
-	code.Console.Fatal(errorMessage)
+	coding_obj.Console.Fatal(errorMessage)
 }
 
 func createPrintingOfCalc() *func(*position.Position, int, point.Point, float64, int) {
 	// UCT計算中の表示
 	var fn = func(position *position.Position, i int, z point.Point, rate float64, games int) {
-		code.Console.Info("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, z_code.GetGtpZ(position, z), rate, games)
+		coding_obj.Console.Info("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, z_code.GetGtpZ(position, z), rate, games)
 	}
 
 	return &fn
@@ -86,7 +86,7 @@ func createPrintingOfCalc() *func(*position.Position, int, point.Point, float64,
 func createPrintingOfCalcFin() *func(*position.Position, point.Point, float64, int, int, int) {
 	// UCT計算後の表示
 	var fn = func(position *position.Position, bestZ point.Point, rate float64, max int, allPlayouts int, nodeNum int) {
-		code.Console.Info("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
+		coding_obj.Console.Info("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
 			z_code.GetGtpZ(position, bestZ), rate, max, allPlayouts, nodeNum)
 
 	}

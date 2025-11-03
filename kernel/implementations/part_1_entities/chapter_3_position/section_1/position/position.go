@@ -4,14 +4,13 @@ import (
 	"math/rand"
 	"os"
 
-	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	ren "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/ren"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
+	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 )
 
 // Position - 盤
@@ -242,7 +241,7 @@ func (position *Position) CreateBoardIteratorWithoutWall() func(func(point.Point
 func (position *Position) PutStoneOnRecord(z point.Point, color color.Color, recItem *game_record_item.GameRecordItem) {
 	var err = position.PutStone(z, color)
 	if err != 0 {
-		code.Console.Error("(PutStoneOnRecord) Err!\n")
+		coding_obj.Console.Error("(PutStoneOnRecord) Err!\n")
 		os.Exit(0)
 	}
 

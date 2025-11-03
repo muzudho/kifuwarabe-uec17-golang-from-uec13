@@ -3,8 +3,6 @@ package main
 import (
 	"time"
 
-	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
@@ -12,6 +10,7 @@ import (
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_2/sgf"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
@@ -19,7 +18,7 @@ import (
 
 // SelfPlay - コンピューター同士の対局。
 func SelfPlay(position *position.Position) {
-	code.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
+	coding_obj.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
 
 	var color = color.Black
 
@@ -30,7 +29,7 @@ func SelfPlay(position *position.Position) {
 		recItem.Z = z
 		position.PutStoneOnRecord(z, color, recItem)
 
-		code.Console.Print("z=%s,color=%d", z_code.GetGtpZ(position, z), color) // テスト
+		coding_obj.Console.Print("z=%s,color=%d", z_code.GetGtpZ(position, z), color) // テスト
 		// p.PrintCheckBoard(position)                                        // テスト
 		board_view.PrintBoard(position, position.MovesNum)
 
@@ -61,7 +60,7 @@ func GetComputerMoveDuringSelfPlay(position *position.Position, color color.Colo
 		createPrintingOfCalcFin())
 
 	var sec = time.Since(start).Seconds()
-	code.Console.Info("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
+	coding_obj.Console.Info("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
 		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, all_playouts.AllPlayouts)
 	return z
 }

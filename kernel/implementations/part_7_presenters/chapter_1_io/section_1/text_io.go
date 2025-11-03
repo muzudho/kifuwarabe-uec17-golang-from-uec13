@@ -1,6 +1,6 @@
 package text_io
 
-import code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
+import "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 
 // TextIO - テキスト入出力
 type TextIO struct {
@@ -17,10 +17,10 @@ func NewTextIO() *TextIO {
 
 func (t *TextIO) SendCommand(command string) {
 	//fmt.Print(command)
-	code.Gtp.Print("= \n\n")
+	coding_obj.Gtp.Print("= \n\n")
 }
 
 func (t *TextIO) ReceivedCommand(command string) {
-	code.Gtp.Log(command + "\n")
-	code.ConsoleLog.Notice(command + "\n")
+	coding_obj.Gtp.Log(command + "\n")
+	coding_obj.ConsoleLog.Notice(command + "\n")
 }

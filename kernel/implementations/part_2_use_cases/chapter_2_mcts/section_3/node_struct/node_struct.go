@@ -3,13 +3,12 @@ package node_struct
 import (
 	"os"
 
-	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/child"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/node"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 )
 
 // Nodes -ノードの配列？
@@ -22,7 +21,7 @@ var NodeNum = 0
 func CreateNode(position *position.Position) int {
 
 	if NodeNum == uct_struct.NodeMax {
-		code.Console.Error("node over Err\n")
+		coding_obj.Console.Error("node over Err\n")
 		os.Exit(0)
 	}
 	var pN = &Nodes[NodeNum]
