@@ -8,6 +8,7 @@ import (
 
 	// Use Cases
 	bad_empty_triangle "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_1_game_domain/section_1/bad_empty_triangle"
+	get_winner "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/get_winner"
 )
 
 // AllPlayouts - プレイアウトした回数。
@@ -23,7 +24,7 @@ func InitPosition(position *position.Position) {
 	// 盤サイズが変わっていることもあるので、先に初期化します
 	position.InitPosition()
 
-	GettingOfWinnerOnDuringUCTPlayout = WrapGettingOfWinner(position)
+	GettingOfWinnerOnDuringUCTPlayout = get_winner.WrapGettingOfWinner(position)
 	IsDislike = bad_empty_triangle.WrapIsDislike(position)
 	AdjustParameters(position)
 }

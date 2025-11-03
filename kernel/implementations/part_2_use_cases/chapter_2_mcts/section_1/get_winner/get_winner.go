@@ -1,4 +1,4 @@
-package play_algorithm
+package get_winner
 
 import (
 	// Entities
