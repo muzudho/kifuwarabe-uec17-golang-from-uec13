@@ -1,4 +1,4 @@
-package presenter
+package check_board_view
 
 import (
 	"strings"
