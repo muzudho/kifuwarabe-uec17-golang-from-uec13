@@ -10,9 +10,9 @@ import (
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	cnf "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/config_obj"
+	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/mcts"
 	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_1_io/section_1"
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
-	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
 
 	// Entity
@@ -50,7 +50,7 @@ func main() {
 	game_rule_settings.MaxMovesNum = moves_num.MovesNum(config.MaxMovesNum())
 	game_rule_settings.SetBoardSize(config.BoardSize())
 	var position = position.NewPosition()
-	pl.InitPosition(position)
+	mcts.InitPosition(position)
 	position.SetBoard(config.GetBoardArray())
 
 	// ========================================

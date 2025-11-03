@@ -12,6 +12,7 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 	parameter_adjustment "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/parameter_adjustment"
+	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/mcts"
 )
 
 // UCT
@@ -61,7 +62,7 @@ func GetBestZByUct(
 
 	// 結果
 	var bestZ = pN.Children[bestI].Z
-	(*print_calc_fin)(position, bestZ, pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
+	(*print_calc_fin)(position, bestZ, pN.Children[bestI].Rate, max, mcts.AllPlayouts, NodeNum)
 	//code.Console.Info("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
 	//	p.GetGtpZ(position, bestZ), pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
 	return bestZ, pN.Children[bestI].Rate
@@ -92,7 +93,7 @@ func SearchUct(
 
 	var winner int // 手番が勝ちなら1、引分けなら0、手番の負けなら-1 としてください
 	if c.Games <= 0 {
-		winner = -Playout(position, color.Flip(), GettingOfWinnerOnDuringUCTPlayout, IsDislike)
+		winner = -Playout(position, color.Flip(), mcts.GettingOfWinnerOnDuringUCTPlayout, mcts.IsDislike)
 	} else {
 		if c.Next == NodeEmpty {
 			c.Next = CreateNode(position)
