@@ -11,13 +11,16 @@ import (
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	cnf "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/config_obj"
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/moves_num"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_1_io/section_1"
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
+
+	// Entity
+	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
+	moves_num "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/moves_num"
+	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 )
 
 func main() {
@@ -39,13 +42,13 @@ func main() {
 		"output/fatal.log",
 		"output/print.log")
 
-	code.Console.Trace("# Author: %s\n", e.Author)
+	code.Console.Trace("# Author: %s\n", game_rule_settings.Author)
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
 	var config = cnf.LoadGameConf("input/game_conf.toml", OnFatal)
-	e.Komi = komi_float.KomiFloat(config.Komi())
-	e.MaxMovesNum = moves_num.MovesNum(config.MaxMovesNum())
-	e.SetBoardSize(config.BoardSize())
+	game_rule_settings.Komi = komi_float.KomiFloat(config.Komi())
+	game_rule_settings.MaxMovesNum = moves_num.MovesNum(config.MaxMovesNum())
+	game_rule_settings.SetBoardSize(config.BoardSize())
 	var position = e.NewPosition()
 	pl.InitPosition(position)
 	position.SetBoard(config.GetBoardArray())

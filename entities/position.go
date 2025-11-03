@@ -7,6 +7,7 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
+	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 )
 
 // Position - 盤
@@ -38,7 +39,7 @@ type TemporaryPosition struct {
 // CopyPosition - 盤データのコピー。
 func (position *Position) CopyPosition() *TemporaryPosition {
 	var temp = new(TemporaryPosition)
-	temp.Board = make([]color.Color, SentinelBoardArea)
+	temp.Board = make([]color.Color, game_rule_settings.SentinelBoardArea)
 	copy(temp.Board[:], position.board[:])
 	temp.KoZ = position.KoZ
 	return temp
@@ -58,15 +59,15 @@ func NewPosition() *Position {
 
 // InitPosition - 局面の初期化。
 func (position *Position) InitPosition() {
-	position.Record = make([]*game_record_item.GameRecordItem, MaxMovesNum)
-	position.uctChildrenSize = BoardArea + 1
+	position.Record = make([]*game_record_item.GameRecordItem, game_rule_settings.MaxMovesNum)
+	position.uctChildrenSize = game_rule_settings.BoardArea + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
-	var boardMax = SentinelBoardArea
+	var boardMax = game_rule_settings.SentinelBoardArea
 	position.board = make([]color.Color, boardMax)
 	position.checkBoard = make([]int, boardMax)
 	position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(position)
-	Directions4Array = [4]point.Point{1, -1, point.Point(SentinelWidth), point.Point(-SentinelWidth)}
+	game_rule_settings.Directions4Array = [4]point.Point{1, -1, point.Point(game_rule_settings.SentinelWidth), point.Point(-game_rule_settings.SentinelWidth)}
 
 	// 枠線
 	for z := point.Point(0); z < point.Point(boardMax); z++ {
@@ -107,7 +108,7 @@ func (position *Position) CheckAt(z point.Point) int {
 
 // ColorAtXy - 指定した交点の石の色
 func (position *Position) ColorAtXy(x int, y int) color.Color {
-	return position.board[(y+1)*SentinelWidth+x+1]
+	return position.board[(y+1)*game_rule_settings.SentinelWidth+x+1]
 }
 
 // IsEmpty - 指定の交点は空点か？
@@ -130,15 +131,15 @@ func (position *Position) GetZ4(z point.Point) int {
 	if z == 0 {
 		return 0
 	}
-	var y = int(z) / SentinelWidth
-	var x = int(z) - y*SentinelWidth
+	var y = int(z) / game_rule_settings.SentinelWidth
+	var x = int(z) - y*game_rule_settings.SentinelWidth
 	return x*100 + y
 }
 
 // GetZFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
 // x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
 func (position *Position) GetZFromXy(x int, y int) point.Point {
-	return point.Point((y+1)*SentinelWidth + x + 1)
+	return point.Point((y+1)*game_rule_settings.SentinelWidth + x + 1)
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
@@ -179,7 +180,7 @@ func (position *Position) countLibertySub(z point.Point, color color.Color, libe
 	position.checkBoard[z] = 1
 	*renArea++
 	for i := 0; i < 4; i++ {
-		var adjZ = z + Directions4Array[i]
+		var adjZ = z + game_rule_settings.Directions4Array[i]
 		if position.checkBoard[adjZ] != 0 {
 			continue
 		}
@@ -197,7 +198,7 @@ func (position *Position) TakeStone(z point.Point, color1 color.Color) {
 	position.board[z] = color.None // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + Directions4Array[dir]
+		var adjZ = z + game_rule_settings.Directions4Array[dir]
 
 		if position.board[adjZ] == color1 { // 再帰します
 			position.TakeStone(adjZ, color1)
@@ -218,7 +219,7 @@ func (position *Position) UctChildrenSize() int {
 // CreateBoardIteratorWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
 func CreateBoardIteratorWithoutWall(position *Position) func(func(point.Point)) {
 
-	var boardSize = BoardSize
+	var boardSize = game_rule_settings.BoardSize
 	var boardIterator = func(onPoint func(point.Point)) {
 
 		// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標

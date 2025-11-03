@@ -10,8 +10,9 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/direction_4"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	direction_4 "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/direction_4"
+	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 )
 
 // WrapIsDislike - 盤を束縛変数として与えます
@@ -23,14 +24,14 @@ func WrapIsDislike(position *e.Position) *func(color.Color, point.Point) bool {
 		// 432
 		// 5S1
 		// 678
-		var eastZ = z + e.Directions4Array[direction_4.East]
-		var northEastZ = z + e.Directions4Array[direction_4.North] + 1
-		var northZ = z + e.Directions4Array[direction_4.North]
-		var northWestZ = z + e.Directions4Array[direction_4.North] - 1
-		var westZ = z + e.Directions4Array[direction_4.West]
-		var southWestZ = z + e.Directions4Array[direction_4.South] - 1
-		var southZ = z + e.Directions4Array[direction_4.South]
-		var southEastZ = z + e.Directions4Array[direction_4.South] + 1
+		var eastZ = z + game_rule_settings.Directions4Array[direction_4.East]
+		var northEastZ = z + game_rule_settings.Directions4Array[direction_4.North] + 1
+		var northZ = z + game_rule_settings.Directions4Array[direction_4.North]
+		var northWestZ = z + game_rule_settings.Directions4Array[direction_4.North] - 1
+		var westZ = z + game_rule_settings.Directions4Array[direction_4.West]
+		var southWestZ = z + game_rule_settings.Directions4Array[direction_4.South] - 1
+		var southZ = z + game_rule_settings.Directions4Array[direction_4.South]
+		var southEastZ = z + game_rule_settings.Directions4Array[direction_4.South] + 1
 
 		// 東北
 		// **

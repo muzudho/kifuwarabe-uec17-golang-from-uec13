@@ -6,6 +6,7 @@ import (
 
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 )
 
@@ -18,8 +19,8 @@ func GetGtpZ(position *e.Position, z point.Point) string {
 		return "ILLEGAL" // GTP の仕様外です
 	}
 
-	var y = int(z) / e.SentinelWidth
-	var x = int(z) % e.SentinelWidth
+	var y = int(z) / game_rule_settings.SentinelWidth
+	var x = int(z) % game_rule_settings.SentinelWidth
 
 	// 筋が25（'Z'）より大きくなることは想定していません
 	var alphabet_x = 'A' + x - 1

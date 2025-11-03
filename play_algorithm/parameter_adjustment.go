@@ -2,6 +2,9 @@ package play_algorithm
 
 import (
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+
+	// Entities
+	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 )
 
 // プレイアウトする回数（あとで設定されます）
@@ -23,7 +26,7 @@ func GetRandomPigeonX(N int) int {
 }
 
 func AdjustParameters(position *e.Position) {
-	var boardSize = e.BoardSize
+	var boardSize = game_rule_settings.BoardSize
 	if boardSize < 10 {
 		// 10路盤より小さいとき
 		PlayoutTrialCount = boardSize*boardSize + 200
@@ -32,5 +35,5 @@ func AdjustParameters(position *e.Position) {
 	}
 
 	// 盤面全体を１回は選ぶことを、完璧ではありませんが、ある程度の精度でカバーします
-	UctLoopCount = GetRandomPigeonX(e.BoardArea)
+	UctLoopCount = GetRandomPigeonX(game_rule_settings.BoardArea)
 }

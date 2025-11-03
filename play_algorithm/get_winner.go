@@ -5,8 +5,9 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
+	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 )
 
 // WrapGettingOfWinner - 盤を束縛変数として与えます
@@ -34,7 +35,7 @@ func getWinner(position *e.Position, turnColor color.Color) int {
 			mk[1] = 0
 			mk[2] = 0
 			for dir := 0; dir < 4; dir++ {
-				mk[position.ColorAt(z+e.Directions4Array[dir])]++
+				mk[position.ColorAt(z+game_rule_settings.Directions4Array[dir])]++
 			}
 			if mk[1] != 0 && mk[2] == 0 {
 				blackArea++
@@ -51,7 +52,7 @@ func getWinner(position *e.Position, turnColor color.Color) int {
 	whiteSum = kind[2] + whiteArea
 	score = blackSum - whiteSum
 	var win = 0
-	if 0 < komi_float.KomiFloat(score)-e.Komi {
+	if 0 < komi_float.KomiFloat(score)-game_rule_settings.Komi {
 		win = 1
 	}
 	if turnColor == 2 {

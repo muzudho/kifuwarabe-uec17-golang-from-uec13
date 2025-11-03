@@ -10,6 +10,7 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	ren "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/ren"
+	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 )
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます
@@ -49,9 +50,9 @@ func PutStone(position *Position, z point.Point, color1 color.Color) int {
 	for dir := 0; dir < 4; dir++ { // ４方向
 		around[dir] = ren.NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
-		var adjZ = z + Directions4Array[dir]  // 隣の交点
-		var adjColor = position.ColorAt(adjZ) // 隣(adjacent)の交点の石の色
-		if adjColor == color.None {           // 空点
+		var adjZ = z + game_rule_settings.Directions4Array[dir] // 隣の交点
+		var adjColor = position.ColorAt(adjZ)                   // 隣(adjacent)の交点の石の色
+		if adjColor == color.None {                             // 空点
 			space++
 			continue
 		}
@@ -101,9 +102,9 @@ func PutStone(position *Position, z point.Point, color1 color.Color) int {
 
 	// 石を取り上げます
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + Directions4Array[dir] // 隣接する交点
-		var lib = around[dir].LibertyArea    // 隣接する連の呼吸点の数
-		var adjColor = around[dir].Color     // 隣接する連の石の色
+		var adjZ = z + game_rule_settings.Directions4Array[dir] // 隣接する交点
+		var lib = around[dir].LibertyArea                       // 隣接する連の呼吸点の数
+		var adjColor = around[dir].Color                        // 隣接する連の石の色
 
 		if adjColor == oppColor && // 隣接する連が相手の石で（壁はここで除外されます）
 			lib == 1 && // その呼吸点は１つで、そこに今石を置いた

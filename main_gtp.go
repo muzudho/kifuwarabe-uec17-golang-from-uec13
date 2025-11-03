@@ -17,9 +17,10 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
+	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
+	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
+	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 )
 
 // LoopGtp - レッスン９a
@@ -95,7 +96,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 					panic(err)
 				}
 
-				e.SetBoardSize(boardSize)
+				game_rule_settings.SetBoardSize(boardSize)
 				pl.InitPosition(position)
 
 				text_io1.SendCommand("= \n\n")
@@ -113,8 +114,8 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 					panic(err)
 				}
 
-				e.Komi = komi_float.KomiFloat(komi)
-				text_io1.SendCommand(fmt.Sprintf("= %f\n\n", e.Komi))
+				game_rule_settings.Komi = komi_float.KomiFloat(komi)
+				text_io1.SendCommand(fmt.Sprintf("= %f\n\n", game_rule_settings.Komi))
 			} else {
 				text_io1.SendCommand(fmt.Sprintf("? unknown_command %s\n\n", command))
 			}

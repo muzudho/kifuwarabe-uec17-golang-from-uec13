@@ -5,6 +5,7 @@ import (
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 )
 
 // " 0" - 空点
@@ -17,7 +18,7 @@ func PrintCheckBoard(position *e.Position) {
 	var b = &strings.Builder{}
 	b.Grow(sz8k)
 
-	var boardSize = e.BoardSize
+	var boardSize = game_rule_settings.BoardSize
 
 	// Header
 	b.WriteString("\n   ")
