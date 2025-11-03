@@ -50,7 +50,7 @@ func main() {
 		"output/fatal.log",
 		"output/print.log")
 
-	coding_obj.Console.Trace("# Author: %s\n", game_rule_settings.Author)
+	//coding_obj.Console.Trace("# Author: %s\n", game_rule_settings.Author)
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
 	var config = game_conf_toml.LoadGameConf("input/game_conf.toml", OnFatal)
