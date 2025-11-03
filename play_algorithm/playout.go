@@ -85,7 +85,7 @@ func Playout(
 		}
 		previousZ = z
 
-		color = e.FlipColor(color)
+		color = color.Flip()
 	}
 
 	return (*getWinner)(turnColor)

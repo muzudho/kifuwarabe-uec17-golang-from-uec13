@@ -90,12 +90,12 @@ func SearchUct(
 
 	var winner int // 手番が勝ちなら1、引分けなら0、手番の負けなら-1 としてください
 	if c.Games <= 0 {
-		winner = -Playout(position, e.FlipColor(color), GettingOfWinnerOnDuringUCTPlayout, IsDislike)
+		winner = -Playout(position, color.Flip(), GettingOfWinnerOnDuringUCTPlayout, IsDislike)
 	} else {
 		if c.Next == NodeEmpty {
 			c.Next = CreateNode(position)
 		}
-		winner = -SearchUct(position, e.FlipColor(color), c.Next)
+		winner = -SearchUct(position, color.Flip(), c.Next)
 	}
 	c.Rate = (c.Rate*float64(c.Games) + float64(winner)) / float64(c.Games+1)
 	c.Games++

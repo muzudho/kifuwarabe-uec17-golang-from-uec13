@@ -1,17 +1,11 @@
 package entities
 
 // Entities
-import color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 
 const (
 	// Author - 囲碁思考エンジンの作者名だぜ☆（＾～＾）
 	Author = "Satoshi Takahashi"
 )
-
-// FlipColor - 白黒反転させます。
-func FlipColor(color color.Color) color.Color {
-	return 3 - color
-}
 
 func SetBoardSize(boardSize int) {
 	BoardSize = boardSize

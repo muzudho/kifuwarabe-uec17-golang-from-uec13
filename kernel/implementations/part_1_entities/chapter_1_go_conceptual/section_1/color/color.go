@@ -13,3 +13,8 @@ const (
 	// Wall - 壁
 	Wall
 )
+
+// Flip - 白黒反転させます。
+func (c Color) Flip() Color {
+	return 3 - c
+}

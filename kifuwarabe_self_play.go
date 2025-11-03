@@ -37,7 +37,7 @@ func SelfPlay(position *e.Position) {
 		if 400 < position.MovesNum {
 			break
 		} // too long
-		color = e.FlipColor(color)
+		color = color.Flip()
 	}
 
 	p.PrintSgf(position, position.MovesNum, position.Record)
