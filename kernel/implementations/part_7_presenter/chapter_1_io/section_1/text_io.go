@@ -15,7 +15,12 @@ func NewTextIO() *TextIO {
 	return t
 }
 
-func (t *TextIO) GoCommand(command string) {
+func (t *TextIO) SendCommand(command string) {
 	//fmt.Print(command)
 	code.Gtp.Print("= \n\n")
+}
+
+func (t *TextIO) ReceivedCommand(command string) {
+	code.Gtp.Log(command + "\n")
+	code.ConsoleLog.Notice(command + "\n")
 }

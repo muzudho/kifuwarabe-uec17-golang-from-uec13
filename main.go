@@ -12,7 +12,7 @@ import (
 	cnf "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/config_obj"
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_1_io/section_1"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
+	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
 )
@@ -60,7 +60,7 @@ func main() {
 	if lessonVer == "SelfPlay" {
 		SelfPlay(position)
 	} else {
-		RunGtpEngine(text_io1, position) // GTP
+		LoopGtp(text_io1, position) // GTP
 	}
 }
 
