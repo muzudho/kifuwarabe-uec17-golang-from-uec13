@@ -8,21 +8,13 @@ import (
 	// Entity
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
+	child "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/child"
 )
-
-// Child - 子。
-type Child struct {
-	// table index. 盤の交点の配列のインデックス。
-	Z     point.Point
-	Games int     // UCT検索をした回数？
-	Rate  float64 // 勝率
-	Next  int     // 配列のインデックス
-}
 
 // Node - ノード。
 type Node struct {
 	ChildNum     int
-	Children     []Child
+	Children     []child.Child
 	ChildGameSum int
 }
 
@@ -51,7 +43,7 @@ func CreateNode(position *position.Position) int {
 	}
 	var pN = &Nodes[NodeNum]
 	pN.ChildNum = 0
-	pN.Children = make([]Child, position.UctChildrenSize())
+	pN.Children = make([]child.Child, position.UctChildrenSize())
 	pN.ChildGameSum = 0
 
 	var onPoint = func(z point.Point) {
