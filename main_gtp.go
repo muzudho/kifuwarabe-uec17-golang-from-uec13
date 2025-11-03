@@ -30,7 +30,7 @@ import (
 // LoopGtp - レッスン９a
 // GTP2NNGS に対応しているのでは？
 func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
-	coding_obj.Console.Trace("# GoGo RunGtpEngine プログラム開始☆（＾～＾）\n")
+	coding_obj.Console.Trace("# きふわらべ UEC17 golang from UEC13 プログラム開始☆（＾～＾）\n")
 	coding_obj.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
 
 	// GUI から 囲碁エンジン へ入力があった、と考えてください

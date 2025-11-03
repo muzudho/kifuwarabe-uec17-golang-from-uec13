@@ -17,7 +17,7 @@ func NewTextIO() *TextIO {
 
 func (t *TextIO) SendCommand(command string) {
 	//fmt.Print(command)
-	coding_obj.Gtp.Print("= \n\n")
+	coding_obj.Gtp.Print(command)
 }
 
 func (t *TextIO) ReceivedCommand(command string) {
