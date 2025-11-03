@@ -8,6 +8,7 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
+	parameter_adjustment "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/parameter_adjustment"
 )
 
 // Playout - 最後まで石を打ちます。得点を返します
@@ -28,7 +29,7 @@ func Playout(
 	var previousZ point.Point = 0
 	var boardMax = game_rule_settings.SentinelBoardArea
 
-	var playoutTrialCount = PlayoutTrialCount
+	var playoutTrialCount = parameter_adjustment.PlayoutTrialCount
 	for trial := 0; trial < playoutTrialCount; trial++ {
 		var empty = make([]point.Point, boardMax)
 		var emptyNum int
@@ -46,7 +47,7 @@ func Playout(
 
 		var r = 0
 		var dislikeZ = point.Pass
-		var randomPigeonX = GetRandomPigeonX(emptyNum) // 見切りを付ける試行回数を算出
+		var randomPigeonX = parameter_adjustment.GetRandomPigeonX(emptyNum) // 見切りを付ける試行回数を算出
 		var i int
 		for i = 0; i < randomPigeonX; i++ {
 			if emptyNum == 0 { // 空点が無ければパスします

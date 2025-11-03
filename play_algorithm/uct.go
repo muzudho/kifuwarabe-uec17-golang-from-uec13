@@ -11,6 +11,7 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
+	parameter_adjustment "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/parameter_adjustment"
 )
 
 // UCT
@@ -33,7 +34,7 @@ func GetBestZByUct(
 	// UCT計算フェーズ
 	NodeNum = 0 // カウンターリセット
 	var next = CreateNode(position)
-	var uctLoopCount = UctLoopCount
+	var uctLoopCount = parameter_adjustment.UctLoopCount
 	for i := 0; i < uctLoopCount; i++ {
 		// 一時記憶
 		var copiedPosition = position.CopyPosition()

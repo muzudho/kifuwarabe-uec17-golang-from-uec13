@@ -1,4 +1,4 @@
-package play_algorithm
+package parameter_adjustment
 
 import (
 	// Entities
