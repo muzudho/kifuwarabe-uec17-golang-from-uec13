@@ -1,4 +1,4 @@
-package mcts
+package all_playouts
 
 import (
 	// Entities

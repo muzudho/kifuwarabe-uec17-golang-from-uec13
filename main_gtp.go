@@ -21,7 +21,7 @@ import (
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
-	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/mcts"
+	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 )
 
 // LoopGtp - レッスン９a
@@ -98,7 +98,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 				}
 
 				game_rule_settings.SetBoardSize(boardSize)
-				mcts.InitPosition(position)
+				all_playouts.InitPosition(position)
 
 				text_io1.SendCommand("= \n\n")
 			} else {
@@ -128,7 +128,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 		// ========================================
 
 		case "clear_board":
-			mcts.InitPosition(position)
+			all_playouts.InitPosition(position)
 			text_io1.SendCommand("= \n\n")
 
 		case "play":
@@ -188,7 +188,7 @@ func PlayComputerMoveLesson09a(
 	color color.Color) point.Point {
 
 	var st = time.Now()
-	mcts.AllPlayouts = 0
+	all_playouts.AllPlayouts = 0
 
 	var z, winRate = pl.GetBestZByUct(
 		position,
@@ -205,7 +205,7 @@ func PlayComputerMoveLesson09a(
 
 	var sec = time.Since(st).Seconds()
 	code.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(mcts.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, mcts.AllPlayouts)
+		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, all_playouts.AllPlayouts)
 
 	var recItem = new(game_record_item.GameRecordItem)
 	recItem.Z = z

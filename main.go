@@ -10,7 +10,6 @@ import (
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	cnf "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/config_obj"
-	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/mcts"
 	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_1_io/section_1"
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
@@ -21,6 +20,7 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
+	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 )
 
 func main() {
@@ -50,7 +50,7 @@ func main() {
 	game_rule_settings.MaxMovesNum = moves_num.MovesNum(config.MaxMovesNum())
 	game_rule_settings.SetBoardSize(config.BoardSize())
 	var position = position.NewPosition()
-	mcts.InitPosition(position)
+	all_playouts.InitPosition(position)
 	position.SetBoard(config.GetBoardArray())
 
 	// ========================================

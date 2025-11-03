@@ -12,7 +12,7 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
-	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/mcts"
+	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 )
 
 // SelfPlay - コンピューター同士の対局。
@@ -50,7 +50,7 @@ func SelfPlay(position *position.Position) {
 func GetComputerMoveDuringSelfPlay(position *position.Position, color color.Color) point.Point {
 
 	var start = time.Now()
-	mcts.AllPlayouts = 0
+	all_playouts.AllPlayouts = 0
 
 	var z, winRate = pl.GetBestZByUct(
 		position,
@@ -60,6 +60,6 @@ func GetComputerMoveDuringSelfPlay(position *position.Position, color color.Colo
 
 	var sec = time.Since(start).Seconds()
 	code.Console.Info("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(mcts.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, mcts.AllPlayouts)
+		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, all_playouts.AllPlayouts)
 	return z
 }
