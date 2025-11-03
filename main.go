@@ -11,6 +11,8 @@ import (
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	cnf "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/config_obj"
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+	text_i_o "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_1_i_o/section_1"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_i_o/section_1/i_text_i_o"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
 )
@@ -45,10 +47,20 @@ func main() {
 	pl.InitPosition(position)
 	position.SetBoard(config.GetBoardArray())
 
+	// ========================================
+	// 思考エンジンの準備　＞　テキストＩＯ
+	// ========================================
+
+	var text_i_o1 i_text_i_o.ITextIO = text_i_o.NewTextIO()
+
+	// ========================================
+	// その他
+	// ========================================
+
 	if lessonVer == "SelfPlay" {
 		SelfPlay(position)
 	} else {
-		RunGtpEngine(position) // GTP
+		RunGtpEngine(text_i_o1, position) // GTP
 	}
 }
 

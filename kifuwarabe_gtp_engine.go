@@ -11,13 +11,14 @@ import (
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+	i_text_i_o "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_i_o/section_1/i_text_i_o"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
 )
 
 // RunGtpEngine - レッスン９a
 // GTP2NNGS に対応しているのでは？
-func RunGtpEngine(position *e.Position) {
+func RunGtpEngine(text_i_o1 i_text_i_o.ITextIO, position *e.Position) {
 	code.Console.Trace("# GoGo RunGtpEngine プログラム開始☆（＾～＾）\n")
 	code.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
 
@@ -44,29 +45,29 @@ func RunGtpEngine(position *e.Position) {
 				e.SetBoardSize(boardSize)
 				pl.InitPosition(position)
 
-				code.Gtp.Print("= \n\n")
+				text_i_o1.GoCommand("= \n\n")
 			} else {
-				code.Gtp.Print("? unknown_command %s\n\n", command)
+				text_i_o1.GoCommand(fmt.Sprintf("? unknown_command %s\n\n", command))
 			}
 
 		case "clear_board":
 			pl.InitPosition(position)
-			code.Gtp.Print("= \n\n")
+			text_i_o1.GoCommand("= \n\n")
 
 		case "quit":
 			os.Exit(0)
 
 		case "protocol_version":
-			code.Gtp.Print("= 2\n\n")
+			text_i_o1.GoCommand("= 2\n\n")
 
 		case "name":
-			code.Gtp.Print("= KifuwarabeUEC13\n\n")
+			text_i_o1.GoCommand("= Kifuwarabe UEC17 from UEC13\n\n")
 
 		case "version":
-			code.Gtp.Print("= 0.0.2\n\n")
+			text_i_o1.GoCommand("= 0.0.2\n\n")
 
 		case "list_commands":
-			code.Gtp.Print("= boardsize\nclear_board\nquit\nprotocol_version\nundo\n" +
+			text_i_o1.GoCommand("= boardsize\nclear_board\nquit\nprotocol_version\nundo\n" +
 				"name\nversion\nlist_commands\nkomi\ngenmove\nplay\n\n")
 
 		case "komi":
@@ -80,16 +81,16 @@ func RunGtpEngine(position *e.Position) {
 				}
 
 				e.Komi = e.KomiType(komi)
-				code.Gtp.Print("= %d\n\n", e.Komi)
+				text_i_o1.GoCommand(fmt.Sprintf("= %d\n\n", e.Komi))
 			} else {
-				code.Gtp.Print("? unknown_command %s\n\n", command)
+				text_i_o1.GoCommand(fmt.Sprintf("? unknown_command %s\n\n", command))
 			}
 
-			// TODO 消す code.Gtp.Print("= 6.5\n\n")
+			// TODO 消す text_i_o1.GoCommand("= 6.5\n\n")
 
 		case "undo":
 			// 未実装
-			code.Gtp.Print("= \n\n")
+			text_i_o1.GoCommand("= \n\n")
 
 		case "genmove":
 			// genmove black
@@ -101,7 +102,7 @@ func RunGtpEngine(position *e.Position) {
 				color = 1
 			}
 			var z = PlayComputerMoveLesson09a(position, color)
-			code.Gtp.Print("= %s\n\n", p.GetGtpZ(position, z))
+			text_i_o1.GoCommand(fmt.Sprintf("= %s\n\n", p.GetGtpZ(position, z)))
 
 		case "play":
 			// play black A3
@@ -129,11 +130,11 @@ func RunGtpEngine(position *e.Position) {
 				e.PutStoneOnRecord(position, z, color, recItem)
 				p.PrintBoard(position, position.MovesNum)
 
-				code.Gtp.Print("= \n\n")
+				text_i_o1.GoCommand("= \n\n")
 			}
 
 		default:
-			code.Gtp.Print("? unknown_command\n\n")
+			text_i_o1.GoCommand("? unknown_command\n\n")
 		}
 	}
 }
