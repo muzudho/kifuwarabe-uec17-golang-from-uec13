@@ -3,7 +3,7 @@ package entities
 import (
 	"os"
 
-	code "github.com/muzudho/kifuwarabe-uec13/coding_obj"
+	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 )
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます

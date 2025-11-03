@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	e "github.com/muzudho/kifuwarabe-uec13/entities"
-	pl "github.com/muzudho/kifuwarabe-uec13/play_algorithm"
+	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 )
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10

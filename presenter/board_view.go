@@ -4,8 +4,8 @@ import (
 	"strconv"
 	"strings"
 
-	code "github.com/muzudho/kifuwarabe-uec13/coding_obj"
-	e "github.com/muzudho/kifuwarabe-uec13/entities"
+	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
+	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 )
 
 var sz8k = 8 * 1024

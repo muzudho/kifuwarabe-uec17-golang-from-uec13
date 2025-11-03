@@ -3,7 +3,7 @@ package play_algorithm
 import (
 	"math/rand"
 
-	e "github.com/muzudho/kifuwarabe-uec13/entities"
+	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 )
 
 // Playout - 最後まで石を打ちます。得点を返します

@@ -8,11 +8,11 @@ import (
 	"math/rand"
 	"time"
 
-	code "github.com/muzudho/kifuwarabe-uec13/coding_obj"
-	cnf "github.com/muzudho/kifuwarabe-uec13/config_obj"
-	e "github.com/muzudho/kifuwarabe-uec13/entities"
-	pl "github.com/muzudho/kifuwarabe-uec13/play_algorithm"
-	p "github.com/muzudho/kifuwarabe-uec13/presenter"
+	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
+	cnf "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/config_obj"
+	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
+	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
 )
 
 func main() {
