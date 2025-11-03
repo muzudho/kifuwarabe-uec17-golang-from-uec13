@@ -4,7 +4,6 @@ import (
 	"time"
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
-	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
 
 	// Entities
@@ -13,6 +12,7 @@ import (
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
 )
 
 // SelfPlay - コンピューター同士の対局。
@@ -52,7 +52,7 @@ func GetComputerMoveDuringSelfPlay(position *position.Position, color color.Colo
 	var start = time.Now()
 	all_playouts.AllPlayouts = 0
 
-	var z, winRate = pl.GetBestZByUct(
+	var z, winRate = uct.GetBestZByUct(
 		position,
 		color,
 		createPrintingOfCalc(),

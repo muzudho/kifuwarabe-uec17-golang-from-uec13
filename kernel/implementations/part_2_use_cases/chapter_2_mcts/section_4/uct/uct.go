@@ -1,4 +1,4 @@
-package play_algorithm
+package uct
 
 import (
 	"math"
