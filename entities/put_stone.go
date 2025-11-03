@@ -46,7 +46,7 @@ func PutStone(position *Position, z point.Point, color1 color.Color) int {
 
 	// 呼吸点を計算します
 	for dir := 0; dir < 4; dir++ { // ４方向
-		around[dir] = NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
+		around[dir] = ren.NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
 		var adjZ = z + Directions4Array[dir]  // 隣の交点
 		var adjColor = position.ColorAt(adjZ) // 隣(adjacent)の交点の石の色

@@ -12,3 +12,11 @@ type Ren struct {
 	// Color - 石の色
 	Color color.Color
 }
+
+func NewRen(libertyArea int, stoneArea int, color color.Color) *Ren {
+	var ren1 = new(Ren)
+	ren1.LibertyArea = libertyArea
+	ren1.StoneArea = stoneArea
+	ren1.Color = color
+	return ren1
+}
