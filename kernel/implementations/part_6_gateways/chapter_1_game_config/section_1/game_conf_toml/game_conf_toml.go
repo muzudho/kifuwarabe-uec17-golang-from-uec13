@@ -1,4 +1,4 @@
-package config_obj
+package game_conf_toml
 
 import (
 	"fmt"
