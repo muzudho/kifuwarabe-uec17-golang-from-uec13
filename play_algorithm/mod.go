@@ -3,13 +3,16 @@ package play_algorithm
 import (
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 	gd "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/game_domain"
+
+	// Entities
+	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 )
 
 // AllPlayouts - プレイアウトした回数。
 var AllPlayouts int
 
-var GettingOfWinnerOnDuringUCTPlayout *func(e.Stone) int
-var IsDislike *func(e.Stone, e.Point) bool
+var GettingOfWinnerOnDuringUCTPlayout *func(color.Color) int
+var IsDislike *func(color.Color, e.Point) bool
 
 // FlagTestPlayout - ？。
 var FlagTestPlayout int

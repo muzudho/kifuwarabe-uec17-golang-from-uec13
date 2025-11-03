@@ -10,9 +10,10 @@ import (
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
 func GetGtpZ(position *e.Position, z e.Point) string {
-	if z == 0 {
+	switch z {
+	case 0:
 		return "PASS"
-	} else if z == pl.IllegalZ {
+	case pl.IllegalZ:
 		return "ILLEGAL" // GTP の仕様外です
 	}
 

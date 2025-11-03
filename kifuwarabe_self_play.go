@@ -7,13 +7,16 @@ import (
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
+
+	// Entities
+	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 )
 
 // SelfPlay - コンピューター同士の対局。
 func SelfPlay(position *e.Position) {
 	code.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
 
-	var color = e.Black
+	var color = color.Black
 
 	for {
 		var z = GetComputerMoveDuringSelfPlay(position, color)
@@ -41,7 +44,7 @@ func SelfPlay(position *e.Position) {
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます
-func GetComputerMoveDuringSelfPlay(position *e.Position, color e.Stone) e.Point {
+func GetComputerMoveDuringSelfPlay(position *e.Position, color color.Color) e.Point {
 
 	var start = time.Now()
 	pl.AllPlayouts = 0

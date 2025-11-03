@@ -2,12 +2,15 @@ package entities
 
 import (
 	"math/rand"
+
+	// Entities
+	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 )
 
 // Position - 盤
 type Position struct {
 	// 盤
-	board []Stone
+	board []color.Color
 	// 呼吸点を数えるための一時盤
 	checkBoard []int
 	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
@@ -25,7 +28,7 @@ type Position struct {
 // TemporaryPosition - 盤をコピーするときの一時メモリーとして使います
 type TemporaryPosition struct {
 	// 盤
-	Board []Stone
+	Board []color.Color
 	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
 	KoZ Point
 }
@@ -33,7 +36,7 @@ type TemporaryPosition struct {
 // CopyPosition - 盤データのコピー。
 func (position *Position) CopyPosition() *TemporaryPosition {
 	var temp = new(TemporaryPosition)
-	temp.Board = make([]Stone, SentinelBoardArea)
+	temp.Board = make([]color.Color, SentinelBoardArea)
 	copy(temp.Board[:], position.board[:])
 	temp.KoZ = position.KoZ
 	return temp
@@ -58,14 +61,14 @@ func (position *Position) InitPosition() {
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
 	var boardMax = SentinelBoardArea
-	position.board = make([]Stone, boardMax)
+	position.board = make([]color.Color, boardMax)
 	position.checkBoard = make([]int, boardMax)
 	position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(position)
 	Dir4 = [4]Point{1, Point(-SentinelWidth), -1, Point(SentinelWidth)}
 
 	// 枠線
 	for z := Point(0); z < Point(boardMax); z++ {
-		position.SetColor(z, Wall)
+		position.SetColor(z, color.Wall)
 	}
 
 	// 盤上
@@ -79,7 +82,7 @@ func (position *Position) InitPosition() {
 }
 
 // SetBoard - 盤面を設定します
-func (position *Position) SetBoard(board []Stone) {
+func (position *Position) SetBoard(board []color.Color) {
 	// TODO 消す
 	// fmt.Print("[[")
 	// for z := 0; z < SentinelBoardArea; z++ {
@@ -91,7 +94,7 @@ func (position *Position) SetBoard(board []Stone) {
 }
 
 // ColorAt - 指定した交点の石の色
-func (position *Position) ColorAt(z Point) Stone {
+func (position *Position) ColorAt(z Point) color.Color {
 	return position.board[z]
 }
 
@@ -101,17 +104,17 @@ func (position *Position) CheckAt(z Point) int {
 }
 
 // ColorAtXy - 指定した交点の石の色
-func (position *Position) ColorAtXy(x int, y int) Stone {
+func (position *Position) ColorAtXy(x int, y int) color.Color {
 	return position.board[(y+1)*SentinelWidth+x+1]
 }
 
 // IsEmpty - 指定の交点は空点か？
 func (position *Position) IsEmpty(z Point) bool {
-	return position.board[z] == Empty
+	return position.board[z] == color.None
 }
 
 // SetColor - 盤データ。
-func (position *Position) SetColor(z Point, color Stone) {
+func (position *Position) SetColor(z Point, color color.Color) {
 	// TODO 消す
 	// if z == Point(11) && color == Empty { // テスト
 	// 	panic(fmt.Sprintf("z=%d color=%d SentinelWidth=%d", z, color, SentinelWidth))
@@ -170,7 +173,7 @@ func (position *Position) CountLiberty(z Point, libertyArea *int, renArea *int) 
 
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (position *Position) countLibertySub(z Point, color Stone, libertyArea *int, renArea *int) {
+func (position *Position) countLibertySub(z Point, color color.Color, libertyArea *int, renArea *int) {
 	position.checkBoard[z] = 1
 	*renArea++
 	for i := 0; i < 4; i++ {
@@ -188,14 +191,14 @@ func (position *Position) countLibertySub(z Point, color Stone, libertyArea *int
 }
 
 // TakeStone - 石を打ち上げ（取り上げ、取り除き）ます。
-func (position *Position) TakeStone(z Point, color Stone) {
-	position.board[z] = Empty // 石を消します
+func (position *Position) TakeStone(z Point, color1 color.Color) {
+	position.board[z] = color.None // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
 		var adjZ = z + Dir4[dir]
 
-		if position.board[adjZ] == color { // 再帰します
-			position.TakeStone(adjZ, color)
+		if position.board[adjZ] == color1 { // 再帰します
+			position.TakeStone(adjZ, color1)
 		}
 	}
 }

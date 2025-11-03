@@ -7,6 +7,9 @@ import (
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+
+	// Entities
+	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 )
 
 // UCT
@@ -22,7 +25,7 @@ const (
 // (bestZ int, winRate float64)
 func GetBestZByUct(
 	position *e.Position,
-	color e.Stone,
+	color color.Color,
 	print_calc *func(*e.Position, int, e.Point, float64, int),
 	print_calc_fin *func(*e.Position, e.Point, float64, int, int, int)) (e.Point, float64) {
 
@@ -65,7 +68,7 @@ func GetBestZByUct(
 // SearchUct - 再帰関数。 GetBestZByUct() から呼び出されます
 func SearchUct(
 	position *e.Position,
-	color e.Stone,
+	color color.Color,
 	nodeN int) int {
 
 	var pN = &Nodes[nodeN]

@@ -14,6 +14,9 @@ import (
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
+
+	// Entities
+	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 )
 
 // LoopGtp - レッスン９a
@@ -135,7 +138,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 			// play black PASS
 			// play white PASS
 			if 2 < len(tokens) {
-				var color e.Stone
+				var color color.Color
 				if strings.ToLower(tokens[1][0:1]) == "w" {
 					color = 2
 				} else {
@@ -159,7 +162,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 		case "genmove":
 			// genmove black
 			// genmove white
-			var color e.Stone
+			var color color.Color
 			if 1 < len(tokens) && strings.ToLower(tokens[1][0:1]) == "w" {
 				color = 2
 			} else {
@@ -177,7 +180,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 // PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
 func PlayComputerMoveLesson09a(
 	position *e.Position,
-	color e.Stone) e.Point {
+	color color.Color) e.Point {
 
 	var st = time.Now()
 	pl.AllPlayouts = 0

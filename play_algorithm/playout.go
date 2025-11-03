@@ -4,6 +4,9 @@ import (
 	"math/rand"
 
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+
+	// Entities
+	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 )
 
 // Playout - 最後まで石を打ちます。得点を返します
@@ -14,9 +17,9 @@ import (
 // 手番が勝ったら 1、引分けなら 0、 相手が勝ったら -1
 func Playout(
 	position *e.Position,
-	turnColor e.Stone,
-	getWinner *func(e.Stone) int,
-	isDislike *func(e.Stone, e.Point) bool) int {
+	turnColor color.Color,
+	getWinner *func(color.Color) int,
+	isDislike *func(color.Color, e.Point) bool) int {
 
 	AllPlayouts++
 

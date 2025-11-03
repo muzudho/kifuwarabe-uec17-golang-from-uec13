@@ -1,5 +1,8 @@
 package entities
 
+// Entities
+import color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
+
 // Ren - 連
 type Ren struct {
 	// LibertyArea - 呼吸点の数
@@ -7,10 +10,10 @@ type Ren struct {
 	// StoneArea - 石の数
 	StoneArea int
 	// Color - 石の色
-	Color Stone
+	Color color.Color
 }
 
-func NewRen(libertyArea int, stoneArea int, color Stone) *Ren {
+func NewRen(libertyArea int, stoneArea int, color color.Color) *Ren {
 	var ren = new(Ren)
 	ren.LibertyArea = libertyArea
 	ren.StoneArea = stoneArea

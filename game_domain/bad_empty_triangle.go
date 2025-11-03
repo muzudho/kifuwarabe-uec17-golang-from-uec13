@@ -7,13 +7,16 @@ package game_domain
 
 import (
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+
+	// Entities
+	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 )
 
 // WrapIsDislike - 盤を束縛変数として与えます
-func WrapIsDislike(position *e.Position) *func(e.Stone, e.Point) bool {
+func WrapIsDislike(position *e.Position) *func(color.Color, e.Point) bool {
 	// 「手番の勝ちなら1、引き分けなら0、手番の負けなら-1を返す関数（自分視点）」を作成します
 	// * `color` - 石の色
-	var isDislike = func(color e.Stone, z e.Point) bool {
+	var isDislike = func(color color.Color, z e.Point) bool {
 		// 座標取得
 		// 432
 		// 5S1
@@ -61,15 +64,16 @@ func WrapIsDislike(position *e.Position) *func(e.Stone, e.Point) bool {
 	return &isDislike
 }
 
-func isEmptyTriangle(position *e.Position, myColor e.Stone, points [3]e.Point) bool {
+func isEmptyTriangle(position *e.Position, myColor color.Color, points [3]e.Point) bool {
 	var myColorNum = 0
 	var emptyNum = 0
 
 	for _, z := range points {
-		var color = position.ColorAt(z)
-		if color == myColor {
+		var color1 = position.ColorAt(z)
+		switch color1 {
+		case myColor:
 			myColorNum++
-		} else if color == e.Empty {
+		case color.None:
 			emptyNum++
 		}
 	}

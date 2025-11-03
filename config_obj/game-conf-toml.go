@@ -6,8 +6,10 @@ import (
 	"strconv"
 	"strings"
 
-	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 	"github.com/pelletier/go-toml"
+
+	// Entities
+	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 )
 
 // Config - Tomlファイル
@@ -37,16 +39,16 @@ type Game struct {
 // 1: 黒石
 // 2: 白石
 // 3: 壁
-func (config *Config) GetBoardArray() []e.Stone {
+func (config *Config) GetBoardArray() []color.Color {
 	// 最後のカンマを削除しないと、要素数が 1 多くなってしまいます
 	var s = strings.TrimRight(config.Game.BoardData, ",")
 	var nodes = strings.Split(s, ",")
-	var array = make([]e.Stone, len(nodes))
+	var array = make([]color.Color, len(nodes))
 	for i, s := range nodes {
 		var s = strings.TrimSpace(s) // 前後の半角空白、改行、タブを除去
-		var color, _ = strconv.Atoi(s)
-		// fmt.Printf("[%d \"%s\" %d]", i, s, color) // デバッグ出力
-		array[i] = e.Stone(color)
+		var color1, _ = strconv.Atoi(s)
+		// fmt.Printf("[%d \"%s\" %d]", i, s, color1) // デバッグ出力
+		array[i] = color.Color(color1)
 	}
 
 	return array

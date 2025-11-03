@@ -4,10 +4,13 @@ import (
 	"os"
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
+
+	// Entities
+	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 )
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます
-func PutStoneOnRecord(position *Position, z Point, color Stone, recItem *RecordItem) {
+func PutStoneOnRecord(position *Position, z Point, color color.Color, recItem *RecordItem) {
 	var err = PutStone(position, z, color)
 	if err != 0 {
 		code.Console.Error("(PutStoneOnRecord) Err!\n")
@@ -24,15 +27,15 @@ func PutStoneOnRecord(position *Position, z Point, color Stone, recItem *RecordI
 //
 // # Returns
 // エラーコード
-func PutStone(position *Position, z Point, color Stone) int {
-	var around = [4]*Ren{}          // 隣接する４つの交点
-	var libertyArea int             // 呼吸点の数
-	var renArea int                 // 連の石の数
-	var oppColor = FlipColor(color) //相手(opponent)の石の色
-	var space = 0                   // 隣接している空点への向きの数
-	var wall = 0                    // 隣接している壁への向きの数
-	var myBreathFriend = 0          // 呼吸できる自分の石と隣接している向きの数
-	var captureSum = 0              // アゲハマの数
+func PutStone(position *Position, z Point, color1 color.Color) int {
+	var around = [4]*Ren{}           // 隣接する４つの交点
+	var libertyArea int              // 呼吸点の数
+	var renArea int                  // 連の石の数
+	var oppColor = FlipColor(color1) //相手(opponent)の石の色
+	var space = 0                    // 隣接している空点への向きの数
+	var wall = 0                     // 隣接している壁への向きの数
+	var myBreathFriend = 0           // 呼吸できる自分の石と隣接している向きの数
+	var captureSum = 0               // アゲハマの数
 
 	if z == Pass { // 投了なら、コウを消して関数を正常終了
 		position.KoZ = 0
@@ -45,11 +48,11 @@ func PutStone(position *Position, z Point, color Stone) int {
 
 		var adjZ = z + Dir4[dir]              // 隣の交点
 		var adjColor = position.ColorAt(adjZ) // 隣(adjacent)の交点の石の色
-		if adjColor == Empty {                // 空点
+		if adjColor == color.None {           // 空点
 			space++
 			continue
 		}
-		if adjColor == Wall { // 壁
+		if adjColor == color.Wall { // 壁
 			wall++
 			continue
 		}
@@ -60,10 +63,9 @@ func PutStone(position *Position, z Point, color Stone) int {
 		if adjColor == oppColor && libertyArea == 1 { // 相手の石で、呼吸点が１つで、その呼吸点に今石を置いたなら
 			captureSum += renArea
 		}
-		if adjColor == color && 2 <= libertyArea { // 隣接する連が自分の石で、その石が呼吸点を２つ持ってるようなら
+		if adjColor == color1 && 2 <= libertyArea { // 隣接する連が自分の石で、その石が呼吸点を２つ持ってるようなら
 			myBreathFriend++
 		}
-
 	}
 
 	// 石を置くと明らかに損なケース、また、ルール上石を置けないケースなら、石を置きません
@@ -113,7 +115,7 @@ func PutStone(position *Position, z Point, color Stone) int {
 		}
 	}
 
-	position.SetColor(z, color)
+	position.SetColor(z, color1)
 	position.CountLiberty(z, &libertyArea, &renArea)
 
 	return 0
