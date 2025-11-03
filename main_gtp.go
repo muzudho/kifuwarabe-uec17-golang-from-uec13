@@ -19,6 +19,7 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 )
 
 // LoopGtp - レッスン９a
@@ -148,7 +149,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 				}
 
 				var z = p.GetZFromGtp(position, tokens[2])
-				var recItem = new(e.RecordItem)
+				var recItem = new(game_record_item.GameRecordItem)
 				recItem.Z = z
 				recItem.Time = 0
 				e.PutStoneOnRecord(position, z, color, recItem)
@@ -204,7 +205,7 @@ func PlayComputerMoveLesson09a(
 	code.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
 		sec, float64(pl.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, pl.AllPlayouts)
 
-	var recItem = new(e.RecordItem)
+	var recItem = new(game_record_item.GameRecordItem)
 	recItem.Z = z
 	recItem.Time = sec
 	e.PutStoneOnRecord(position, z, color, recItem)

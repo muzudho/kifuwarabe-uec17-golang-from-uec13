@@ -6,6 +6,7 @@ import (
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 )
 
 // Position - 盤
@@ -19,7 +20,7 @@ type Position struct {
 	// MovesNum - 手数
 	MovesNum int
 	// Record - 棋譜
-	Record []*RecordItem
+	Record []*game_record_item.GameRecordItem
 	// 二重ループ
 	iteratorWithoutWall func(func(point.Point))
 	// UCT計算中の子の数
@@ -57,7 +58,7 @@ func NewPosition() *Position {
 
 // InitPosition - 局面の初期化。
 func (position *Position) InitPosition() {
-	position.Record = make([]*RecordItem, MaxMovesNum)
+	position.Record = make([]*game_record_item.GameRecordItem, MaxMovesNum)
 	position.uctChildrenSize = BoardArea + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し

@@ -1,9 +1,10 @@
-package entities
+package game_record_item
 
+// Entities
 import "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 
-// RecordItem - 棋譜の1手分
-type RecordItem struct {
+// GameRecordItem - 棋譜の1手分
+type GameRecordItem struct {
 	// Z - 着手
 	Z point.Point
 	// Time - 消費時間
@@ -11,17 +12,17 @@ type RecordItem struct {
 }
 
 // SetZ - 着手
-func (recItem *RecordItem) SetZ(z point.Point) {
+func (recItem *GameRecordItem) SetZ(z point.Point) {
 	recItem.Z = z
 }
-func (recItem *RecordItem) GetZ() point.Point {
+func (recItem *GameRecordItem) GetZ() point.Point {
 	return recItem.Z
 }
 
 // SetTime - 消費時間
-func (recItem *RecordItem) SetTime(time float64) {
+func (recItem *GameRecordItem) SetTime(time float64) {
 	recItem.Time = time
 }
-func (recItem *RecordItem) GetTime() float64 {
+func (recItem *GameRecordItem) GetTime() float64 {
 	return recItem.Time
 }

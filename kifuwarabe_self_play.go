@@ -10,7 +10,8 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 )
 
 // SelfPlay - コンピューター同士の対局。
@@ -22,7 +23,7 @@ func SelfPlay(position *e.Position) {
 	for {
 		var z = GetComputerMoveDuringSelfPlay(position, color)
 
-		var recItem = new(e.RecordItem)
+		var recItem = new(game_record_item.GameRecordItem)
 		recItem.Z = z
 		e.PutStoneOnRecord(position, z, color, recItem)
 
