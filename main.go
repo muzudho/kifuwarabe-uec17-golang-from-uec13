@@ -12,6 +12,7 @@ import (
 	cnf "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/config_obj"
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/moves_num"
 	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_1_io/section_1"
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
@@ -42,7 +43,7 @@ func main() {
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
 	var config = cnf.LoadGameConf("input/game_conf.toml", OnFatal)
 	e.Komi = komi_float.KomiFloat(config.Komi())
-	e.MaxMovesNum = e.MovesNumType(config.MaxMovesNum())
+	e.MaxMovesNum = moves_num.MovesNum(config.MaxMovesNum())
 	e.SetBoardSize(config.BoardSize())
 	var position = e.NewPosition()
 	pl.InitPosition(position)

@@ -1,6 +1,9 @@
 package entities
 
-import "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
+import (
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/moves_num"
+)
 
 // Entities
 
@@ -31,10 +34,8 @@ var SentinelBoardArea int
 // Komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
 var Komi komi_float.KomiFloat
 
-type MovesNumType int
-
 // MaxMovesNum - 上限手数
-var MaxMovesNum MovesNumType
+var MaxMovesNum moves_num.MovesNum
 
 // Point - 交点の座標。壁を含む盤の左上を 0 とします
 type Point int
