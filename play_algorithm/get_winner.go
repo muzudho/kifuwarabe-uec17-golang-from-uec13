@@ -6,6 +6,7 @@ import (
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
 // WrapGettingOfWinner - 盤を束縛変数として与えます
@@ -26,7 +27,7 @@ func getWinner(position *e.Position, turnColor color.Color) int {
 	var kind = [3]int{0, 0, 0}
 	var score, blackArea, whiteArea, blackSum, whiteSum int
 
-	var onPoint = func(z e.Point) {
+	var onPoint = func(z point.Point) {
 		var color2 = position.ColorAt(z)
 		kind[color2]++
 		if color2 == 0 {

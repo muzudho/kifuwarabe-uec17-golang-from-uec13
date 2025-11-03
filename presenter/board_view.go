@@ -6,6 +6,7 @@ import (
 
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
 var sz8k = 8 * 1024
@@ -80,35 +81,35 @@ func PrintBoard(position *e.Position, movesNum int) {
 	b.WriteString("\n  ")                                // number space
 	b.WriteString(leftCornerLabels[position.ColorAt(0)]) // +
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(horizontalEdgeLabels[position.ColorAt(e.Point(x+1))]) // --
+		b.WriteString(horizontalEdgeLabels[position.ColorAt(point.Point(x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[position.ColorAt(e.Point(e.SentinelWidth-1))]) // -+
+	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(e.SentinelWidth-1))]) // -+
 	b.WriteString("\n")
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(labelOfRows[y+1])                                                         // number
-		b.WriteString(leftVerticalEdgeLabels[position.ColorAt(e.Point((y+1)*e.SentinelWidth))]) // |
+		b.WriteString(labelOfRows[y+1])                                                             // number
+		b.WriteString(leftVerticalEdgeLabels[position.ColorAt(point.Point((y+1)*e.SentinelWidth))]) // |
 		for x := 0; x < boardSize; x++ {
 			b.WriteString(stoneLabels[position.ColorAtXy(x, y)])
 		}
-		b.WriteString(rightVerticalEdgeLabels[position.ColorAt(e.Point((y+2)*e.SentinelWidth-1))]) // " |"
+		b.WriteString(rightVerticalEdgeLabels[position.ColorAt(point.Point((y+2)*e.SentinelWidth-1))]) // " |"
 		b.WriteString("\n")
 	}
 
 	// Footer
 	b.WriteString("  ") // number space
 	var a = e.SentinelWidth * (e.SentinelWidth - 1)
-	b.WriteString(leftCornerLabels[position.ColorAt(e.Point(a))]) // +
+	b.WriteString(leftCornerLabels[position.ColorAt(point.Point(a))]) // +
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(horizontalEdgeLabels[position.ColorAt(e.Point(a+x+1))]) // --
+		b.WriteString(horizontalEdgeLabels[position.ColorAt(point.Point(a+x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[position.ColorAt(e.Point(e.SentinelBoardArea-1))]) // -+
+	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(e.SentinelBoardArea-1))]) // -+
 	b.WriteString("\n")
 
 	// Info
 	b.WriteString("  KoZ=")
-	if position.KoZ == e.Pass {
+	if position.KoZ == point.Pass {
 		b.WriteString("_")
 	} else {
 		b.WriteString(GetGtpZ(position, position.KoZ))

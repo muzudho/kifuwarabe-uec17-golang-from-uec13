@@ -5,11 +5,12 @@ import (
 	"strings"
 
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 )
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
-func GetGtpZ(position *e.Position, z e.Point) string {
+func GetGtpZ(position *e.Position, z point.Point) string {
 	switch z {
 	case 0:
 		return "PASS"
@@ -33,7 +34,7 @@ func GetGtpZ(position *e.Position, z e.Point) string {
 
 // GetZFromGtp - GTPの座標符号を z に変換します
 // * `gtp_z` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
-func GetZFromGtp(position *e.Position, gtp_z string) e.Point {
+func GetZFromGtp(position *e.Position, gtp_z string) point.Point {
 	gtp_z = strings.ToUpper(gtp_z)
 
 	if gtp_z == "PASS" {

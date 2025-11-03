@@ -6,13 +6,14 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
 // AllPlayouts - プレイアウトした回数。
 var AllPlayouts int
 
 var GettingOfWinnerOnDuringUCTPlayout *func(color.Color) int
-var IsDislike *func(color.Color, e.Point) bool
+var IsDislike *func(color.Color, point.Point) bool
 
 // FlagTestPlayout - ？。
 var FlagTestPlayout int

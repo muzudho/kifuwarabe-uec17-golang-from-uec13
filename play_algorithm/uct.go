@@ -10,6 +10,7 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
 // UCT
@@ -26,8 +27,8 @@ const (
 func GetBestZByUct(
 	position *e.Position,
 	color color.Color,
-	print_calc *func(*e.Position, int, e.Point, float64, int),
-	print_calc_fin *func(*e.Position, e.Point, float64, int, int, int)) (e.Point, float64) {
+	print_calc *func(*e.Position, int, point.Point, float64, int),
+	print_calc_fin *func(*e.Position, point.Point, float64, int, int, int)) (point.Point, float64) {
 
 	// UCT計算フェーズ
 	NodeNum = 0 // カウンターリセット

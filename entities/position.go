@@ -5,6 +5,7 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
+	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
 // Position - 盤
@@ -14,13 +15,13 @@ type Position struct {
 	// 呼吸点を数えるための一時盤
 	checkBoard []int
 	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
-	KoZ Point
+	KoZ point.Point
 	// MovesNum - 手数
 	MovesNum int
 	// Record - 棋譜
 	Record []*RecordItem
 	// 二重ループ
-	iteratorWithoutWall func(func(Point))
+	iteratorWithoutWall func(func(point.Point))
 	// UCT計算中の子の数
 	uctChildrenSize int
 }
@@ -30,7 +31,7 @@ type TemporaryPosition struct {
 	// 盤
 	Board []color.Color
 	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
-	KoZ Point
+	KoZ point.Point
 }
 
 // CopyPosition - 盤データのコピー。
@@ -64,15 +65,15 @@ func (position *Position) InitPosition() {
 	position.board = make([]color.Color, boardMax)
 	position.checkBoard = make([]int, boardMax)
 	position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(position)
-	Dir4 = [4]Point{1, Point(-SentinelWidth), -1, Point(SentinelWidth)}
+	Dir4 = [4]point.Point{1, point.Point(-SentinelWidth), -1, point.Point(SentinelWidth)}
 
 	// 枠線
-	for z := Point(0); z < Point(boardMax); z++ {
+	for z := point.Point(0); z < point.Point(boardMax); z++ {
 		position.SetColor(z, color.Wall)
 	}
 
 	// 盤上
-	var onPoint = func(z Point) {
+	var onPoint = func(z point.Point) {
 		position.SetColor(z, 0)
 	}
 	position.iteratorWithoutWall(onPoint)
@@ -94,12 +95,12 @@ func (position *Position) SetBoard(board []color.Color) {
 }
 
 // ColorAt - 指定した交点の石の色
-func (position *Position) ColorAt(z Point) color.Color {
+func (position *Position) ColorAt(z point.Point) color.Color {
 	return position.board[z]
 }
 
 // CheckAt - 指定した交点のチェック
-func (position *Position) CheckAt(z Point) int {
+func (position *Position) CheckAt(z point.Point) int {
 	return position.checkBoard[z]
 }
 
@@ -109,12 +110,12 @@ func (position *Position) ColorAtXy(x int, y int) color.Color {
 }
 
 // IsEmpty - 指定の交点は空点か？
-func (position *Position) IsEmpty(z Point) bool {
+func (position *Position) IsEmpty(z point.Point) bool {
 	return position.board[z] == color.None
 }
 
 // SetColor - 盤データ。
-func (position *Position) SetColor(z Point, color color.Color) {
+func (position *Position) SetColor(z point.Point, color color.Color) {
 	// TODO 消す
 	// if z == Point(11) && color == Empty { // テスト
 	// 	panic(fmt.Sprintf("z=%d color=%d SentinelWidth=%d", z, color, SentinelWidth))
@@ -124,7 +125,7 @@ func (position *Position) SetColor(z Point, color color.Color) {
 }
 
 // GetZ4 - z（配列のインデックス）を XXYY形式（3～4桁の数）の座標へ変換します。
-func (position *Position) GetZ4(z Point) int {
+func (position *Position) GetZ4(z point.Point) int {
 	if z == 0 {
 		return 0
 	}
@@ -135,14 +136,14 @@ func (position *Position) GetZ4(z Point) int {
 
 // GetZFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
 // x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
-func (position *Position) GetZFromXy(x int, y int) Point {
-	return Point((y+1)*SentinelWidth + x + 1)
+func (position *Position) GetZFromXy(x int, y int) point.Point {
+	return point.Point((y+1)*SentinelWidth + x + 1)
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
-func (position *Position) GetEmptyZ() Point {
+func (position *Position) GetEmptyZ() point.Point {
 	var x, y int
-	var z Point
+	var z point.Point
 	for {
 		// ランダムに交点を選んで、空点を見つけるまで繰り返します。
 		x = rand.Intn(9)
@@ -158,12 +159,12 @@ func (position *Position) GetEmptyZ() Point {
 // CountLiberty - 呼吸点を数えます。
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (position *Position) CountLiberty(z Point, libertyArea *int, renArea *int) {
+func (position *Position) CountLiberty(z point.Point, libertyArea *int, renArea *int) {
 	*libertyArea = 0
 	*renArea = 0
 
 	// チェックボードの初期化
-	var onPoint = func(z Point) {
+	var onPoint = func(z point.Point) {
 		position.checkBoard[z] = 0
 	}
 	position.iteratorWithoutWall(onPoint)
@@ -173,7 +174,7 @@ func (position *Position) CountLiberty(z Point, libertyArea *int, renArea *int) 
 
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (position *Position) countLibertySub(z Point, color color.Color, libertyArea *int, renArea *int) {
+func (position *Position) countLibertySub(z point.Point, color color.Color, libertyArea *int, renArea *int) {
 	position.checkBoard[z] = 1
 	*renArea++
 	for i := 0; i < 4; i++ {
@@ -191,7 +192,7 @@ func (position *Position) countLibertySub(z Point, color color.Color, libertyAre
 }
 
 // TakeStone - 石を打ち上げ（取り上げ、取り除き）ます。
-func (position *Position) TakeStone(z Point, color1 color.Color) {
+func (position *Position) TakeStone(z point.Point, color1 color.Color) {
 	position.board[z] = color.None // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
@@ -204,7 +205,7 @@ func (position *Position) TakeStone(z Point, color1 color.Color) {
 }
 
 // IterateWithoutWall - 盤イテレーター
-func (position *Position) IterateWithoutWall(onPoint func(Point)) {
+func (position *Position) IterateWithoutWall(onPoint func(point.Point)) {
 	position.iteratorWithoutWall(onPoint)
 }
 
@@ -214,10 +215,10 @@ func (position *Position) UctChildrenSize() int {
 }
 
 // CreateBoardIteratorWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
-func CreateBoardIteratorWithoutWall(position *Position) func(func(Point)) {
+func CreateBoardIteratorWithoutWall(position *Position) func(func(point.Point)) {
 
 	var boardSize = BoardSize
-	var boardIterator = func(onPoint func(Point)) {
+	var boardIterator = func(onPoint func(point.Point)) {
 
 		// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標
 		for y := 0; y < boardSize; y++ {

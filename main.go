@@ -13,6 +13,7 @@ import (
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/moves_num"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_1_io/section_1"
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
@@ -70,18 +71,18 @@ func OnFatal(errorMessage string) {
 	code.Console.Fatal(errorMessage)
 }
 
-func createPrintingOfCalc() *func(*e.Position, int, e.Point, float64, int) {
+func createPrintingOfCalc() *func(*e.Position, int, point.Point, float64, int) {
 	// UCT計算中の表示
-	var fn = func(position *e.Position, i int, z e.Point, rate float64, games int) {
+	var fn = func(position *e.Position, i int, z point.Point, rate float64, games int) {
 		code.Console.Info("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, p.GetGtpZ(position, z), rate, games)
 	}
 
 	return &fn
 }
 
-func createPrintingOfCalcFin() *func(*e.Position, e.Point, float64, int, int, int) {
+func createPrintingOfCalcFin() *func(*e.Position, point.Point, float64, int, int, int) {
 	// UCT計算後の表示
-	var fn = func(position *e.Position, bestZ e.Point, rate float64, max int, allPlayouts int, nodeNum int) {
+	var fn = func(position *e.Position, bestZ point.Point, rate float64, max int, allPlayouts int, nodeNum int) {
 		code.Console.Info("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
 			p.GetGtpZ(position, bestZ), rate, max, allPlayouts, nodeNum)
 

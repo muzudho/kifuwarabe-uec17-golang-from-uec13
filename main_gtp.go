@@ -18,6 +18,7 @@ import (
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
 // LoopGtp - レッスン９a
@@ -181,7 +182,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 // PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
 func PlayComputerMoveLesson09a(
 	position *e.Position,
-	color color.Color) e.Point {
+	color color.Color) point.Point {
 
 	var st = time.Now()
 	pl.AllPlayouts = 0

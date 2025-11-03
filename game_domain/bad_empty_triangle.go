@@ -10,13 +10,14 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
 // WrapIsDislike - 盤を束縛変数として与えます
-func WrapIsDislike(position *e.Position) *func(color.Color, e.Point) bool {
+func WrapIsDislike(position *e.Position) *func(color.Color, point.Point) bool {
 	// 「手番の勝ちなら1、引き分けなら0、手番の負けなら-1を返す関数（自分視点）」を作成します
 	// * `color` - 石の色
-	var isDislike = func(color color.Color, z e.Point) bool {
+	var isDislike = func(color color.Color, z point.Point) bool {
 		// 座標取得
 		// 432
 		// 5S1
@@ -33,28 +34,28 @@ func WrapIsDislike(position *e.Position) *func(color.Color, e.Point) bool {
 		// 東北
 		// **
 		// S*
-		if isEmptyTriangle(position, color, [3]e.Point{eastZ, northEastZ, northZ}) {
+		if isEmptyTriangle(position, color, [3]point.Point{eastZ, northEastZ, northZ}) {
 			return true
 		}
 
 		// 西北
 		// **
 		// *S
-		if isEmptyTriangle(position, color, [3]e.Point{northZ, northWestZ, westZ}) {
+		if isEmptyTriangle(position, color, [3]point.Point{northZ, northWestZ, westZ}) {
 			return true
 		}
 
 		// 西南
 		// *S
 		// **
-		if isEmptyTriangle(position, color, [3]e.Point{westZ, southWestZ, southZ}) {
+		if isEmptyTriangle(position, color, [3]point.Point{westZ, southWestZ, southZ}) {
 			return true
 		}
 
 		// 東南
 		// S*
 		// **
-		if isEmptyTriangle(position, color, [3]e.Point{southZ, southEastZ, eastZ}) {
+		if isEmptyTriangle(position, color, [3]point.Point{southZ, southEastZ, eastZ}) {
 			return true
 		}
 
@@ -64,7 +65,7 @@ func WrapIsDislike(position *e.Position) *func(color.Color, e.Point) bool {
 	return &isDislike
 }
 
-func isEmptyTriangle(position *e.Position, myColor color.Color, points [3]e.Point) bool {
+func isEmptyTriangle(position *e.Position, myColor color.Color, points [3]point.Point) bool {
 	var myColorNum = 0
 	var emptyNum = 0
 

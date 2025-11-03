@@ -7,10 +7,11 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます
-func PutStoneOnRecord(position *Position, z Point, color color.Color, recItem *RecordItem) {
+func PutStoneOnRecord(position *Position, z point.Point, color color.Color, recItem *RecordItem) {
 	var err = PutStone(position, z, color)
 	if err != 0 {
 		code.Console.Error("(PutStoneOnRecord) Err!\n")
@@ -27,7 +28,7 @@ func PutStoneOnRecord(position *Position, z Point, color color.Color, recItem *R
 //
 // # Returns
 // エラーコード
-func PutStone(position *Position, z Point, color1 color.Color) int {
+func PutStone(position *Position, z point.Point, color1 color.Color) int {
 	var around = [4]*Ren{}       // 隣接する４つの交点
 	var libertyArea int          // 呼吸点の数
 	var renArea int              // 連の石の数
@@ -37,7 +38,7 @@ func PutStone(position *Position, z Point, color1 color.Color) int {
 	var myBreathFriend = 0       // 呼吸できる自分の石と隣接している向きの数
 	var captureSum = 0           // アゲハマの数
 
-	if z == Pass { // 投了なら、コウを消して関数を正常終了
+	if z == point.Pass { // 投了なら、コウを消して関数を正常終了
 		position.KoZ = 0
 		return 0
 	}

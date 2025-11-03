@@ -10,6 +10,7 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
 // SelfPlay - コンピューター同士の対局。
@@ -30,7 +31,7 @@ func SelfPlay(position *e.Position) {
 		p.PrintBoard(position, position.MovesNum)
 
 		// パスで２手目以降で棋譜の１つ前（相手）もパスなら終了します。
-		if z == e.Pass && 1 < position.MovesNum && position.Record[position.MovesNum-2].GetZ() == e.Pass {
+		if z == point.Pass && 1 < position.MovesNum && position.Record[position.MovesNum-2].GetZ() == point.Pass {
 			break
 		}
 		// 自己対局は400手で終了します。
@@ -44,7 +45,7 @@ func SelfPlay(position *e.Position) {
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます
-func GetComputerMoveDuringSelfPlay(position *e.Position, color color.Color) e.Point {
+func GetComputerMoveDuringSelfPlay(position *e.Position, color color.Color) point.Point {
 
 	var start = time.Now()
 	pl.AllPlayouts = 0

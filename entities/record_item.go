@@ -1,18 +1,20 @@
 package entities
 
+import "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+
 // RecordItem - 棋譜の1手分
 type RecordItem struct {
 	// Z - 着手
-	Z Point
+	Z point.Point
 	// Time - 消費時間
 	Time float64
 }
 
 // SetZ - 着手
-func (recItem *RecordItem) SetZ(z Point) {
+func (recItem *RecordItem) SetZ(z point.Point) {
 	recItem.Z = z
 }
-func (recItem *RecordItem) GetZ() Point {
+func (recItem *RecordItem) GetZ() point.Point {
 	return recItem.Z
 }
 
