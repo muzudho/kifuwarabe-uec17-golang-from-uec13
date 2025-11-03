@@ -23,6 +23,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
+	uct_calc_info "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_3_uct/section_1/uct_calc_info"
 )
 
 // LoopGtp - レッスン９a
@@ -186,34 +187,34 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 // PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
 func PlayComputerMoveLesson09a(
 	text_io1 i_text_io.ITextIO,
-	position *position.Position,
-	color color.Color) point.Point {
+	position1 *position.Position,
+	color1 color.Color) point.Point {
 
-	var st = time.Now()
+	var st1 = time.Now()
 	all_playouts.AllPlayouts = 0
 
-	var z, winRate = uct.GetBestZByUct(
-		position,
-		color,
-		createPrintingOfCalc(text_io1),
-		createPrintingOfCalcFin(text_io1))
+	var z1, winRate1 = uct.GetBestZByUct(
+		position1,
+		color1,
+		uct_calc_info.CreatePrintingOfCalc(text_io1),
+		uct_calc_info.CreatePrintingOfCalcFin(text_io1))
 
-	if 1 < position.MovesNum && // 初手ではないとして
-		position.Record[position.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
-		0.95 <= math.Abs(winRate) { // 95%以上の確率で勝ちか負けなら
+	if 1 < position1.MovesNum && // 初手ではないとして
+		position1.Record[position1.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
+		0.95 <= math.Abs(winRate1) { // 95%以上の確率で勝ちか負けなら
 		// こちらもパスします
 		return 0
 	}
 
-	var sec = time.Since(st).Seconds()
+	var sec1 = time.Since(st1).Seconds()
 	text_io1.LogInfo(fmt.Sprintf("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, all_playouts.AllPlayouts))
+		sec1, float64(all_playouts.AllPlayouts)/sec1, position1.GetZ4(z1), winRate1, position1.MovesNum, color1, all_playouts.AllPlayouts))
 
-	var recItem = new(game_record_item.GameRecordItem)
-	recItem.Z = z
-	recItem.Time = sec
-	position.PutStoneOnRecord(z, color, recItem)
-	board_view.PrintBoard(position, position.MovesNum)
+	var recItem1 = new(game_record_item.GameRecordItem)
+	recItem1.Z = z1
+	recItem1.Time = sec1
+	position1.PutStoneOnRecord(z1, color1, recItem1)
+	board_view.PrintBoard(position1, position1.MovesNum)
 
-	return z
+	return z1
 }

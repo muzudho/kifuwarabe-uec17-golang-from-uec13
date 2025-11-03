@@ -15,6 +15,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_2/sgf"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
+	uct_calc_info "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_3_uct/section_1/uct_calc_info"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 )
 
@@ -58,8 +59,8 @@ func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, position *positio
 	var z, winRate = uct.GetBestZByUct(
 		position,
 		color,
-		createPrintingOfCalc(text_io1),
-		createPrintingOfCalcFin(text_io1))
+		uct_calc_info.CreatePrintingOfCalc(text_io1),
+		uct_calc_info.CreatePrintingOfCalcFin(text_io1))
 
 	var sec = time.Since(start).Seconds()
 	text_io1.LogInfo(fmt.Sprintf("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",

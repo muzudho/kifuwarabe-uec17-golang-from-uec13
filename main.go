@@ -5,20 +5,17 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"math/rand"
 	"time"
 
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_6_gateways/chapter_1_game_config/section_1/game_conf_toml"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_1_io/section_1"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 
 	// Entity
 	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 	moves_num "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/moves_num"
-	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
@@ -73,23 +70,4 @@ func main() {
 
 func OnFatal(errorMessage string) {
 	coding_obj.Console.Fatal(errorMessage)
-}
-
-func createPrintingOfCalc(text_io1 i_text_io.ITextIO) *func(*position.Position, int, point.Point, float64, int) {
-	// UCT計算中の表示
-	var fn = func(position *position.Position, i int, z point.Point, rate float64, games int) {
-		text_io1.LogInfo(fmt.Sprintf("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, z_code.GetGtpZ(position, z), rate, games))
-	}
-
-	return &fn
-}
-
-func createPrintingOfCalcFin(text_io1 i_text_io.ITextIO) *func(*position.Position, point.Point, float64, int, int, int) {
-	// UCT計算後の表示
-	var fn = func(position *position.Position, bestZ point.Point, rate float64, max int, allPlayouts int, nodeNum int) {
-		text_io1.LogInfo(fmt.Sprintf("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
-			z_code.GetGtpZ(position, bestZ), rate, max, allPlayouts, nodeNum))
-	}
-
-	return &fn
 }
