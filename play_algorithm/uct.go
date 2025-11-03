@@ -13,14 +13,8 @@ import (
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 	child "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/child"
 	parameter_adjustment "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/parameter_adjustment"
+	uct_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
-)
-
-// UCT
-const (
-	NodeMax   = 10000
-	NodeEmpty = -1
-	IllegalZ  = -1 // UCT計算中に石が置けなかった
 )
 
 // GetBestZByUct - Lesson08,09,09aで使用。 一番良いUCTである着手を選びます。 GetComputerMoveDuringSelfPlay などから呼び出されます。
@@ -88,7 +82,7 @@ func SearchUct(
 			break
 		}
 
-		c.Z = IllegalZ
+		c.Z = uct_struct.IllegalZ
 		// code.Console.Debug("ILLEGAL:z=%04d\n", GetZ4(z))
 	}
 
@@ -96,7 +90,7 @@ func SearchUct(
 	if c.Games <= 0 {
 		winner = -Playout(position, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
 	} else {
-		if c.Next == NodeEmpty {
+		if c.Next == uct_struct.NodeEmpty {
 			c.Next = CreateNode(position)
 		}
 		winner = -SearchUct(position, color.Flip(), c.Next)
@@ -115,7 +109,7 @@ func selectBestUcb(nodeN int) int {
 	var ucb = 0.0
 	for i := 0; i < pN.ChildNum; i++ {
 		var c = &pN.Children[i]
-		if c.Z == IllegalZ {
+		if c.Z == uct_struct.IllegalZ {
 			continue
 		}
 		if c.Games == 0 {

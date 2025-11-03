@@ -7,7 +7,7 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
-	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
+	uct_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 )
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
@@ -15,7 +15,7 @@ func GetGtpZ(position *position.Position, z point.Point) string {
 	switch z {
 	case 0:
 		return "PASS"
-	case pl.IllegalZ:
+	case uct_struct.IllegalZ:
 		return "ILLEGAL" // GTP の仕様外です
 	}
 
