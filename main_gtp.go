@@ -30,6 +30,54 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 
 		var tokens = strings.Split(command, " ")
 		switch tokens[0] {
+
+		// ========================================
+		// GTP 対応　＞　大会参加最低限
+		// ========================================
+
+		case "list_commands":
+			// 最初の１個は頭に "= " を付ける必要があってめんどくさいので先に出力
+			text_io1.SendCommand("= list_commands\n")
+
+			items := []string{
+				// 終了コマンド
+				"quit",
+				// ハンドシェイク
+				"protocol_version", "name", "version",
+				// 対局設定
+				"boardsize", "komi",
+				// 対局
+				"clear_board", "play", "undo", "genmove"}
+			for _, item := range items {
+				text_io1.SendCommand(fmt.Sprintf("%s\n", item))
+			}
+
+			text_io1.SendCommand("\n")
+
+		// ========================================
+		// GTP 対応　＞　大会参加最低限　＞　終了コマンド
+		// ========================================
+
+		case "quit":
+			os.Exit(0)
+
+		// ========================================
+		// GTP 対応　＞　大会参加最低限　＞　ハンドシェイク
+		// ========================================
+
+		case "protocol_version":
+			text_io1.SendCommand("= 2\n\n")
+
+		case "name":
+			text_io1.SendCommand("= Kifuwarabe UEC17 from UEC13\n\n")
+
+		case "version":
+			text_io1.SendCommand("= 0.0.2\n\n")
+
+		// ========================================
+		// GTP 対応　＞　大会参加最低限　＞　対局設定
+		// ========================================
+
 		case "boardsize":
 			// boardsize 19
 			// 盤のサイズを変えます
@@ -49,26 +97,6 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 				text_io1.SendCommand(fmt.Sprintf("? unknown_command %s\n\n", command))
 			}
 
-		case "clear_board":
-			pl.InitPosition(position)
-			text_io1.SendCommand("= \n\n")
-
-		case "quit":
-			os.Exit(0)
-
-		case "protocol_version":
-			text_io1.SendCommand("= 2\n\n")
-
-		case "name":
-			text_io1.SendCommand("= Kifuwarabe UEC17 from UEC13\n\n")
-
-		case "version":
-			text_io1.SendCommand("= 0.0.2\n\n")
-
-		case "list_commands":
-			text_io1.SendCommand("= boardsize\nclear_board\nquit\nprotocol_version\nundo\n" +
-				"name\nversion\nlist_commands\nkomi\ngenmove\nplay\n\n")
-
 		case "komi":
 			// komi 6.5
 			if 2 <= len(tokens) {
@@ -87,21 +115,13 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 
 			// TODO 消す text_io1.SendCommand("= 6.5\n\n")
 
-		case "undo":
-			// 未実装
-			text_io1.SendCommand("= \n\n")
+		// ========================================
+		// GTP 対応　＞　大会参加最低限　＞　対局
+		// ========================================
 
-		case "genmove":
-			// genmove black
-			// genmove white
-			var color e.Stone
-			if 1 < len(tokens) && strings.ToLower(tokens[1][0:1]) == "w" {
-				color = 2
-			} else {
-				color = 1
-			}
-			var z = PlayComputerMoveLesson09a(position, color)
-			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", p.GetGtpZ(position, z)))
+		case "clear_board":
+			pl.InitPosition(position)
+			text_io1.SendCommand("= \n\n")
 
 		case "play":
 			// play black A3
@@ -131,6 +151,22 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 
 				text_io1.SendCommand("= \n\n")
 			}
+
+		case "undo":
+			// 未実装
+			text_io1.SendCommand("= \n\n")
+
+		case "genmove":
+			// genmove black
+			// genmove white
+			var color e.Stone
+			if 1 < len(tokens) && strings.ToLower(tokens[1][0:1]) == "w" {
+				color = 2
+			} else {
+				color = 1
+			}
+			var z = PlayComputerMoveLesson09a(position, color)
+			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", p.GetGtpZ(position, z)))
 
 		default:
 			text_io1.SendCommand("? unknown_command\n\n")
