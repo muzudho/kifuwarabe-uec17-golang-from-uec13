@@ -34,5 +34,6 @@ func AdjustParameters(position *position.Position) {
 	}
 
 	// 盤面全体を１回は選ぶことを、完璧ではありませんが、ある程度の精度でカバーします
-	UctLoopCount = GetRandomPigeonX(game_rule_settings.BoardArea)
+	// UctLoopCount = GetRandomPigeonX(game_rule_settings.BoardArea)
+	UctLoopCount = 3 // FIXME: ランダム・ピジョン（17ぐらい）を使いたいが、処理速度が遅いので、代わりに小さな数字を入れる。
 }
