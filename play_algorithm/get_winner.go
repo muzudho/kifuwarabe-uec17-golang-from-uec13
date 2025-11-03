@@ -34,7 +34,7 @@ func getWinner(position *e.Position, turnColor color.Color) int {
 			mk[1] = 0
 			mk[2] = 0
 			for dir := 0; dir < 4; dir++ {
-				mk[position.ColorAt(z+e.Directions4[dir])]++
+				mk[position.ColorAt(z+e.Directions4Array[dir])]++
 			}
 			if mk[1] != 0 && mk[2] == 0 {
 				blackArea++

@@ -65,7 +65,7 @@ func (position *Position) InitPosition() {
 	position.board = make([]color.Color, boardMax)
 	position.checkBoard = make([]int, boardMax)
 	position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(position)
-	Directions4 = [4]point.Point{1, -1, point.Point(SentinelWidth), point.Point(-SentinelWidth)}
+	Directions4Array = [4]point.Point{1, -1, point.Point(SentinelWidth), point.Point(-SentinelWidth)}
 
 	// 枠線
 	for z := point.Point(0); z < point.Point(boardMax); z++ {
@@ -178,7 +178,7 @@ func (position *Position) countLibertySub(z point.Point, color color.Color, libe
 	position.checkBoard[z] = 1
 	*renArea++
 	for i := 0; i < 4; i++ {
-		var adjZ = z + Directions4[i]
+		var adjZ = z + Directions4Array[i]
 		if position.checkBoard[adjZ] != 0 {
 			continue
 		}
@@ -196,7 +196,7 @@ func (position *Position) TakeStone(z point.Point, color1 color.Color) {
 	position.board[z] = color.None // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + Directions4[dir]
+		var adjZ = z + Directions4Array[dir]
 
 		if position.board[adjZ] == color1 { // 再帰します
 			position.TakeStone(adjZ, color1)
