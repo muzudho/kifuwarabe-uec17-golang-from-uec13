@@ -15,6 +15,7 @@ import (
 	parameter_adjustment "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/parameter_adjustment"
 	uct_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
+	node_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/node_struct"
 )
 
 // GetBestZByUct - Lesson08,09,09aで使用。 一番良いUCTである着手を選びます。 GetComputerMoveDuringSelfPlay などから呼び出されます。
@@ -28,7 +29,7 @@ func GetBestZByUct(
 	print_calc_fin *func(*position.Position, point.Point, float64, int, int, int)) (point.Point, float64) {
 
 	// UCT計算フェーズ
-	NodeNum = 0 // カウンターリセット
+	node_struct.NodeNum = 0 // カウンターリセット
 	var next = CreateNode(position)
 	var uctLoopCount = parameter_adjustment.UctLoopCount
 	for i := 0; i < uctLoopCount; i++ {
@@ -44,7 +45,7 @@ func GetBestZByUct(
 	// ベスト値検索フェーズ
 	var bestI = -1
 	var max = -999
-	var pN = &Nodes[next]
+	var pN = &node_struct.Nodes[next]
 	for i := 0; i < pN.ChildNum; i++ {
 		var c = &pN.Children[i]
 		if c.Games > max {
@@ -57,7 +58,7 @@ func GetBestZByUct(
 
 	// 結果
 	var bestZ = pN.Children[bestI].Z
-	(*print_calc_fin)(position, bestZ, pN.Children[bestI].Rate, max, all_playouts.AllPlayouts, NodeNum)
+	(*print_calc_fin)(position, bestZ, pN.Children[bestI].Rate, max, all_playouts.AllPlayouts, node_struct.NodeNum)
 	//code.Console.Info("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
 	//	p.GetGtpZ(position, bestZ), pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
 	return bestZ, pN.Children[bestI].Rate
@@ -69,7 +70,7 @@ func SearchUct(
 	color color.Color,
 	nodeN int) int {
 
-	var pN = &Nodes[nodeN]
+	var pN = &node_struct.Nodes[nodeN]
 	var c *child.Child
 
 	for {
@@ -103,7 +104,7 @@ func SearchUct(
 
 // 一番良い UCB を選びます。 SearchUct から呼び出されます。
 func selectBestUcb(nodeN int) int {
-	var pN = &Nodes[nodeN]
+	var pN = &node_struct.Nodes[nodeN]
 	var selectI = -1
 	var maxUcb = -999.0
 	var ucb = 0.0
