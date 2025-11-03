@@ -38,5 +38,5 @@ var Komi komi_float.KomiFloat
 // MaxMovesNum - 上限手数
 var MaxMovesNum moves_num.MovesNum
 
-// Dir4 - ４方向（東、西、南、北）の番地。水平方向、垂直方向の順で並べた。
-var Dir4 = [4]point.Point{1, -1, 9, -9}
+// Directions4 - ４方向（東、西、南、北）の番地。水平方向、垂直方向の順で並べた。
+var Directions4 = [4]point.Point{1, -1, 9, -9}

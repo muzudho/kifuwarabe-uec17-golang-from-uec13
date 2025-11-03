@@ -47,7 +47,7 @@ func PutStone(position *Position, z point.Point, color1 color.Color) int {
 	for dir := 0; dir < 4; dir++ { // ４方向
 		around[dir] = NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
-		var adjZ = z + Dir4[dir]              // 隣の交点
+		var adjZ = z + Directions4[dir]       // 隣の交点
 		var adjColor = position.ColorAt(adjZ) // 隣(adjacent)の交点の石の色
 		if adjColor == color.None {           // 空点
 			space++
@@ -99,7 +99,7 @@ func PutStone(position *Position, z point.Point, color1 color.Color) int {
 
 	// 石を取り上げます
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + Dir4[dir]          // 隣接する交点
+		var adjZ = z + Directions4[dir]   // 隣接する交点
 		var lib = around[dir].LibertyArea // 隣接する連の呼吸点の数
 		var adjColor = around[dir].Color  // 隣接する連の石の色
 
