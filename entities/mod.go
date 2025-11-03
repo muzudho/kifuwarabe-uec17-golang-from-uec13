@@ -38,15 +38,5 @@ var Komi komi_float.KomiFloat
 // MaxMovesNum - 上限手数
 var MaxMovesNum moves_num.MovesNum
 
-// Dir4 - ４方向（東、北、西、南）の番地。初期値は仮の値。 2015年講習会サンプル、GoGo とは順序が違います
-var Dir4 = [4]point.Point{1, -9, -1, 9}
-
-type Direction4 int
-
-// Dir4に対応
-const (
-	East Direction4 = iota
-	North
-	West
-	South
-)
+// Dir4 - ４方向（東、西、南、北）の番地。水平方向、垂直方向の順で並べた。
+var Dir4 = [4]point.Point{1, -1, 9, -9}

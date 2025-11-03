@@ -65,7 +65,7 @@ func (position *Position) InitPosition() {
 	position.board = make([]color.Color, boardMax)
 	position.checkBoard = make([]int, boardMax)
 	position.iteratorWithoutWall = CreateBoardIteratorWithoutWall(position)
-	Dir4 = [4]point.Point{1, point.Point(-SentinelWidth), -1, point.Point(SentinelWidth)}
+	Dir4 = [4]point.Point{1, -1, point.Point(SentinelWidth), point.Point(-SentinelWidth)}
 
 	// 枠線
 	for z := point.Point(0); z < point.Point(boardMax); z++ {

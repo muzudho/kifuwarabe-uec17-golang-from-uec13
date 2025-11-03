@@ -10,6 +10,7 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/direction_4"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
@@ -22,14 +23,14 @@ func WrapIsDislike(position *e.Position) *func(color.Color, point.Point) bool {
 		// 432
 		// 5S1
 		// 678
-		var eastZ = z + e.Dir4[e.East]
-		var northEastZ = z + e.Dir4[e.North] + 1
-		var northZ = z + e.Dir4[e.North]
-		var northWestZ = z + e.Dir4[e.North] - 1
-		var westZ = z + e.Dir4[e.West]
-		var southWestZ = z + e.Dir4[e.South] - 1
-		var southZ = z + e.Dir4[e.South]
-		var southEastZ = z + e.Dir4[e.South] + 1
+		var eastZ = z + e.Dir4[direction_4.East]
+		var northEastZ = z + e.Dir4[direction_4.North] + 1
+		var northZ = z + e.Dir4[direction_4.North]
+		var northWestZ = z + e.Dir4[direction_4.North] - 1
+		var westZ = z + e.Dir4[direction_4.West]
+		var southWestZ = z + e.Dir4[direction_4.South] - 1
+		var southZ = z + e.Dir4[direction_4.South]
+		var southEastZ = z + e.Dir4[direction_4.South] + 1
 
 		// 東北
 		// **
