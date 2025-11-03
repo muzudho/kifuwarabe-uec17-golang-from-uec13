@@ -5,6 +5,7 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 )
 
 // WrapGettingOfWinner - 盤を束縛変数として与えます
@@ -49,7 +50,7 @@ func getWinner(position *e.Position, turnColor color.Color) int {
 	whiteSum = kind[2] + whiteArea
 	score = blackSum - whiteSum
 	var win = 0
-	if 0 < e.KomiType(score)-e.Komi {
+	if 0 < komi_float.KomiFloat(score)-e.Komi {
 		win = 1
 	}
 	if turnColor == 2 {

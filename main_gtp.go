@@ -17,6 +17,7 @@ import (
 
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 )
 
 // LoopGtp - レッスン９a
@@ -110,7 +111,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *e.Position) {
 					panic(err)
 				}
 
-				e.Komi = e.KomiType(komi)
+				e.Komi = komi_float.KomiFloat(komi)
 				text_io1.SendCommand(fmt.Sprintf("= %f\n\n", e.Komi))
 			} else {
 				text_io1.SendCommand(fmt.Sprintf("? unknown_command %s\n\n", command))

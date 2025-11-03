@@ -1,5 +1,7 @@
 package entities
 
+import "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
+
 // Entities
 
 const (
@@ -26,10 +28,8 @@ var SentinelWidth int
 // SentinelBoardArea - 壁付き盤の面積
 var SentinelBoardArea int
 
-type KomiType float64
-
 // Komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
-var Komi KomiType
+var Komi komi_float.KomiFloat
 
 type MovesNumType int
 
