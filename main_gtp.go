@@ -174,7 +174,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 			} else {
 				color = 1
 			}
-			var z = PlayComputerMoveLesson09a(position, color)
+			var z = PlayComputerMoveLesson09a(text_io1, position, color)
 			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", z_code.GetGtpZ(position, z)))
 
 		default:
@@ -185,6 +185,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 
 // PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
 func PlayComputerMoveLesson09a(
+	text_io1 i_text_io.ITextIO,
 	position *position.Position,
 	color color.Color) point.Point {
 
@@ -194,8 +195,8 @@ func PlayComputerMoveLesson09a(
 	var z, winRate = uct.GetBestZByUct(
 		position,
 		color,
-		createPrintingOfCalc(),
-		createPrintingOfCalcFin())
+		createPrintingOfCalc(text_io1),
+		createPrintingOfCalcFin(text_io1))
 
 	if 1 < position.MovesNum && // 初手ではないとして
 		position.Record[position.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
@@ -205,8 +206,8 @@ func PlayComputerMoveLesson09a(
 	}
 
 	var sec = time.Since(st).Seconds()
-	coding_obj.Console.Info("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, all_playouts.AllPlayouts)
+	text_io1.LogInfo(fmt.Sprintf("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
+		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, all_playouts.AllPlayouts))
 
 	var recItem = new(game_record_item.GameRecordItem)
 	recItem.Z = z

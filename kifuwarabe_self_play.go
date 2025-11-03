@@ -19,13 +19,13 @@ import (
 )
 
 // SelfPlay - コンピューター同士の対局。
-func SelfPlay(text_io i_text_io.ITextIO, position *position.Position) {
+func SelfPlay(text_io1 i_text_io.ITextIO, position *position.Position) {
 	coding_obj.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
 
 	var color = color.Black
 
 	for {
-		var z = GetComputerMoveDuringSelfPlay(text_io, position, color)
+		var z = GetComputerMoveDuringSelfPlay(text_io1, position, color)
 
 		var recItem = new(game_record_item.GameRecordItem)
 		recItem.Z = z
@@ -58,8 +58,8 @@ func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, position *positio
 	var z, winRate = uct.GetBestZByUct(
 		position,
 		color,
-		createPrintingOfCalc(),
-		createPrintingOfCalcFin())
+		createPrintingOfCalc(text_io1),
+		createPrintingOfCalcFin(text_io1))
 
 	var sec = time.Since(start).Seconds()
 	text_io1.LogInfo(fmt.Sprintf("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",

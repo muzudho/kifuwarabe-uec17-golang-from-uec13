@@ -5,6 +5,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"math/rand"
 	"time"
 
@@ -74,21 +75,20 @@ func OnFatal(errorMessage string) {
 	coding_obj.Console.Fatal(errorMessage)
 }
 
-func createPrintingOfCalc() *func(*position.Position, int, point.Point, float64, int) {
+func createPrintingOfCalc(text_io1 i_text_io.ITextIO) *func(*position.Position, int, point.Point, float64, int) {
 	// UCT計算中の表示
 	var fn = func(position *position.Position, i int, z point.Point, rate float64, games int) {
-		coding_obj.Console.Info("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, z_code.GetGtpZ(position, z), rate, games)
+		text_io1.LogInfo(fmt.Sprintf("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, z_code.GetGtpZ(position, z), rate, games))
 	}
 
 	return &fn
 }
 
-func createPrintingOfCalcFin() *func(*position.Position, point.Point, float64, int, int, int) {
+func createPrintingOfCalcFin(text_io1 i_text_io.ITextIO) *func(*position.Position, point.Point, float64, int, int, int) {
 	// UCT計算後の表示
 	var fn = func(position *position.Position, bestZ point.Point, rate float64, max int, allPlayouts int, nodeNum int) {
-		coding_obj.Console.Info("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
-			z_code.GetGtpZ(position, bestZ), rate, max, allPlayouts, nodeNum)
-
+		text_io1.LogInfo(fmt.Sprintf("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
+			z_code.GetGtpZ(position, bestZ), rate, max, allPlayouts, nodeNum))
 	}
 
 	return &fn
