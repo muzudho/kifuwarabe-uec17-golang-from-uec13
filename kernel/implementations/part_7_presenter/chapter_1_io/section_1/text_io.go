@@ -1,4 +1,4 @@
-package text_i_o
+package text_io
 
 import code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 

@@ -11,8 +11,8 @@ import (
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"
 	cnf "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/config_obj"
 	e "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/entities"
-	text_i_o "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_1_i_o/section_1"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_i_o/section_1/i_text_i_o"
+	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_1_io/section_1"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 	pl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/play_algorithm"
 	p "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/presenter"
 )
@@ -51,7 +51,7 @@ func main() {
 	// 思考エンジンの準備　＞　テキストＩＯ
 	// ========================================
 
-	var text_i_o1 i_text_i_o.ITextIO = text_i_o.NewTextIO()
+	var text_io1 i_text_io.ITextIO = text_io.NewTextIO()
 
 	// ========================================
 	// その他
@@ -60,7 +60,7 @@ func main() {
 	if lessonVer == "SelfPlay" {
 		SelfPlay(position)
 	} else {
-		RunGtpEngine(text_i_o1, position) // GTP
+		RunGtpEngine(text_io1, position) // GTP
 	}
 }
 
