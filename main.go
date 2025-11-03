@@ -8,17 +8,27 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_6_gateways/chapter_1_game_config/section_1/game_conf_toml"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
-	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_1_io/section_1"
-	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
-
-	// Entity
+	// 1. Entities
 	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 	moves_num "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/moves_num"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
+
+	// 2. Use Cases
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
+
+	// 3. Controllers
+	self_play "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_3_controllers/chapter_2_self_play/section_1/self_play"
+
+	// 6. Gateways
+	game_conf_toml "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_6_gateways/chapter_1_game_config/section_1/game_conf_toml"
+
+	// 7. Presenters
+	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
+	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_1_io/section_1"
+
+	// Interfaces
+	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 )
 
 func main() {
@@ -62,7 +72,7 @@ func main() {
 	// ========================================
 
 	if lessonVer == "SelfPlay" {
-		SelfPlay(text_io1, position)
+		self_play.SelfPlay(text_io1, position)
 	} else {
 		LoopGtp(text_io1, position) // GTP
 	}
