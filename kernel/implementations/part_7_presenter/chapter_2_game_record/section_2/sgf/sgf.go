@@ -1,4 +1,4 @@
-package presenter
+package sgf
 
 import (
 	code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/coding_obj"

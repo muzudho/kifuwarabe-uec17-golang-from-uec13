@@ -13,6 +13,8 @@ import (
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_1/z_code"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_2/sgf"
 )
 
 // SelfPlay - コンピューター同士の対局。
@@ -28,7 +30,7 @@ func SelfPlay(position *position.Position) {
 		recItem.Z = z
 		position.PutStoneOnRecord(z, color, recItem)
 
-		code.Console.Print("z=%s,color=%d", p.GetGtpZ(position, z), color) // テスト
+		code.Console.Print("z=%s,color=%d", z_code.GetGtpZ(position, z), color) // テスト
 		// p.PrintCheckBoard(position)                                        // テスト
 		p.PrintBoard(position, position.MovesNum)
 
@@ -43,7 +45,7 @@ func SelfPlay(position *position.Position) {
 		color = color.Flip()
 	}
 
-	p.PrintSgf(position, position.MovesNum, position.Record)
+	sgf.PrintSgf(position, position.MovesNum, position.Record)
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます

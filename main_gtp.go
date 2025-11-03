@@ -22,6 +22,7 @@ import (
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_1/z_code"
 )
 
 // LoopGtp - レッスン９a
@@ -150,7 +151,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 					color = 1
 				}
 
-				var z = p.GetZFromGtp(position, tokens[2])
+				var z = z_code.GetZFromGtp(position, tokens[2])
 				var recItem = new(game_record_item.GameRecordItem)
 				recItem.Z = z
 				recItem.Time = 0
@@ -174,7 +175,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 				color = 1
 			}
 			var z = PlayComputerMoveLesson09a(position, color)
-			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", p.GetGtpZ(position, z)))
+			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", z_code.GetGtpZ(position, z)))
 
 		default:
 			text_io1.SendCommand("? unknown_command\n\n")

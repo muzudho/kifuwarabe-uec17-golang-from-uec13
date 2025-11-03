@@ -10,6 +10,7 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1/game_rule_settings"
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_3_position/section_1/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenter/chapter_2_game_record/section_1/z_code"
 )
 
 var sz8k = 8 * 1024
@@ -115,7 +116,7 @@ func PrintBoard(position *position.Position, movesNum int) {
 	if position.KoZ == point.Pass {
 		b.WriteString("_")
 	} else {
-		b.WriteString(GetGtpZ(position, position.KoZ))
+		b.WriteString(z_code.GetGtpZ(position, position.KoZ))
 	}
 	if movesNum != -1 {
 		b.WriteString(",movesNum=")
