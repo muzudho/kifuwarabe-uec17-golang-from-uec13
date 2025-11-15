@@ -70,6 +70,9 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 		// ========================================
 
 		case "quit":
+			// ```shell
+			// quit
+			// ```
 			os.Exit(0)
 
 		// ========================================
@@ -77,12 +80,21 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 		// ========================================
 
 		case "protocol_version":
+			// ```shell
+			// protocol_version
+			// ```
 			text_io1.SendCommand("= 2\n\n")
 
 		case "name":
+			// ```shell
+			// name
+			// ```
 			text_io1.SendCommand("= Kifuwarabe UEC17 from UEC13\n\n")
 
 		case "version":
+			// ```shell
+			// version
+			// ```
 			text_io1.SendCommand("= 0.0.2\n\n")
 
 		// ========================================
@@ -90,7 +102,9 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 		// ========================================
 
 		case "boardsize":
+			// ```shell
 			// boardsize 19
+			// ```
 			// 盤のサイズを変えます
 			if 2 <= len(tokens) {
 				var boardSize, err = strconv.Atoi(tokens[1])
@@ -109,7 +123,9 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 			}
 
 		case "komi":
+			// ```shell
 			// komi 6.5
+			// ```
 			if 2 <= len(tokens) {
 				var komi, err = strconv.ParseFloat(tokens[1], 64)
 
@@ -119,7 +135,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 				}
 
 				game_rule_settings.Komi = komi_float.KomiFloat(komi)
-				text_io1.SendCommand(fmt.Sprintf("= %f\n\n", game_rule_settings.Komi))
+				text_io1.SendCommand(fmt.Sprintf("= %g\n\n", game_rule_settings.Komi))
 			} else {
 				text_io1.SendCommand(fmt.Sprintf("? unknown_command %s\n\n", command))
 			}

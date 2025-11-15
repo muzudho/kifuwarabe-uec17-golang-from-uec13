@@ -1,0 +1,58 @@
+# run
+
+
+## ビルド
+
+（PowerShell ではなく、Command Prompt を使って）以下のコマンドを叩いてください。  
+
+```shell
+go build
+```
+
+`{アプリケーション名}.exe` ファイルが１つ作成されます。  
+※ Go言語は、`*.exe` ファイルは１つだけ作成されるのが特徴です。  
+
+
+## ラン
+
+`{アプリケーション名}.exe` ファイルをダブルクリックしてください。  
+
+
+## 使い方
+
+```shell
+list_commands
+
+        = list_commands
+        quit
+        protocol_version
+        name
+        version
+        boardsize
+        komi
+        clear_board
+        play
+        undo
+        genmove
+
+protocol_version
+
+        = 2
+
+name
+
+        = Kifuwarabe UEC17 from UEC13
+
+version
+
+        = 0.0.2
+
+
+boardsize 19
+
+        =
+
+komi 6.5
+
+        = 6.500000
+```
