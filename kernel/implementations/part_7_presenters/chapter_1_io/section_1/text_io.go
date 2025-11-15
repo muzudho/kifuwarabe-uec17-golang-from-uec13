@@ -25,10 +25,10 @@ func (t *TextIO) SendCommand(command string) {
 }
 
 func (t *TextIO) ReceivedCommand(command string) {
-	coding_obj.Gtp.Log(command + "\n")
-	coding_obj.ConsoleLog.Notice(command + "\n")
+	coding_obj.Gtp.Log("%s\n", command)
+	coding_obj.ConsoleLog.Notice("%s\n", command)
 }
 
 func (t *TextIO) LogInfo(info string) {
-	coding_obj.Console.Info(info)
+	coding_obj.Console.Info("%s", info)
 }

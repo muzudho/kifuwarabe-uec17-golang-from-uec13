@@ -79,5 +79,5 @@ func main() {
 }
 
 func OnFatal(errorMessage string) {
-	coding_obj.Console.Fatal(errorMessage)
+	coding_obj.Console.Fatal("%s", errorMessage)
 }

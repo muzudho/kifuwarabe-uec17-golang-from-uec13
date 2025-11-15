@@ -110,7 +110,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 				var boardSize, err = strconv.Atoi(tokens[1])
 
 				if err != nil {
-					coding_obj.Console.Fatal(fmt.Sprintf("command=%s", command))
+					coding_obj.Console.Fatal("command=%s", command)
 					panic(err)
 				}
 
@@ -130,7 +130,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 				var komi, err = strconv.ParseFloat(tokens[1], 64)
 
 				if err != nil {
-					coding_obj.Console.Fatal(fmt.Sprintf("command=%s", command))
+					coding_obj.Console.Fatal("command=%s", command)
 					panic(err)
 				}
 
