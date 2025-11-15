@@ -52,13 +52,13 @@ func GetBestZByUct(
 			bestI = i
 			max = c.Games
 		}
-		(*print_calc)(position, i, c.Z, c.Rate, c.Games)
+		// FIXME: (*print_calc)(position, i, c.Z, c.Rate, c.Games)
 		// text_io1.LogInfo("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, p.GetGtpZ(position, c.Z), c.Rate, c.Games)
 	}
 
 	// 結果
 	var bestZ = pN.Children[bestI].Z
-	(*print_calc_fin)(position, bestZ, pN.Children[bestI].Rate, max, all_playouts.AllPlayouts, node_struct.NodeNum)
+	// FIXME: (*print_calc_fin)(position, bestZ, pN.Children[bestI].Rate, max, all_playouts.AllPlayouts, node_struct.NodeNum)
 	//text_io1.LogInfo("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
 	//	p.GetGtpZ(position, bestZ), pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
 	return bestZ, pN.Children[bestI].Rate

@@ -1,7 +1,6 @@
 package play_computer_move_lesson_09_a
 
 import (
-	"fmt"
 	"math"
 	"time"
 
@@ -16,7 +15,7 @@ import (
 	uct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
 
 	// Presenters
-	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
+
 	uct_calc_info "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_3_uct/section_1/uct_calc_info"
 
 	// Interfaces
@@ -46,14 +45,14 @@ func PlayComputerMoveLesson09a(
 	}
 
 	var sec1 = time.Since(st1).Seconds()
-	text_io1.LogInfo(fmt.Sprintf("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec1, float64(all_playouts.AllPlayouts)/sec1, position1.GetZ4(z1), winRate1, position1.MovesNum, color1, all_playouts.AllPlayouts))
+	// FIXME: text_io1.LogInfo(fmt.Sprintf("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
+	//		sec1, float64(all_playouts.AllPlayouts)/sec1, position1.GetZ4(z1), winRate1, position1.MovesNum, color1, all_playouts.AllPlayouts))
 
 	var recItem1 = new(game_record_item.GameRecordItem)
 	recItem1.Z = z1
 	recItem1.Time = sec1
 	position1.PutStoneOnRecord(z1, color1, recItem1)
-	board_view.PrintBoard(position1, position1.MovesNum)
+	// FIXME: board_view.PrintBoard(position1, position1.MovesNum)
 
 	return z1
 }
