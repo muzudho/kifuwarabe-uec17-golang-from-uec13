@@ -1,5 +1,6 @@
 # Install
 
+
 ## Go言語のインストール
 
 Blog: [Go言語を練習しようぜ☆（＾～＾）？](https://crieit.net/drafts/5ffc46af9214c)  
@@ -20,22 +21,28 @@ Blog: [Go言語を練習しようぜ☆（＾～＾）？](https://crieit.net/dr
 | ------ | -------------------- | ---------------- |
 | GOPATH | C:\Users\むずでょ\go | %USERPROFILE%\go |
 
-以下のコマンドを叩いてください。  
+（PowerShell ではなく、Command Prompt を使って）以下のコマンドを叩いてください。  
 
 ```shell
 go version
-go version go1.15.6 windows/amd64
+
+        #go version go1.15.6 windows/amd64
+        go version go1.25.3 windows/amd64
 
 # go言語は、インストール時に、インストール先ディレクトリ（GOROOT）を覚えています。
 go env GOROOT
-c:\go
+
+        #c:\go
+        C:\Program Files\Go
 ```
+
 
 ## Modules を使ったプロジェクトの作成
 
 ```shell
 go mod init github.com/muzudho/kifuwarabe-uec17-golang-from-uec13
 ```
+
 
 ## Telnet
 
@@ -46,20 +53,27 @@ go get -v -u github.com/ziutek/telnet
 # go get -v -u github.com/reiver/go-telnet
 ```
 
+
 ## Gore
 
 ```shell
-go get github.com/motemen/gore/cmd/gore
+#go get github.com/motemen/gore/cmd/gore
+go install github.com/x-motemen/gore/cmd/gore@latest
 
 # for code completion
 go get github.com/mdempsky/gocode
 
 gore -autoimport
-gore version 0.5.2  :help for help
+
+        #gore version 0.5.2  :help for help
+        gore version 0.6.1  :help for help
+
 gore> fmt.Println("Hello World")
-Hello World
-12
-nil
+
+        # 数秒かかるから待つ
+        Hello World
+        12
+        nil
 gore>
 ```
 
