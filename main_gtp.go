@@ -179,7 +179,6 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 				recItem.Z = z
 				recItem.Time = 0
 				position.PutStoneOnRecord(z, color, recItem)
-				board_view.PrintBoard(position, position.MovesNum)
 
 				text_io1.SendCommand("= \n\n")
 			}
@@ -201,6 +200,18 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 			}
 			var z = play_computer_move_lesson_09_a.PlayComputerMoveLesson09a(text_io1, position, color1)
 			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", z_code.GetGtpZ(position, z)))
+
+		// ========================================
+		// 独自実装
+		// ========================================
+
+		case "-board":
+			// ```shell
+			// -board
+			// ```
+			text_io1.SendCommand("= \n")
+			board_view.PrintBoard(position, position.MovesNum)
+			text_io1.SendCommand("\n\n")
 
 		default:
 			text_io1.SendCommand("? unknown_command\n\n")
