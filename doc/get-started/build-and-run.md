@@ -55,4 +55,34 @@ boardsize 19
 komi 6.5
 
         = 6.500000
+
+clear_board
+
+        =
+
+play black A3
+
+        =
+
+play white D4
+
+        =
+
+play black PASS
+
+        =
+
+genmove black
+
+        # 結果は変わることがあります。
+        = Q10
+
+genmove white
+
+        # 結果は変わることがあります。
+        = G2
+
+quit
+
+        # アプリケーションが終了します。
 ```

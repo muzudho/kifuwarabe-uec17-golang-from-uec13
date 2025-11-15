@@ -147,10 +147,14 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 		// ========================================
 
 		case "clear_board":
+			// ```shell
+			// clear_board
+			// ```
 			all_playouts.InitPosition(position)
 			text_io1.SendCommand("= \n\n")
 
 		case "play":
+			// ```shell
 			// play black A3
 			// play white D4
 			// play black D5
@@ -161,6 +165,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 			// play white C5
 			// play black PASS
 			// play white PASS
+			// ```
 			if 2 < len(tokens) {
 				var color color.Color
 				if strings.ToLower(tokens[1][0:1]) == "w" {
@@ -184,8 +189,10 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 			text_io1.SendCommand("= \n\n")
 
 		case "genmove":
+			// ```shell
 			// genmove black
 			// genmove white
+			// ```
 			var color1 color.Color
 			if 1 < len(tokens) && strings.ToLower(tokens[1][0:1]) == "w" {
 				color1 = 2
