@@ -8,5 +8,3 @@ cd ..
 go build
 cd ./bin
 echo go build したぜ（＾～＾）！
-
-call move_file_kifuwarabe.bat

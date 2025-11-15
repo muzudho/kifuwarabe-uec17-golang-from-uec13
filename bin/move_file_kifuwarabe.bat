@@ -10,4 +10,3 @@ if %errorlevel%==0 (
 ) else (
     echo エラー出たぜ... 確認してな。
 )
-pause
