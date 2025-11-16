@@ -39,16 +39,16 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	// ログの書込み先設定
-	coding_obj.GtpLog.SetPath("output/gtp_print.log")
+	coding_obj.GtpLog.SetPath("logs/gtp_print.log")
 	coding_obj.ConsoleLog.SetPath(
-		"output/trace.log",
-		"output/debug.log",
-		"output/info.log",
-		"output/notice.log",
-		"output/warn.log",
-		"output/error.log",
-		"output/fatal.log",
-		"output/print.log")
+		"logs/trace.log",
+		"logs/debug.log",
+		"logs/info.log",
+		"logs/notice.log",
+		"logs/warn.log",
+		"logs/error.log",
+		"logs/fatal.log",
+		"logs/print.log")
 
 	//coding_obj.Console.Trace("# Author: %s\n", game_rule_settings.Author)
 
