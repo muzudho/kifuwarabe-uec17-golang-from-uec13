@@ -5,9 +5,9 @@ chcp 65001 >nul
 
 echo 全部任せろだぜ（＾～＾）...
 
-call build.bat
+call subroutines/build.bat
 
-call move_file_kifuwarabe.bat
+call subroutines/move_file_kifuwarabe.bat
 
 echo すべて終わったぜ（＾～＾）！
 pause
