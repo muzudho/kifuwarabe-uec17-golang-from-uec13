@@ -11,8 +11,9 @@
         * フォルダー構成：
             * Go言語のシステム： 📁 `C:\Program Files\Go`
             * プロジェクト・ルート： 📁 `D:\github.com\muzudho\kifuwarabe-uec17-golang-from-uec13` - ソースコード
-            * ランライム用・出力フォルダー：
+            * 配布用・出力フォルダー： 📁 `D:\20251121-comp-go-uec-cup-17`
                 * GTP対応 思考エンジン・フォルダー： 📁 `D:\20251121-comp-go-uec-cup-17\go-engine-gtp`
-                * GTP対応 思考エンジン・ファイル： 📝 `D:\20251121-comp-go-uec-cup-17\go-engine-gtp\kifuwarabe-uec17-golang-from-uec13.exe`
+                    * 実行ファイル（エントリーポイント）： 📝 `D:\20251121-comp-go-uec-cup-17\go-engine-gtp\kifuwarabe-uec17-golang-from-uec13.exe`
+                    * ログ・フォルダー： 📁 `D:\20251121-comp-go-uec-cup-17\go-engine-gtp\logs`
                 * 前日テストマッチ用Telnet接続スクリプト： 📝： `D:\20251121-comp-go-uec-cup-17\my-telnet\my_telnet.py`
 
