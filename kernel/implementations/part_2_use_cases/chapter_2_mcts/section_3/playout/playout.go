@@ -57,10 +57,10 @@ func Playout(
 
 				// UEC: 改造ポイント
 				// 手早く打つために、空点の一部だけをピックアップして選びます
-				var pickupLength = 100
 				var shurinkenEmptyLength = emptyLength
-				if pickupLength < shurinkenEmptyLength {
-					shurinkenEmptyLength = pickupLength
+				var minLength = 40
+				if minLength < shurinkenEmptyLength {
+					shurinkenEmptyLength = int(shurinkenEmptyLength / 2)
 				}
 
 				r = rand.Intn(shurinkenEmptyLength) // 空点を適当に選びます
