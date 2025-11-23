@@ -1,4 +1,4 @@
-package game_rule_settings
+package section_1
 
 import (
 	// Entities
