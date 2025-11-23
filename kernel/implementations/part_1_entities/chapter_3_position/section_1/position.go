@@ -1,4 +1,4 @@
-package position
+package sectopion_1
 
 import (
 	"math/rand"
