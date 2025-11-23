@@ -1,4 +1,4 @@
-package section_1
+package part_1_entities
 
 import (
 	// Entities
