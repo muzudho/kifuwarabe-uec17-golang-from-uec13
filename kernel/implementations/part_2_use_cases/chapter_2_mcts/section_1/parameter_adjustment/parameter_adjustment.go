@@ -35,5 +35,9 @@ func AdjustParameters(position *position.Position) {
 
 	// 盤面全体を１回は選ぶことを、完璧ではありませんが、ある程度の精度でカバーします
 	// UctLoopCount = GetRandomPigeonX(game_rule_settings.BoardArea)
-	UctLoopCount = 3 // FIXME: ランダム・ピジョン（17ぐらい）を使いたいが、処理速度が遅いので、代わりに小さな数字を入れる。
+	// ↓
+	// 持ち時間３０分（１８００秒）。上限手数４００。１人２００。つまり、１手あたり０.９秒。
+	// * 3 なら６秒。 * 5 なら１１秒。 * 4 ならピッタリ９秒。 * 3.5 なら７秒。
+	UctLoopCount = int(float64(game_rule_settings.BoardArea) * 3.75)
+	// FIXME: ランダム・ピジョン（17ぐらい）を使いたいが、処理速度が遅いので、代わりに小さな数字を入れる。
 }
