@@ -33,11 +33,17 @@ func AdjustParameters(position *position.Position) {
 		PlayoutTrialCount = boardSize * boardSize
 	}
 
+	// UEC: 改造ポイント
 	// 盤面全体を１回は選ぶことを、完璧ではありませんが、ある程度の精度でカバーします
 	// UctLoopCount = GetRandomPigeonX(game_rule_settings.BoardArea)
 	// ↓
 	// 持ち時間３０分（１８００秒）。上限手数４００。１人２００。つまり、１手あたり０.９秒。
-	// * 3 なら６秒。 * 5 なら１１秒。 * 4 ならピッタリ９秒。 * 3.5 なら７秒。
-	UctLoopCount = int(float64(game_rule_settings.BoardArea) * 3.75)
+	// * 3 なら６秒。 * 5 なら１１秒。 * 4 ならピッタリ９秒。 * 3.5 なら７秒。 * 3.75 なら８秒。
+	//UctLoopCount = 2 // 動作テスト用［ペンキ塗り］
+	UctLoopCount = int(float64(game_rule_settings.BoardArea) * 3) // 試行時間６秒
+	//UctLoopCount = int(float64(game_rule_settings.BoardArea) * 3.75) // 試行時間８秒
 	// FIXME: ランダム・ピジョン（17ぐらい）を使いたいが、処理速度が遅いので、代わりに小さな数字を入れる。
+	// ↓
+	// 時間いっぱい考えさせてもペンキ塗りを始めるので、少なくする。
+	//UctLoopCount = int(float64(game_rule_settings.BoardArea)*0.5) + 1
 }

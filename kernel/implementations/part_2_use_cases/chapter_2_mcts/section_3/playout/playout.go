@@ -32,30 +32,39 @@ func Playout(
 
 	var playoutTrialCount = parameter_adjustment.PlayoutTrialCount
 	for trial := 0; trial < playoutTrialCount; trial++ {
-		var empty = make([]point.Point, boardMax)
-		var emptyNum int
+		var emptyArray = make([]point.Point, boardMax)
+		var emptyLength int // 残りの空点の数
 		var z point.Point
 
-		// TODO 空点を差分更新できないか？ 毎回スキャンは重くないか？
 		// 空点を記憶します
+		// TODO 空点を差分更新できないか？ 毎回スキャンは重くないか？
 		var onPoint = func(z point.Point) {
 			if position.IsEmpty(z) { // 空点なら
-				empty[emptyNum] = z
-				emptyNum++
+				emptyArray[emptyLength] = z
+				emptyLength++
 			}
 		}
 		position.IterateWithoutWall(onPoint)
 
 		var r = 0
 		var dislikeZ = point.Pass
-		var randomPigeonX = parameter_adjustment.GetRandomPigeonX(emptyNum) // 見切りを付ける試行回数を算出
+		var randomPigeonX = parameter_adjustment.GetRandomPigeonX(emptyLength) // 見切りを付ける試行回数を算出
 		var i int
 		for i = 0; i < randomPigeonX; i++ {
-			if emptyNum == 0 { // 空点が無ければパスします
+			if emptyLength == 0 { // 空点が無ければパスします
 				z = point.Pass
 			} else {
-				r = rand.Intn(emptyNum) // 空点を適当に選びます
-				z = empty[r]
+
+				// UEC: 改造ポイント
+				// 手早く打つために、空点の一部だけをピックアップして選びます
+				var pickupLength = 100
+				var shurinkenEmptyLength = emptyLength
+				if pickupLength < shurinkenEmptyLength {
+					shurinkenEmptyLength = pickupLength
+				}
+
+				r = rand.Intn(shurinkenEmptyLength) // 空点を適当に選びます
+				z = emptyArray[r]
 			}
 
 			var err = position.PutStone(z, color)
@@ -70,8 +79,8 @@ func Playout(
 			}
 
 			// 石を置かなかったら、その選択肢は、最後尾の要素で置換し、最後尾の要素を消します
-			empty[r] = empty[emptyNum-1]
-			emptyNum--
+			emptyArray[r] = emptyArray[emptyLength-1]
+			emptyLength--
 		}
 		if i == randomPigeonX {
 			z = dislikeZ
