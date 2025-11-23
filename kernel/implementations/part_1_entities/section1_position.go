@@ -1,4 +1,4 @@
-package chapter_3_position
+package part_1_entities
 
 import (
 	"math/rand"
