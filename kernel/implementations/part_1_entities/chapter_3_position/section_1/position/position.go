@@ -151,8 +151,8 @@ func (position *Position) GetEmptyZ() point.Point {
 	var z point.Point
 	for {
 		// ランダムに交点を選んで、空点を見つけるまで繰り返します。
-		x = rand.Intn(9)
-		y = rand.Intn(9)
+		x = rand.Intn(game_rule_settings.BoardSize) // FIXME: 9 でいいの？ 9路盤？ → boardSize に変更
+		y = rand.Intn(game_rule_settings.BoardSize)
 		z = position.GetZFromXy(x, y)
 		if position.IsEmpty(z) { // 空点
 			break
