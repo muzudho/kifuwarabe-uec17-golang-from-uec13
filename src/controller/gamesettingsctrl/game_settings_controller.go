@@ -10,7 +10,7 @@ import (
 	"os"
 
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
-	gamesettings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettings"
+	gamesettings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/data_transfer_objects/gamesettingstoml"
 )
 
 // LoadGameSettings - ゲーム設定ファイルを読み込みます

@@ -1,4 +1,4 @@
-package gamesettings
+package gamesettingstoml
 
 // Game - [Game] テーブル
 type Game struct {
