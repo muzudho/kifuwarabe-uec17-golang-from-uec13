@@ -62,7 +62,7 @@ func NewPosition() *Position {
 
 // InitPosition - 局面の初期化。
 func (position *Position) InitPosition(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel) {
-	position.Record = make([]*game_record_item.GameRecordItem, gamesettingsmodel.MaxMovesNum)
+	position.Record = make([]*game_record_item.GameRecordItem, observerGameSettingsModel.GetMaxMovesNum())
 	position.uctChildrenSize = observerGameSettingsModel.GetBoardArea() + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し

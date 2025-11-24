@@ -11,9 +11,6 @@ const (
 	Author = "Satoshi Takahashi"
 )
 
-// MaxMovesNum - 上限手数
-var MaxMovesNum moves_num.MovesNum
-
 // Directions4Array - ４方向（東、西、南、北）の番地。水平方向、垂直方向の順で並べた。Directions4型の順番に対応
 var Directions4Array = [4]point.Point{1, -1, 9, -9}
 
@@ -22,12 +19,15 @@ type ObserverGameSettingsModel struct {
 	boardSize int
 	// Komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
 	komi komi_float.KomiFloat
+	// MaxMovesNum - 上限手数
+	MaxMovesNum moves_num.MovesNum
 }
 
-func NewObserverGameSettingsModel(boardSize int, komi komi_float.KomiFloat) *ObserverGameSettingsModel {
+func NewObserverGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxMovesNum moves_num.MovesNum) *ObserverGameSettingsModel {
 	return &ObserverGameSettingsModel{
-		boardSize: boardSize,
-		komi:      komi,
+		boardSize:   boardSize,
+		komi:        komi,
+		MaxMovesNum: maxMovesNum,
 	}
 }
 
@@ -53,4 +53,8 @@ func (model *ObserverGameSettingsModel) GetSentinelBoardArea() int {
 
 func (model *ObserverGameSettingsModel) GetKomi() komi_float.KomiFloat {
 	return model.komi
+}
+
+func (model *ObserverGameSettingsModel) GetMaxMovesNum() moves_num.MovesNum {
+	return model.MaxMovesNum
 }
