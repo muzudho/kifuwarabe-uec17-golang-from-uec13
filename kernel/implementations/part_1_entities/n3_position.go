@@ -61,15 +61,15 @@ func NewPosition() *Position {
 }
 
 // InitPosition - 局面の初期化。
-func (position *Position) InitPosition() {
+func (position *Position) InitPosition(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel) {
 	position.Record = make([]*game_record_item.GameRecordItem, gamesettingsmodel.MaxMovesNum)
-	position.uctChildrenSize = gamesettingsmodel.BoardArea + 1
+	position.uctChildrenSize = observerGameSettingsModel.GetBoardArea() + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
 	var boardMax = gamesettingsmodel.SentinelBoardArea
 	position.board = make([]color.Color, boardMax)
 	position.checkBoard = make([]int, boardMax)
-	position.iteratorWithoutWall = position.CreateBoardIteratorWithoutWall()
+	position.iteratorWithoutWall = position.CreateBoardIteratorWithoutWall(observerGameSettingsModel)
 	gamesettingsmodel.Directions4Array = [4]point.Point{1, -1, point.Point(gamesettingsmodel.SentinelWidth), point.Point(-gamesettingsmodel.SentinelWidth)}
 
 	// 枠線
@@ -220,9 +220,9 @@ func (position *Position) UctChildrenSize() int {
 }
 
 // CreateBoardIteratorWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
-func (position *Position) CreateBoardIteratorWithoutWall() func(func(point.Point)) {
+func (position *Position) CreateBoardIteratorWithoutWall(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel) func(func(point.Point)) {
 
-	var boardSize = gamesettingsmodel.BoardSize
+	var boardSize = observerGameSettingsModel.GetBoardSize()
 	var boardIterator = func(onPoint func(point.Point)) {
 
 		// UEC: 改造ポイント

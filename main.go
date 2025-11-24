@@ -56,7 +56,7 @@ func main() {
 	gamesettingsmodel.MaxMovesNum = dto1.Game.GetMaxMoves()
 	gamesettingsmodel.SetBoardSize(dto1.Game.GetBoardSize())
 
-	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
+	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(dto1.Game.GetBoardSize())
 	var position = position.NewPosition()
 	all_playouts.InitPosition(observerGameSettingsModel, position)
 	position.SetBoard(gamesettingsctrl.GetBoardArray(&dto1))

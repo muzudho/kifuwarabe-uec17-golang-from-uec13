@@ -24,7 +24,7 @@ var FlagTestPlayout int
 
 func InitPosition(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
 	// 盤サイズが変わっていることもあるので、先に初期化します
-	position.InitPosition()
+	position.InitPosition(observerGameSettingsModel)
 
 	GettingOfWinnerOnDuringUCTPlayout = get_winner.WrapGettingOfWinner(position)
 	IsDislike = bad_empty_triangle.WrapIsDislike(position)
