@@ -9,7 +9,7 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
-	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 
 	// Use Cases
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
@@ -26,7 +26,7 @@ import (
 // PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
 func PlayComputerMoveLesson09a(
 	text_io1 i_text_io.ITextIO,
-	readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel,
+	readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel,
 	position1 *position.Position,
 	color1 color.Color) point.Point {
 

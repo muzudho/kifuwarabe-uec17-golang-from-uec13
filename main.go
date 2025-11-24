@@ -10,7 +10,6 @@ import (
 
 	// 1. Entities
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
-	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 
 	// 2. Use Cases
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
@@ -20,6 +19,7 @@ import (
 
 	// 6. Gateways
 	gamesettingsctrl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/controller/gamesettingsctrl"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 
 	// 7. Presenters
 	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
@@ -48,11 +48,11 @@ func main() {
 		"logs/fatal.log",
 		"logs/print.log")
 
-	//coding_obj.Console.Trace("# Author: %s\n", gamesettingsmodel.Author)
+	//coding_obj.Console.Trace("# Author: %s\n", gamesettings.Author)
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
 	var dto1 = gamesettingsctrl.LoadGameSettings("game_settings.toml", OnFatal)
-	var readonlyGameSettingsModel = gamesettingsmodel.NewReadonlyGameSettingsModel(dto1.Game.GetBoardSize(), dto1.Game.GetKomi(), dto1.Game.GetMaxMoves())
+	var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(dto1.Game.GetBoardSize(), dto1.Game.GetKomi(), dto1.Game.GetMaxMoves())
 	var position = position.NewPosition()
 	all_playouts.InitPosition(readonlyGameSettingsModel, position)
 	position.SetBoard(gamesettingsctrl.GetBoardArray(&dto1))

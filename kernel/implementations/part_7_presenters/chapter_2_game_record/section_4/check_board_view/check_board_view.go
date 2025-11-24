@@ -6,7 +6,7 @@ import (
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
-	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 )
 
 // " 0" - 空点
@@ -14,7 +14,7 @@ import (
 var numberLabels = [2]string{" 0", " 1"}
 
 // PrintCheckBoard - チェックボードを描画。
-func PrintCheckBoard(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position) {
+func PrintCheckBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position) {
 
 	var b = &strings.Builder{}
 	b.Grow(board_view.Sz8k)

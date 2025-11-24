@@ -11,11 +11,11 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	direction_4 "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/direction_4"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
-	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 )
 
 // WrapIsDislike - 盤を束縛変数として与えます
-func WrapIsDislike(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position) *func(color.Color, point.Point) bool {
+func WrapIsDislike(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position) *func(color.Color, point.Point) bool {
 	// 「手番の勝ちなら1、引き分けなら0、手番の負けなら-1を返す関数（自分視点）」を作成します
 	// * `color` - 石の色
 	var isDislike = func(color color.Color, z point.Point) bool {

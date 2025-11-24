@@ -6,12 +6,12 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
-	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 )
 
 // WrapGettingOfWinner - 盤を束縛変数として与えます
-func WrapGettingOfWinner(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position) *func(turnColor color.Color) int {
-	// 「手番の勝ちなら1、引き分けなら0、手番の負けなら-1を返す関数（自分視点）」を作成します
+func WrapGettingOfWinner(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position) *func(turnColor color.Color) int {
+	// 「手番の勝ちなら1、引き分けなら0、手番の負けなら-1を返す関数（自分視点）」を作成しますgamesettings
 	// * `turnColor` - 手番の石の色
 	var getWinner = func(turnColor color.Color) int {
 		return getWinner(readonlyGameSettingsModel, position, turnColor)
@@ -22,7 +22,7 @@ func WrapGettingOfWinner(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGa
 
 // 手番の勝ちなら1、引き分けなら0、手番の負けなら-1（自分視点）
 // * `turnColor` - 手番の石の色
-func getWinner(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position, turnColor color.Color) int {
+func getWinner(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position, turnColor color.Color) int {
 	var mk = [4]int{}
 	var kind = [3]int{0, 0, 0}
 	var score, blackArea, whiteArea, blackSum, whiteSum int

@@ -9,8 +9,7 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
-	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
-
+gamesettings
 	// User Cases
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	uct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
@@ -27,7 +26,7 @@ import (
 )
 
 // SelfPlay - コンピューター同士の対局。
-func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position) {
+func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position) {
 	coding_obj.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
 
 	var color = color.Black
@@ -59,7 +58,7 @@ func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesetting
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます
-func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position, color color.Color) point.Point {
+func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position, color color.Color) point.Point {
 
 	var start = time.Now()
 	all_playouts.AllPlayouts = 0

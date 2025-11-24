@@ -7,11 +7,11 @@ import (
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	uct_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
-	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 )
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
-func GetGtpZ(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position, z point.Point) string {
+func GetGtpZ(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position, z point.Point) string {
 	switch z {
 	case 0:
 		return "PASS"
@@ -35,7 +35,7 @@ func GetGtpZ(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsMo
 
 // GetZFromGtp - GTPの座標符号を z に変換します
 // * `gtp_z` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
-func GetZFromGtp(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position, gtp_z string) point.Point {
+func GetZFromGtp(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position, gtp_z string) point.Point {
 	gtp_z = strings.ToUpper(gtp_z)
 
 	if gtp_z == "PASS" {

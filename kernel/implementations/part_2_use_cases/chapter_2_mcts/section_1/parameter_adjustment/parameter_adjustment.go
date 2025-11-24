@@ -3,7 +3,7 @@ package parameter_adjustment
 import (
 	// Entities
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
-	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 )
 
 // プレイアウトする回数（あとで設定されます）
@@ -24,7 +24,7 @@ func GetRandomPigeonX(N int) int {
 	// return int(math.Ceil(float64(N) * randomPigeonA))
 }
 
-func AdjustParameters(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position) {
+func AdjustParameters(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position) {
 	var boardSize = readonlyGameSettingsModel.GetBoardSize()
 	if boardSize < 10 {
 		// 10路盤より小さいとき
