@@ -29,7 +29,7 @@ import (
 
 // LoopGtp - レッスン９a
 // GTP2NNGS に対応しているのでは？
-func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettingstoml.GameSettings, position *position.Position) {
+func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettingstoml.GameSettingsFile, position *position.Position) {
 	//coding_obj.Console.Trace("# きふわらべ UEC17 golang from UEC13 プログラム開始☆（＾～＾）\n")
 	//coding_obj.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
 

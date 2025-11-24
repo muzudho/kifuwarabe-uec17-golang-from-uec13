@@ -1,7 +1,7 @@
 package gamesettingstoml
 
-// GameSettings - Tomlファイル
-type GameSettings struct {
+// GameSettingsFile - Tomlファイル
+type GameSettingsFile struct {
 	// Nngs - No Name Go Server 接続設定
 	Nngs Nngs
 	// Game - 対局設定
