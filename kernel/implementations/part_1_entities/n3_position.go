@@ -146,8 +146,7 @@ func (position *Position) GetZFromXy(x int, y int) point.Point {
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
-func (position *Position) GetEmptyZ() point.Point {
-	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
+func (position *Position) GetEmptyZ(observerGameSettingsModel gamesettingsmodel.ObserverGameSettingsModel) point.Point {
 	var x, y int
 	var z point.Point
 	for {

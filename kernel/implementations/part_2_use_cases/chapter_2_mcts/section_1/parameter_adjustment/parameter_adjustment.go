@@ -24,8 +24,7 @@ func GetRandomPigeonX(N int) int {
 	// return int(math.Ceil(float64(N) * randomPigeonA))
 }
 
-func AdjustParameters(position *position.Position) {
-	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
+func AdjustParameters(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
 	var boardSize = observerGameSettingsModel.GetBoardSize()
 	if boardSize < 10 {
 		// 10路盤より小さいとき
