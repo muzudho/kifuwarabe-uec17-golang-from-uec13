@@ -15,19 +15,19 @@ const (
 var Directions4Array = [4]point.Point{1, -1, 9, -9}
 
 type ObserverGameSettingsModel struct {
-	// BoardSize - 何路盤
+	// boardSize - 何路盤
 	boardSize int
-	// Komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
+	// komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
 	komi komi_float.KomiFloat
-	// MaxMovesNum - 上限手数
-	MaxMovesNum moves_num.MovesNum
+	// maxMovesNum - 上限手数
+	maxMovesNum moves_num.MovesNum
 }
 
 func NewObserverGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxMovesNum moves_num.MovesNum) *ObserverGameSettingsModel {
 	return &ObserverGameSettingsModel{
 		boardSize:   boardSize,
 		komi:        komi,
-		MaxMovesNum: maxMovesNum,
+		maxMovesNum: maxMovesNum,
 	}
 }
 
@@ -56,5 +56,5 @@ func (model *ObserverGameSettingsModel) GetKomi() komi_float.KomiFloat {
 }
 
 func (model *ObserverGameSettingsModel) GetMaxMovesNum() moves_num.MovesNum {
-	return model.MaxMovesNum
+	return model.maxMovesNum
 }
