@@ -1,4 +1,4 @@
-package gamesettingstoml
+package gamesettings
 
 // Nngs - [Nngs] テーブル
 type Nngs struct {

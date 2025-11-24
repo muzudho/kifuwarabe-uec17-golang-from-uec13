@@ -1,4 +1,4 @@
-package gamesettingstoml
+package gamesettings
 
 // GameSettingsFile - Tomlファイル
 type GameSettingsFile struct {

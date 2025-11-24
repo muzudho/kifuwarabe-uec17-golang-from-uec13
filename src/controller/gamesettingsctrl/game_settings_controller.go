@@ -10,13 +10,13 @@ import (
 	"os"
 
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
-	dtogamesettingstoml "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/data_transfer_objects/gamesettingstoml"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 )
 
 // LoadGameSettings - ゲーム設定ファイルを読み込みます
 func LoadGameSettings(
 	path string,
-	onFatal func(string)) dtogamesettingstoml.GameSettingsFile {
+	onFatal func(string)) gamesettings.GameSettingsFile {
 
 	// ファイル読込
 	var fileData, err = os.ReadFile(path)
@@ -27,7 +27,7 @@ func LoadGameSettings(
 
 	// Toml解析
 	var binary = []byte(string(fileData))
-	var gamesettings1 = dtogamesettingstoml.GameSettingsFile{}
+	var gamesettings1 = gamesettings.GameSettingsFile{}
 	toml.Unmarshal(binary, &gamesettings1)
 
 	return gamesettings1
@@ -38,7 +38,7 @@ func LoadGameSettings(
 // 1: 黒石
 // 2: 白石
 // 3: 壁
-func GetBoardArray(gamesettings1 *dtogamesettingstoml.GameSettingsFile) []color.Color {
+func GetBoardArray(gamesettings1 *gamesettings.GameSettingsFile) []color.Color {
 	// 最後のカンマを削除しないと、要素数が 1 多くなってしまいます
 	var s = strings.TrimRight(gamesettings1.Game.BoardData, ",")
 	var nodes = strings.Split(s, ",")
