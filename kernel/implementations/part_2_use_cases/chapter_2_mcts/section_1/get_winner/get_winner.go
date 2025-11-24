@@ -10,11 +10,11 @@ import (
 )
 
 // WrapGettingOfWinner - 盤を束縛変数として与えます
-func WrapGettingOfWinner(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) *func(turnColor color.Color) int {
+func WrapGettingOfWinner(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) *func(turnColor color.Color) int {
 	// 「手番の勝ちなら1、引き分けなら0、手番の負けなら-1を返す関数（自分視点）」を作成します
 	// * `turnColor` - 手番の石の色
 	var getWinner = func(turnColor color.Color) int {
-		return getWinner(observerGameSettingsModel, position, turnColor)
+		return getWinner(readonlyGameSettingsModel, position, turnColor)
 	}
 
 	return &getWinner
@@ -22,7 +22,7 @@ func WrapGettingOfWinner(observerGameSettingsModel *gamesettingsmodel.ObserverGa
 
 // 手番の勝ちなら1、引き分けなら0、手番の負けなら-1（自分視点）
 // * `turnColor` - 手番の石の色
-func getWinner(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, turnColor color.Color) int {
+func getWinner(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, turnColor color.Color) int {
 	var mk = [4]int{}
 	var kind = [3]int{0, 0, 0}
 	var score, blackArea, whiteArea, blackSum, whiteSum int
@@ -51,7 +51,7 @@ func getWinner(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettings
 	whiteSum = kind[2] + whiteArea
 	score = blackSum - whiteSum
 	var win = 0
-	if 0 < komi_float.KomiFloat(score)-observerGameSettingsModel.GetKomi() {
+	if 0 < komi_float.KomiFloat(score)-readonlyGameSettingsModel.GetKomi() {
 		win = 1
 	}
 	if turnColor == 2 {

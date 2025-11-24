@@ -11,7 +11,7 @@ import (
 )
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
-func GetGtpZ(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, z point.Point) string {
+func GetGtpZ(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, z point.Point) string {
 	switch z {
 	case 0:
 		return "PASS"
@@ -19,8 +19,8 @@ func GetGtpZ(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsMo
 		return "ILLEGAL" // GTP の仕様外です
 	}
 
-	var y = int(z) / observerGameSettingsModel.GetSentinelWidth()
-	var x = int(z) % observerGameSettingsModel.GetSentinelWidth()
+	var y = int(z) / readonlyGameSettingsModel.GetSentinelWidth()
+	var x = int(z) % readonlyGameSettingsModel.GetSentinelWidth()
 
 	// 筋が25（'Z'）より大きくなることは想定していません
 	var alphabet_x = 'A' + x - 1
@@ -35,7 +35,7 @@ func GetGtpZ(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsMo
 
 // GetZFromGtp - GTPの座標符号を z に変換します
 // * `gtp_z` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
-func GetZFromGtp(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, gtp_z string) point.Point {
+func GetZFromGtp(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, gtp_z string) point.Point {
 	gtp_z = strings.ToUpper(gtp_z)
 
 	if gtp_z == "PASS" {
@@ -56,7 +56,7 @@ func GetZFromGtp(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettin
 	}
 
 	// インデックス
-	var z = position.GetZFromXy(observerGameSettingsModel, int(x)-1, y-1)
+	var z = position.GetZFromXy(readonlyGameSettingsModel, int(x)-1, y-1)
 	// code.Console.Trace("# x=%d y=%d z=%d z4=%04d\n", x, y, z, position.GetZ4(z))
 	return z
 }

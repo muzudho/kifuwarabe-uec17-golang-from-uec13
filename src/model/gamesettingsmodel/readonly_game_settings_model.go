@@ -23,7 +23,7 @@ type ObserverGameSettingsModel struct {
 	maxMovesNum moves_num.MovesNum
 }
 
-func NewObserverGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxMovesNum moves_num.MovesNum) *ObserverGameSettingsModel {
+func NewReadonlyGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxMovesNum moves_num.MovesNum) *ObserverGameSettingsModel {
 	return &ObserverGameSettingsModel{
 		boardSize:   boardSize,
 		komi:        komi,

@@ -24,7 +24,7 @@ import (
 // # Return
 // (bestZ int, winRate float64)
 func GetBestZByUct(
-	observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
+	readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
 	position *position.Position,
 	color color.Color,
 	print_calc *func(*position.Position, int, point.Point, float64, int),
@@ -36,9 +36,9 @@ func GetBestZByUct(
 	var uctLoopCount = parameter_adjustment.UctLoopCount
 	for i := 0; i < uctLoopCount; i++ {
 		// 一時記憶
-		var copiedPosition = position.CopyPosition(observerGameSettingsModel)
+		var copiedPosition = position.CopyPosition(readonlyGameSettingsModel)
 
-		SearchUct(observerGameSettingsModel, position, color, next)
+		SearchUct(readonlyGameSettingsModel, position, color, next)
 
 		// 復元
 		position.ImportPosition(copiedPosition)
@@ -68,7 +68,7 @@ func GetBestZByUct(
 
 // SearchUct - 再帰関数。 GetBestZByUct() から呼び出されます
 func SearchUct(
-	observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
+	readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
 	position *position.Position,
 	color color.Color,
 	nodeN int) int {
@@ -92,12 +92,12 @@ func SearchUct(
 
 	var winner int // 手番が勝ちなら1、引分けなら0、手番の負けなら-1 としてください
 	if c.Games <= 0 {
-		winner = -playout.Playout(observerGameSettingsModel, position, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
+		winner = -playout.Playout(readonlyGameSettingsModel, position, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
 	} else {
 		if c.Next == uct_struct.NodeEmpty {
 			c.Next = node_struct.CreateNode(position)
 		}
-		winner = -SearchUct(observerGameSettingsModel, position, color.Flip(), c.Next)
+		winner = -SearchUct(readonlyGameSettingsModel, position, color.Flip(), c.Next)
 	}
 	c.Rate = (c.Rate*float64(c.Games) + float64(winner)) / float64(c.Games+1)
 	c.Games++

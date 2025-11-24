@@ -19,7 +19,7 @@ import (
 //
 // 手番が勝ったら 1、引分けなら 0、 相手が勝ったら -1
 func Playout(
-	observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
+	readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
 	position *position.Position,
 	turnColor color.Color,
 	getWinner *func(color.Color) int,
@@ -29,7 +29,7 @@ func Playout(
 
 	var color = turnColor
 	var previousZ point.Point = 0
-	var boardMax = observerGameSettingsModel.GetSentinelBoardArea()
+	var boardMax = readonlyGameSettingsModel.GetSentinelBoardArea()
 
 	var playoutTrialCount = parameter_adjustment.PlayoutTrialCount
 	for trial := 0; trial < playoutTrialCount; trial++ {

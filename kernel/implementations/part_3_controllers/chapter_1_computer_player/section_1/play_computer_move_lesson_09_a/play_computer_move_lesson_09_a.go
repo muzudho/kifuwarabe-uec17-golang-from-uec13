@@ -26,7 +26,7 @@ import (
 // PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
 func PlayComputerMoveLesson09a(
 	text_io1 i_text_io.ITextIO,
-	observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
+	readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
 	position1 *position.Position,
 	color1 color.Color) point.Point {
 
@@ -34,11 +34,11 @@ func PlayComputerMoveLesson09a(
 	all_playouts.AllPlayouts = 0
 
 	var z1, winRate1 = uct.GetBestZByUct(
-		observerGameSettingsModel,
+		readonlyGameSettingsModel,
 		position1,
 		color1,
-		uct_calc_info.CreatePrintingOfCalc(text_io1, observerGameSettingsModel),
-		uct_calc_info.CreatePrintingOfCalcFin(text_io1, observerGameSettingsModel))
+		uct_calc_info.CreatePrintingOfCalc(text_io1, readonlyGameSettingsModel),
+		uct_calc_info.CreatePrintingOfCalcFin(text_io1, readonlyGameSettingsModel))
 
 	if 1 < position1.MovesNum && // 初手ではないとして
 		position1.Record[position1.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで
@@ -56,7 +56,7 @@ func PlayComputerMoveLesson09a(
 	recItem1.Time = sec1
 	position1.PutStoneOnRecord(z1, color1, recItem1)
 
-	// FIXME: board_view.PrintBoard(observerGameSettingsModel, position1, position1.MovesNum)
+	// FIXME: board_view.PrintBoard(readonlyGameSettingsModel, position1, position1.MovesNum)
 
 	return z1
 }

@@ -115,8 +115,8 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettingstoml.Game
 				}
 
 				gameSettingsDto1.Game.BoardSize = int8(boardSize)
-				var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-				all_playouts.InitPosition(observerGameSettingsModel, position)
+				var readonlyGameSettingsModel = gamesettingsmodel.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
+				all_playouts.InitPosition(readonlyGameSettingsModel, position)
 
 				text_io1.SendCommand("= \n\n")
 			} else {
@@ -151,8 +151,8 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettingstoml.Game
 			// ```shell
 			// clear_board
 			// ```
-			var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-			all_playouts.InitPosition(observerGameSettingsModel, position)
+			var readonlyGameSettingsModel = gamesettingsmodel.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
+			all_playouts.InitPosition(readonlyGameSettingsModel, position)
 			text_io1.SendCommand("= \n\n")
 
 		case "play":
@@ -176,8 +176,8 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettingstoml.Game
 					color = 1
 				}
 
-				var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-				var z = z_code.GetZFromGtp(observerGameSettingsModel, position, tokens[2])
+				var readonlyGameSettingsModel = gamesettingsmodel.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
+				var z = z_code.GetZFromGtp(readonlyGameSettingsModel, position, tokens[2])
 				var recItem = new(game_record_item.GameRecordItem)
 				recItem.Z = z
 				recItem.Time = 0
@@ -202,9 +202,9 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettingstoml.Game
 				color1 = 1
 			}
 
-			var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-			var z = play_computer_move_lesson_09_a.PlayComputerMoveLesson09a(text_io1, observerGameSettingsModel, position, color1)
-			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", z_code.GetGtpZ(observerGameSettingsModel, position, z)))
+			var readonlyGameSettingsModel = gamesettingsmodel.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
+			var z = play_computer_move_lesson_09_a.PlayComputerMoveLesson09a(text_io1, readonlyGameSettingsModel, position, color1)
+			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", z_code.GetGtpZ(readonlyGameSettingsModel, position, z)))
 
 		// ========================================
 		// 独自実装
@@ -215,8 +215,8 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettingstoml.Game
 			// -board
 			// ```
 			text_io1.SendCommand("= \n")
-			var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-			board_view.PrintBoard(observerGameSettingsModel, position, position.MovesNum)
+			var readonlyGameSettingsModel = gamesettingsmodel.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
+			board_view.PrintBoard(readonlyGameSettingsModel, position, position.MovesNum)
 			text_io1.SendCommand("\n\n")
 
 		default:

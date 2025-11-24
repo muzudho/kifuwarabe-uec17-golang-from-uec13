@@ -8,14 +8,14 @@ import (
 )
 
 // PrintSgf - SGF形式の棋譜表示。
-func PrintSgf(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, movesNum int, gameRecord []*game_record_item.GameRecordItem) {
-	var boardSize = observerGameSettingsModel.GetBoardSize()
+func PrintSgf(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, movesNum int, gameRecord []*game_record_item.GameRecordItem) {
+	var boardSize = readonlyGameSettingsModel.GetBoardSize()
 
-	coding_obj.Console.Print("(;GM[1]SZ[%d]KM[%.1f]PB[]PW[]\n", boardSize, observerGameSettingsModel.GetKomi())
+	coding_obj.Console.Print("(;GM[1]SZ[%d]KM[%.1f]PB[]PW[]\n", boardSize, readonlyGameSettingsModel.GetKomi())
 	for i := 0; i < movesNum; i++ {
 		var z = gameRecord[i].GetZ()
-		var y = int(z) / observerGameSettingsModel.GetSentinelWidth()
-		var x = int(z) - y*observerGameSettingsModel.GetSentinelWidth()
+		var y = int(z) / readonlyGameSettingsModel.GetSentinelWidth()
+		var x = int(z) - y*readonlyGameSettingsModel.GetSentinelWidth()
 		var sStone = [2]string{"B", "W"}
 		coding_obj.Console.Print(";%s", sStone[i&1])
 		if z == 0 {

@@ -27,22 +27,22 @@ import (
 )
 
 // SelfPlay - コンピューター同士の対局。
-func SelfPlay(text_io1 i_text_io.ITextIO, observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
+func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
 	coding_obj.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
 
 	var color = color.Black
 
 	for {
-		var z = GetComputerMoveDuringSelfPlay(text_io1, observerGameSettingsModel, position, color)
+		var z = GetComputerMoveDuringSelfPlay(text_io1, readonlyGameSettingsModel, position, color)
 
 		var recItem = new(game_record_item.GameRecordItem)
 		recItem.Z = z
 		position.PutStoneOnRecord(z, color, recItem)
 
-		coding_obj.Console.Print("z=%s,color=%d", z_code.GetGtpZ(observerGameSettingsModel, position, z), color) // テスト
+		coding_obj.Console.Print("z=%s,color=%d", z_code.GetGtpZ(readonlyGameSettingsModel, position, z), color) // テスト
 
-		// p.PrintCheckBoard(observerGameSettingsModel, position)                                        // テスト
-		board_view.PrintBoard(observerGameSettingsModel, position, position.MovesNum)
+		// p.PrintCheckBoard(readonlyGameSettingsModel, position)                                        // テスト
+		board_view.PrintBoard(readonlyGameSettingsModel, position, position.MovesNum)
 
 		// パスで２手目以降で棋譜の１つ前（相手）もパスなら終了します。
 		if z == point.Pass && 1 < position.MovesNum && position.Record[position.MovesNum-2].GetZ() == point.Pass {
@@ -55,24 +55,24 @@ func SelfPlay(text_io1 i_text_io.ITextIO, observerGameSettingsModel *gamesetting
 		color = color.Flip()
 	}
 
-	sgf.PrintSgf(observerGameSettingsModel, position, position.MovesNum, position.Record)
+	sgf.PrintSgf(readonlyGameSettingsModel, position, position.MovesNum, position.Record)
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます
-func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, color color.Color) point.Point {
+func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, color color.Color) point.Point {
 
 	var start = time.Now()
 	all_playouts.AllPlayouts = 0
 
 	var z, winRate = uct.GetBestZByUct(
-		observerGameSettingsModel,
+		readonlyGameSettingsModel,
 		position,
 		color,
-		uct_calc_info.CreatePrintingOfCalc(text_io1, observerGameSettingsModel),
-		uct_calc_info.CreatePrintingOfCalcFin(text_io1, observerGameSettingsModel))
+		uct_calc_info.CreatePrintingOfCalc(text_io1, readonlyGameSettingsModel),
+		uct_calc_info.CreatePrintingOfCalcFin(text_io1, readonlyGameSettingsModel))
 
 	var sec = time.Since(start).Seconds()
 	text_io1.LogInfo(fmt.Sprintf("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(observerGameSettingsModel, z), winRate, position.MovesNum, color, all_playouts.AllPlayouts))
+		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(readonlyGameSettingsModel, z), winRate, position.MovesNum, color, all_playouts.AllPlayouts))
 	return z
 }

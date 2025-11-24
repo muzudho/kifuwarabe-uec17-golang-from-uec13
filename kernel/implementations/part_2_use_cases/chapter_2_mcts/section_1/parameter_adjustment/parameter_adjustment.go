@@ -24,8 +24,8 @@ func GetRandomPigeonX(N int) int {
 	// return int(math.Ceil(float64(N) * randomPigeonA))
 }
 
-func AdjustParameters(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
-	var boardSize = observerGameSettingsModel.GetBoardSize()
+func AdjustParameters(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
+	var boardSize = readonlyGameSettingsModel.GetBoardSize()
 	if boardSize < 10 {
 		// 10路盤より小さいとき
 		PlayoutTrialCount = boardSize*boardSize + 200
@@ -35,15 +35,15 @@ func AdjustParameters(observerGameSettingsModel *gamesettingsmodel.ObserverGameS
 
 	// UEC: 改造ポイント
 	// 盤面全体を１回は選ぶことを、完璧ではありませんが、ある程度の精度でカバーします
-	// UctLoopCount = GetRandomPigeonX(observerGameSettingsModel.GetBoardArea())
+	// UctLoopCount = GetRandomPigeonX(readonlyGameSettingsModel.GetBoardArea())
 	// ↓
 	// 持ち時間３０分（１８００秒）。上限手数４００。１人２００。つまり、１手あたり０.９秒。
 	// boardSize * 3 なら６秒。 boardSize * 5 なら１１秒。 boardSize * 4 ならピッタリ９秒。 boardSize * 3.5 なら７秒。 boardSize * 3.75 なら８秒。
 	UctLoopCount = 3 // 動作テスト用［ペンキ塗り］
-	//UctLoopCount = int(float64(observerGameSettingsModel.GetBoardArea()) * 3) // 試行時間６秒
-	//UctLoopCount = int(float64(observerGameSettingsModel.GetBoardArea()) * 3.75) // 試行時間８秒
+	//UctLoopCount = int(float64(readonlyGameSettingsModel.GetBoardArea()) * 3) // 試行時間６秒
+	//UctLoopCount = int(float64(readonlyGameSettingsModel.GetBoardArea()) * 3.75) // 試行時間８秒
 	// FIXME: ランダム・ピジョン（17ぐらい）を使いたいが、処理速度が遅いので、代わりに小さな数字を入れる。
 	// ↓
 	// 時間いっぱい考えさせてもペンキ塗りを始めるので、少なくする。
-	//UctLoopCount = int(float64(observerGameSettingsModel.GetBoardArea())*0.5) + 1
+	//UctLoopCount = int(float64(readonlyGameSettingsModel.GetBoardArea())*0.5) + 1
 }
