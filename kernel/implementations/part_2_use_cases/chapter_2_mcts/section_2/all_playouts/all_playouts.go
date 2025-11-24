@@ -26,7 +26,7 @@ func InitPosition(observerGameSettingsModel *gamesettingsmodel.ObserverGameSetti
 	// 盤サイズが変わっていることもあるので、先に初期化します
 	position.InitPosition(observerGameSettingsModel)
 
-	GettingOfWinnerOnDuringUCTPlayout = get_winner.WrapGettingOfWinner(position)
+	GettingOfWinnerOnDuringUCTPlayout = get_winner.WrapGettingOfWinner(observerGameSettingsModel, position)
 	IsDislike = bad_empty_triangle.WrapIsDislike(position)
 
 	parameter_adjustment.AdjustParameters(observerGameSettingsModel, position)

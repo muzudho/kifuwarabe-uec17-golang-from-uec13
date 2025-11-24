@@ -11,7 +11,7 @@ import (
 func PrintSgf(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, movesNum int, gameRecord []*game_record_item.GameRecordItem) {
 	var boardSize = observerGameSettingsModel.GetBoardSize()
 
-	coding_obj.Console.Print("(;GM[1]SZ[%d]KM[%.1f]PB[]PW[]\n", boardSize, gamesettingsmodel.Komi)
+	coding_obj.Console.Print("(;GM[1]SZ[%d]KM[%.1f]PB[]PW[]\n", boardSize, observerGameSettingsModel.GetKomi())
 	for i := 0; i < movesNum; i++ {
 		var z = gameRecord[i].GetZ()
 		var y = int(z) / observerGameSettingsModel.GetSentinelWidth()

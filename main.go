@@ -10,6 +10,7 @@ import (
 
 	// 1. Entities
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
+	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 
 	// 2. Use Cases
@@ -52,10 +53,9 @@ func main() {
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
 	var dto1 = gamesettingsctrl.LoadGameSettings("game_settings.toml", OnFatal)
-	gamesettingsmodel.Komi = dto1.Game.GetKomi()
 	gamesettingsmodel.MaxMovesNum = dto1.Game.GetMaxMoves()
 
-	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(dto1.Game.GetBoardSize())
+	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(dto1.Game.GetBoardSize(), komi_float.KomiFloat(dto1.Game.Komi))
 	var position = position.NewPosition()
 	all_playouts.InitPosition(observerGameSettingsModel, position)
 	position.SetBoard(gamesettingsctrl.GetBoardArray(&dto1))

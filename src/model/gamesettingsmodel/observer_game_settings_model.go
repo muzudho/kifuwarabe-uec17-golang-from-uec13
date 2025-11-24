@@ -11,9 +11,6 @@ const (
 	Author = "Satoshi Takahashi"
 )
 
-// Komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
-var Komi komi_float.KomiFloat
-
 // MaxMovesNum - 上限手数
 var MaxMovesNum moves_num.MovesNum
 
@@ -23,11 +20,14 @@ var Directions4Array = [4]point.Point{1, -1, 9, -9}
 type ObserverGameSettingsModel struct {
 	// BoardSize - 何路盤
 	boardSize int
+	// Komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
+	komi komi_float.KomiFloat
 }
 
-func NewObserverGameSettingsModel(boardSize int) *ObserverGameSettingsModel {
+func NewObserverGameSettingsModel(boardSize int, komi komi_float.KomiFloat) *ObserverGameSettingsModel {
 	return &ObserverGameSettingsModel{
 		boardSize: boardSize,
+		komi:      komi,
 	}
 }
 
@@ -49,4 +49,8 @@ func (model *ObserverGameSettingsModel) GetSentinelWidth() int {
 // GetSentinelBoardArea - 壁付き盤の面積
 func (model *ObserverGameSettingsModel) GetSentinelBoardArea() int {
 	return model.GetSentinelWidth() * model.GetSentinelWidth()
+}
+
+func (model *ObserverGameSettingsModel) GetKomi() komi_float.KomiFloat {
+	return model.komi
 }
