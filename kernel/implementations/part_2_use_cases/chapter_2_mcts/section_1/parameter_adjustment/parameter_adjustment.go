@@ -3,7 +3,7 @@ package parameter_adjustment
 import (
 	// Entities
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
-	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 )
 
 // プレイアウトする回数（あとで設定されます）
