@@ -1,10 +1,10 @@
 package sgf
 
 import (
-	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
+	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 )
 
 // PrintSgf - SGF形式の棋譜表示。
