@@ -7,8 +7,8 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 )
 
-// // GameRuleSettings - 対局ルール設定
-// type GameRuleSettings struct {
+// // GameSettingsModel - 対局設定
+// type GameSettingsModel struct {
 // }
 
 const (
