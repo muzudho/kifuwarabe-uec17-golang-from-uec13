@@ -8,7 +8,7 @@ import (
 )
 
 // PrintSgf - SGF形式の棋譜表示。
-func PrintSgf(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position, movesNum int, gameRecord []*game_record_item.GameRecordItem) {
+func PrintSgf(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position, movesNum int, gameRecord []*game_record_item.GameRecordItem) {
 	var boardSize = readonlyGameSettingsModel.GetBoardSize()
 
 	logger.Console.Print("(;GM[1]SZ[%d]KM[%.1f]PB[]PW[]\n", boardSize, readonlyGameSettingsModel.GetKomi())

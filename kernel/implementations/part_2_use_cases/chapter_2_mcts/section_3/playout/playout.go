@@ -20,7 +20,7 @@ import (
 // 手番が勝ったら 1、引分けなら 0、 相手が勝ったら -1
 func Playout(
 	readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel,
-	position *position.Position,
+	position1 *position.Position,
 	turnColor color.Color,
 	getWinner *func(color.Color) int,
 	isDislike *func(color.Color, point.Point) bool) int {
@@ -40,12 +40,12 @@ func Playout(
 		// 空点を記憶します
 		// TODO 空点を差分更新できないか？ 毎回スキャンは重くないか？
 		var onPoint = func(z point.Point) {
-			if position.IsEmpty(z) { // 空点なら
+			if position1.IsEmpty(z) { // 空点なら
 				emptyArray[emptyLength] = z
 				emptyLength++
 			}
 		}
-		position.IterateWithoutWall(onPoint)
+		position1.IterateWithoutWall(onPoint)
 
 		var r = 0
 		var dislikeZ = point.Pass
@@ -68,7 +68,7 @@ func Playout(
 				z = emptyArray[r]
 			}
 
-			var err = position.PutStone(readonlyGameSettingsModel, z, color)
+			var err = position1.PutStone(readonlyGameSettingsModel, z, color)
 			if err == 0 { // 石が置けたか、パスなら
 
 				if z == point.Pass || // パスか、
@@ -89,8 +89,8 @@ func Playout(
 
 		// テストのときは棋譜を残します
 		if all_playouts.FlagTestPlayout != 0 {
-			position.Record[position.MovesNum].SetZ(z)
-			position.MovesNum++
+			position1.Record[position1.MovesNum].SetZ(z)
+			position1.MovesNum++
 		}
 
 		if z == 0 && previousZ == 0 {

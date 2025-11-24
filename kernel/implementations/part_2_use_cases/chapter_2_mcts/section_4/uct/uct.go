@@ -25,23 +25,23 @@ import (
 // (bestZ int, winRate float64)
 func GetBestZByUct(
 	readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel,
-	position *position.Position,
+	position1 *position.Position,
 	color color.Color,
 	print_calc *func(*position.Position, int, point.Point, float64, int),
 	print_calc_fin *func(*position.Position, point.Point, float64, int, int, int)) (point.Point, float64) {
 
 	// UCT計算フェーズ
 	node_struct.NodeNum = 0 // カウンターリセット
-	var next = node_struct.CreateNode(position)
+	var next = node_struct.CreateNode(position1)
 	var uctLoopCount = parameter_adjustment.UctLoopCount
 	for i := 0; i < uctLoopCount; i++ {
 		// 一時記憶
-		var copiedPosition = position.CopyPosition(readonlyGameSettingsModel)
+		var copiedPosition = position1.CopyPosition(readonlyGameSettingsModel)
 
-		SearchUct(readonlyGameSettingsModel, position, color, next)
+		SearchUct(readonlyGameSettingsModel, position1, color, next)
 
 		// 復元
-		position.ImportPosition(copiedPosition)
+		position1.ImportPosition(copiedPosition)
 	}
 
 	// ベスト値検索フェーズ
@@ -54,22 +54,22 @@ func GetBestZByUct(
 			bestI = i
 			max = c.Games
 		}
-		// FIXME: (*print_calc)(position, i, c.Z, c.Rate, c.Games)
-		// text_io1.LogInfo("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, p.GetGtpZ(position, c.Z), c.Rate, c.Games)
+		// FIXME: (*print_calc)(position1, i, c.Z, c.Rate, c.Games)
+		// text_io1.LogInfo("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, p.GetGtpZ(position1, c.Z), c.Rate, c.Games)
 	}
 
 	// 結果
 	var bestZ = pN.Children[bestI].Z
-	// FIXME: (*print_calc_fin)(position, bestZ, pN.Children[bestI].Rate, max, all_playouts.AllPlayouts, node_struct.NodeNum)
+	// FIXME: (*print_calc_fin)(position1, bestZ, pN.Children[bestI].Rate, max, all_playouts.AllPlayouts, node_struct.NodeNum)
 	//text_io1.LogInfo("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
-	//	p.GetGtpZ(position, bestZ), pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
+	//	p.GetGtpZ(position1, bestZ), pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
 	return bestZ, pN.Children[bestI].Rate
 }
 
 // SearchUct - 再帰関数。 GetBestZByUct() から呼び出されます
 func SearchUct(
 	readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel,
-	position *position.Position,
+	position1 *position.Position,
 	color color.Color,
 	nodeN int) int {
 
@@ -81,7 +81,7 @@ func SearchUct(
 		c = &pN.Children[selectI]
 		var z = c.Z
 
-		var err = position.PutStone(readonlyGameSettingsModel, z, color)
+		var err = position1.PutStone(readonlyGameSettingsModel, z, color)
 		if err == 0 { // 石が置けたなら
 			break
 		}
@@ -92,12 +92,12 @@ func SearchUct(
 
 	var winner int // 手番が勝ちなら1、引分けなら0、手番の負けなら-1 としてください
 	if c.Games <= 0 {
-		winner = -playout.Playout(readonlyGameSettingsModel, position, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
+		winner = -playout.Playout(readonlyGameSettingsModel, position1, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
 	} else {
 		if c.Next == uct_struct.NodeEmpty {
-			c.Next = node_struct.CreateNode(position)
+			c.Next = node_struct.CreateNode(position1)
 		}
-		winner = -SearchUct(readonlyGameSettingsModel, position, color.Flip(), c.Next)
+		winner = -SearchUct(readonlyGameSettingsModel, position1, color.Flip(), c.Next)
 	}
 	c.Rate = (c.Rate*float64(c.Games) + float64(winner)) / float64(c.Games+1)
 	c.Games++

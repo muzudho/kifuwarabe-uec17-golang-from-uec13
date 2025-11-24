@@ -11,7 +11,7 @@ import (
 )
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
-func GetGtpZ(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position, z point.Point) string {
+func GetGtpZ(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position, z point.Point) string {
 	switch z {
 	case 0:
 		return "PASS"
@@ -35,7 +35,7 @@ func GetGtpZ(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, 
 
 // GetZFromGtp - GTPの座標符号を z に変換します
 // * `gtp_z` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
-func GetZFromGtp(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position, gtp_z string) point.Point {
+func GetZFromGtp(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position, gtp_z string) point.Point {
 	gtp_z = strings.ToUpper(gtp_z)
 
 	if gtp_z == "PASS" {
@@ -56,7 +56,7 @@ func GetZFromGtp(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsMod
 	}
 
 	// インデックス
-	var z = position.GetZFromXy(readonlyGameSettingsModel, int(x)-1, y-1)
-	// code.Console.Trace("# x=%d y=%d z=%d z4=%04d\n", x, y, z, position.GetZ4(z))
+	var z = position1.GetZFromXy(readonlyGameSettingsModel, int(x)-1, y-1)
+	// code.Console.Trace("# x=%d y=%d z=%d z4=%04d\n", x, y, z, position1.GetZ4(z))
 	return z
 }

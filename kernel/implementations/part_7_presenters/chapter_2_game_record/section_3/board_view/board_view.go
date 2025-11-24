@@ -68,7 +68,7 @@ var leftVerticalEdgeLabels = [4]string{".", "x", "o", "|"}
 var rightVerticalEdgeLabels = [4]string{" .", " x", " o", " |"}
 
 // PrintBoard - 盤を描画。
-func PrintBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position, movesNum int) {
+func PrintBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position, movesNum int) {
 
 	var b = &strings.Builder{}
 	b.Grow(Sz8k)
@@ -81,41 +81,41 @@ func PrintBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsMode
 		b.WriteString(LabelOfColumns[x+1])
 	}
 	// Header (line)
-	b.WriteString("\n  ")                                // number space
-	b.WriteString(leftCornerLabels[position.ColorAt(0)]) // +
+	b.WriteString("\n  ")                                 // number space
+	b.WriteString(leftCornerLabels[position1.ColorAt(0)]) // +
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(horizontalEdgeLabels[position.ColorAt(point.Point(x+1))]) // --
+		b.WriteString(horizontalEdgeLabels[position1.ColorAt(point.Point(x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(readonlyGameSettingsModel.GetSentinelWidth()-1))]) // -+
+	b.WriteString(rightCornerLabels[position1.ColorAt(point.Point(readonlyGameSettingsModel.GetSentinelWidth()-1))]) // -+
 	b.WriteString("\n")
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(LabelOfRows[y+1])                                                                                          // number
-		b.WriteString(leftVerticalEdgeLabels[position.ColorAt(point.Point((y+1)*readonlyGameSettingsModel.GetSentinelWidth()))]) // |
+		b.WriteString(LabelOfRows[y+1])                                                                                           // number
+		b.WriteString(leftVerticalEdgeLabels[position1.ColorAt(point.Point((y+1)*readonlyGameSettingsModel.GetSentinelWidth()))]) // |
 		for x := 0; x < boardSize; x++ {
-			b.WriteString(stoneLabels[position.ColorAtXy(readonlyGameSettingsModel, x, y)])
+			b.WriteString(stoneLabels[position1.ColorAtXy(readonlyGameSettingsModel, x, y)])
 		}
-		b.WriteString(rightVerticalEdgeLabels[position.ColorAt(point.Point((y+2)*readonlyGameSettingsModel.GetSentinelWidth()-1))]) // " |"
+		b.WriteString(rightVerticalEdgeLabels[position1.ColorAt(point.Point((y+2)*readonlyGameSettingsModel.GetSentinelWidth()-1))]) // " |"
 		b.WriteString("\n")
 	}
 
 	// Footer
 	b.WriteString("  ") // number space
 	var a = readonlyGameSettingsModel.GetSentinelWidth() * (readonlyGameSettingsModel.GetSentinelWidth() - 1)
-	b.WriteString(leftCornerLabels[position.ColorAt(point.Point(a))]) // +
+	b.WriteString(leftCornerLabels[position1.ColorAt(point.Point(a))]) // +
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(horizontalEdgeLabels[position.ColorAt(point.Point(a+x+1))]) // --
+		b.WriteString(horizontalEdgeLabels[position1.ColorAt(point.Point(a+x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(readonlyGameSettingsModel.GetSentinelBoardArea()-1))]) // -+
+	b.WriteString(rightCornerLabels[position1.ColorAt(point.Point(readonlyGameSettingsModel.GetSentinelBoardArea()-1))]) // -+
 	b.WriteString("\n")
 
 	// Info
 	b.WriteString("  KoZ=")
-	if position.KoZ == point.Pass {
+	if position1.KoZ == point.Pass {
 		b.WriteString("_")
 	} else {
-		b.WriteString(z_code.GetGtpZ(readonlyGameSettingsModel, position, position.KoZ))
+		b.WriteString(z_code.GetGtpZ(readonlyGameSettingsModel, position1, position1.KoZ))
 	}
 	if movesNum != -1 {
 		b.WriteString(",movesNum=")

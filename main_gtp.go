@@ -28,7 +28,7 @@ import (
 
 // LoopGtp - レッスン９a
 // GTP2NNGS に対応しているのでは？
-func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSettingsFile, position *position.Position) {
+func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSettingsFile, position1 *position.Position) {
 	//logger.Console.Trace("# きふわらべ UEC17 golang from UEC13 プログラム開始☆（＾～＾）\n")
 	//logger.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
 
@@ -115,7 +115,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 
 				gameSettingsDto1.Game.BoardSize = int8(boardSize)
 				var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-				all_playouts.InitPosition(readonlyGameSettingsModel, position)
+				all_playouts.InitPosition(readonlyGameSettingsModel, position1)
 
 				text_io1.SendCommand("= \n\n")
 			} else {
@@ -151,7 +151,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 			// clear_board
 			// ```
 			var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-			all_playouts.InitPosition(readonlyGameSettingsModel, position)
+			all_playouts.InitPosition(readonlyGameSettingsModel, position1)
 			text_io1.SendCommand("= \n\n")
 
 		case "play":
@@ -176,11 +176,11 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 				}
 
 				var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-				var z = z_code.GetZFromGtp(readonlyGameSettingsModel, position, tokens[2])
+				var z = z_code.GetZFromGtp(readonlyGameSettingsModel, position1, tokens[2])
 				var recItem = new(game_record_item.GameRecordItem)
 				recItem.Z = z
 				recItem.Time = 0
-				position.PutStoneOnRecord(readonlyGameSettingsModel, z, color, recItem)
+				position1.PutStoneOnRecord(readonlyGameSettingsModel, z, color, recItem)
 
 				text_io1.SendCommand("= \n\n")
 			}
@@ -202,8 +202,8 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 			}
 
 			var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-			var z = play_computer_move_lesson_09_a.PlayComputerMoveLesson09a(text_io1, readonlyGameSettingsModel, position, color1)
-			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", z_code.GetGtpZ(readonlyGameSettingsModel, position, z)))
+			var z = play_computer_move_lesson_09_a.PlayComputerMoveLesson09a(text_io1, readonlyGameSettingsModel, position1, color1)
+			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", z_code.GetGtpZ(readonlyGameSettingsModel, position1, z)))
 
 		// ========================================
 		// 独自実装
@@ -215,7 +215,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 			// ```
 			text_io1.SendCommand("= \n")
 			var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-			board_view.PrintBoard(readonlyGameSettingsModel, position, position.MovesNum)
+			board_view.PrintBoard(readonlyGameSettingsModel, position1, position1.MovesNum)
 			text_io1.SendCommand("\n\n")
 
 		default:

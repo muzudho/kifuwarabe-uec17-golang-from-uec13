@@ -10,11 +10,11 @@ import (
 )
 
 // WrapGettingOfWinner - 盤を束縛変数として与えます
-func WrapGettingOfWinner(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position) *func(turnColor color.Color) int {
+func WrapGettingOfWinner(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position) *func(turnColor color.Color) int {
 	// 「手番の勝ちなら1、引き分けなら0、手番の負けなら-1を返す関数（自分視点）」を作成しますgamesettings
 	// * `turnColor` - 手番の石の色
 	var getWinner = func(turnColor color.Color) int {
-		return getWinner(readonlyGameSettingsModel, position, turnColor)
+		return getWinner(readonlyGameSettingsModel, position1, turnColor)
 	}
 
 	return &getWinner
@@ -22,19 +22,19 @@ func WrapGettingOfWinner(readonlyGameSettingsModel *gamesettings.ReadonlyGameSet
 
 // 手番の勝ちなら1、引き分けなら0、手番の負けなら-1（自分視点）
 // * `turnColor` - 手番の石の色
-func getWinner(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position, turnColor color.Color) int {
+func getWinner(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position, turnColor color.Color) int {
 	var mk = [4]int{}
 	var kind = [3]int{0, 0, 0}
 	var score, blackArea, whiteArea, blackSum, whiteSum int
 
 	var onPoint = func(z point.Point) {
-		var color2 = position.ColorAt(z)
+		var color2 = position1.ColorAt(z)
 		kind[color2]++
 		if color2 == 0 {
 			mk[1] = 0
 			mk[2] = 0
 			for dir := 0; dir < 4; dir++ {
-				mk[position.ColorAt(z+readonlyGameSettingsModel.GetDirections4Array()[dir])]++
+				mk[position1.ColorAt(z+readonlyGameSettingsModel.GetDirections4Array()[dir])]++
 			}
 			if mk[1] != 0 && mk[2] == 0 {
 				blackArea++
@@ -45,7 +45,7 @@ func getWinner(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel
 		}
 	}
 
-	position.IterateWithoutWall(onPoint)
+	position1.IterateWithoutWall(onPoint)
 
 	blackSum = kind[1] + blackArea
 	whiteSum = kind[2] + whiteArea

@@ -18,7 +18,7 @@ var Nodes = [uct_struct.NodeMax]node.Node{}
 var NodeNum = 0
 
 // CreateNode - ノード作成。 searchUctV8, GetBestZByUct, searchUctLesson09 から呼び出されます。
-func CreateNode(position *position.Position) int {
+func CreateNode(position1 *position.Position) int {
 
 	if NodeNum == uct_struct.NodeMax {
 		logger.Console.Error("node over Err\n")
@@ -26,15 +26,15 @@ func CreateNode(position *position.Position) int {
 	}
 	var pN = &Nodes[NodeNum]
 	pN.ChildNum = 0
-	pN.Children = make([]child.Child, position.UctChildrenSize())
+	pN.Children = make([]child.Child, position1.UctChildrenSize())
 	pN.ChildGameSum = 0
 
 	var onPoint = func(z point.Point) {
-		if position.IsEmpty(z) { // 空点なら
+		if position1.IsEmpty(z) { // 空点なら
 			addChild(pN, z)
 		}
 	}
-	position.IterateWithoutWall(onPoint)
+	position1.IterateWithoutWall(onPoint)
 
 	addChild(pN, 0)
 	NodeNum++

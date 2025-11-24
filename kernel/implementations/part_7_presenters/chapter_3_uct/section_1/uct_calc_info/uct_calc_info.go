@@ -12,8 +12,8 @@ import (
 
 func CreatePrintingOfCalc(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel) *func(*position.Position, int, point.Point, float64, int) {
 	// UCT計算中の表示
-	var fn = func(position *position.Position, i int, z point.Point, rate float64, games int) {
-		text_io1.LogInfo(fmt.Sprintf("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, z_code.GetGtpZ(readonlyGameSettingsModel, position, z), rate, games))
+	var fn = func(position1 *position.Position, i int, z point.Point, rate float64, games int) {
+		text_io1.LogInfo(fmt.Sprintf("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, z_code.GetGtpZ(readonlyGameSettingsModel, position1, z), rate, games))
 	}
 
 	return &fn
@@ -21,9 +21,9 @@ func CreatePrintingOfCalc(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel 
 
 func CreatePrintingOfCalcFin(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel) *func(*position.Position, point.Point, float64, int, int, int) {
 	// UCT計算後の表示
-	var fn = func(position *position.Position, bestZ point.Point, rate float64, max int, allPlayouts int, nodeNum int) {
+	var fn = func(position1 *position.Position, bestZ point.Point, rate float64, max int, allPlayouts int, nodeNum int) {
 		text_io1.LogInfo(fmt.Sprintf("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
-			z_code.GetGtpZ(readonlyGameSettingsModel, position, bestZ), rate, max, allPlayouts, nodeNum))
+			z_code.GetGtpZ(readonlyGameSettingsModel, position1, bestZ), rate, max, allPlayouts, nodeNum))
 	}
 
 	return &fn

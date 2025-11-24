@@ -52,9 +52,9 @@ func main() {
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
 	var dto1 = gamesettings.LoadGameSettings("game_settings.toml", OnFatal)
 	var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(dto1.Game.GetBoardSize(), dto1.Game.GetKomi(), dto1.Game.GetMaxMoves())
-	var position = position.NewPosition()
-	all_playouts.InitPosition(readonlyGameSettingsModel, position)
-	position.SetBoard(gamesettings.GetBoardArray(&dto1))
+	var position1 = position.NewPosition()
+	all_playouts.InitPosition(readonlyGameSettingsModel, position1)
+	position1.SetBoard(gamesettings.GetBoardArray(&dto1))
 
 	// ========================================
 	// 思考エンジンの準備　＞　テキストＩＯ
@@ -67,9 +67,9 @@ func main() {
 	// ========================================
 
 	if lessonVer == "SelfPlay" {
-		self_play.SelfPlay(text_io1, readonlyGameSettingsModel, position)
+		self_play.SelfPlay(text_io1, readonlyGameSettingsModel, position1)
 	} else {
-		LoopGtp(text_io1, &dto1, position) // GTP
+		LoopGtp(text_io1, &dto1, position1) // GTP
 	}
 }
 

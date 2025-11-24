@@ -14,7 +14,7 @@ import (
 var numberLabels = [2]string{" 0", " 1"}
 
 // PrintCheckBoard - チェックボードを描画。
-func PrintCheckBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position) {
+func PrintCheckBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position) {
 
 	var b = &strings.Builder{}
 	b.Grow(board_view.Sz8k)
@@ -37,8 +37,8 @@ func PrintCheckBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSetting
 		b.WriteString(board_view.LabelOfRows[y+1])
 		b.WriteString("|")
 		for x := 0; x < boardSize; x++ {
-			var z = position.GetZFromXy(readonlyGameSettingsModel, x, y)
-			var number = position.CheckAt(z)
+			var z = position1.GetZFromXy(readonlyGameSettingsModel, x, y)
+			var number = position1.CheckAt(z)
 			b.WriteString(numberLabels[number])
 		}
 		b.WriteString(" |\n")
