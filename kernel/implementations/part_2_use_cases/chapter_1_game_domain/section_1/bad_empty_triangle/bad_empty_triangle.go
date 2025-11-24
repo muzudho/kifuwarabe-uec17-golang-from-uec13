@@ -15,7 +15,7 @@ import (
 )
 
 // WrapIsDislike - 盤を束縛変数として与えます
-func WrapIsDislike(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) *func(color.Color, point.Point) bool {
+func WrapIsDislike(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position) *func(color.Color, point.Point) bool {
 	// 「手番の勝ちなら1、引き分けなら0、手番の負けなら-1を返す関数（自分視点）」を作成します
 	// * `color` - 石の色
 	var isDislike = func(color color.Color, z point.Point) bool {

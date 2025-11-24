@@ -26,7 +26,7 @@ import (
 // PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
 func PlayComputerMoveLesson09a(
 	text_io1 i_text_io.ITextIO,
-	readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
+	readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel,
 	position1 *position.Position,
 	color1 color.Color) point.Point {
 

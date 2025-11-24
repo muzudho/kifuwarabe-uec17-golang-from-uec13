@@ -11,7 +11,7 @@ const (
 	Author = "Satoshi Takahashi"
 )
 
-type ObserverGameSettingsModel struct {
+type ReadonlyGameSettingsModel struct {
 	// boardSize - 何路盤
 	boardSize int
 	// komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
@@ -21,8 +21,8 @@ type ObserverGameSettingsModel struct {
 	directions4Array [4]point.Point
 }
 
-func NewReadonlyGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxMovesNum moves_num.MovesNum) *ObserverGameSettingsModel {
-	return &ObserverGameSettingsModel{
+func NewReadonlyGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxMovesNum moves_num.MovesNum) *ReadonlyGameSettingsModel {
+	return &ReadonlyGameSettingsModel{
 		boardSize:   boardSize,
 		komi:        komi,
 		maxMovesNum: maxMovesNum,
@@ -32,33 +32,33 @@ func NewReadonlyGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxM
 }
 
 // GetBoardSize - 壁無し盤の１辺の長さ
-func (model *ObserverGameSettingsModel) GetBoardSize() int {
+func (model *ReadonlyGameSettingsModel) GetBoardSize() int {
 	return model.boardSize
 }
 
 // GetBoardArea - 壁無し盤の面積
-func (model *ObserverGameSettingsModel) GetBoardArea() int {
+func (model *ReadonlyGameSettingsModel) GetBoardArea() int {
 	return model.boardSize * model.boardSize
 }
 
 // GetSentinelWidth - 枠付きの盤の一辺の交点数
-func (model *ObserverGameSettingsModel) GetSentinelWidth() int {
+func (model *ReadonlyGameSettingsModel) GetSentinelWidth() int {
 	return model.boardSize + 2
 }
 
 // GetSentinelBoardArea - 壁付き盤の面積
-func (model *ObserverGameSettingsModel) GetSentinelBoardArea() int {
+func (model *ReadonlyGameSettingsModel) GetSentinelBoardArea() int {
 	return model.GetSentinelWidth() * model.GetSentinelWidth()
 }
 
-func (model *ObserverGameSettingsModel) GetKomi() komi_float.KomiFloat {
+func (model *ReadonlyGameSettingsModel) GetKomi() komi_float.KomiFloat {
 	return model.komi
 }
 
-func (model *ObserverGameSettingsModel) GetMaxMovesNum() moves_num.MovesNum {
+func (model *ReadonlyGameSettingsModel) GetMaxMovesNum() moves_num.MovesNum {
 	return model.maxMovesNum
 }
 
-func (model *ObserverGameSettingsModel) GetDirections4Array() *[4]point.Point {
+func (model *ReadonlyGameSettingsModel) GetDirections4Array() *[4]point.Point {
 	return &model.directions4Array
 }

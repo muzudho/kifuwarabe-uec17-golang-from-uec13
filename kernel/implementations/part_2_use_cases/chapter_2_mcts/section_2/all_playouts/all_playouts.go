@@ -22,7 +22,7 @@ var IsDislike *func(color.Color, point.Point) bool
 // FlagTestPlayout - ？。
 var FlagTestPlayout int
 
-func InitPosition(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
+func InitPosition(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position) {
 	// 盤サイズが変わっていることもあるので、先に初期化します
 	position.InitPosition(readonlyGameSettingsModel)
 

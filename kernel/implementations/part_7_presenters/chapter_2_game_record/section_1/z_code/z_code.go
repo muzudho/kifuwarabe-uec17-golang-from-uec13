@@ -11,7 +11,7 @@ import (
 )
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
-func GetGtpZ(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, z point.Point) string {
+func GetGtpZ(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position, z point.Point) string {
 	switch z {
 	case 0:
 		return "PASS"
@@ -35,7 +35,7 @@ func GetGtpZ(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsMo
 
 // GetZFromGtp - GTPの座標符号を z に変換します
 // * `gtp_z` - 最初の１文字はアルファベット、２文字目（あれば３文字目）は数字と想定。 例: q10
-func GetZFromGtp(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, gtp_z string) point.Point {
+func GetZFromGtp(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position, gtp_z string) point.Point {
 	gtp_z = strings.ToUpper(gtp_z)
 
 	if gtp_z == "PASS" {

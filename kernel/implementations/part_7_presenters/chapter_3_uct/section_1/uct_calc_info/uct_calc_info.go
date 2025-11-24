@@ -10,7 +10,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 )
 
-func CreatePrintingOfCalc(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel) *func(*position.Position, int, point.Point, float64, int) {
+func CreatePrintingOfCalc(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel) *func(*position.Position, int, point.Point, float64, int) {
 	// UCT計算中の表示
 	var fn = func(position *position.Position, i int, z point.Point, rate float64, games int) {
 		text_io1.LogInfo(fmt.Sprintf("(UCT Calculating...) %2d:z=%s,rate=%.4f,games=%3d\n", i, z_code.GetGtpZ(readonlyGameSettingsModel, position, z), rate, games))
@@ -19,7 +19,7 @@ func CreatePrintingOfCalc(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel 
 	return &fn
 }
 
-func CreatePrintingOfCalcFin(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel) *func(*position.Position, point.Point, float64, int, int, int) {
+func CreatePrintingOfCalcFin(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel) *func(*position.Position, point.Point, float64, int, int, int) {
 	// UCT計算後の表示
 	var fn = func(position *position.Position, bestZ point.Point, rate float64, max int, allPlayouts int, nodeNum int) {
 		text_io1.LogInfo(fmt.Sprintf("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",

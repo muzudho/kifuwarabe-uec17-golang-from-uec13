@@ -68,7 +68,7 @@ var leftVerticalEdgeLabels = [4]string{".", "x", "o", "|"}
 var rightVerticalEdgeLabels = [4]string{" .", " x", " o", " |"}
 
 // PrintBoard - 盤を描画。
-func PrintBoard(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, movesNum int) {
+func PrintBoard(readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position, movesNum int) {
 
 	var b = &strings.Builder{}
 	b.Grow(Sz8k)

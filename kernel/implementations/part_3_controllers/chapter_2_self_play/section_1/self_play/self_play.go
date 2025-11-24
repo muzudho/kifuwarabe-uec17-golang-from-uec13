@@ -27,7 +27,7 @@ import (
 )
 
 // SelfPlay - コンピューター同士の対局。
-func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
+func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position) {
 	coding_obj.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
 
 	var color = color.Black
@@ -59,7 +59,7 @@ func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesetting
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます
-func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, color color.Color) point.Point {
+func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel, position *position.Position, color color.Color) point.Point {
 
 	var start = time.Now()
 	all_playouts.AllPlayouts = 0

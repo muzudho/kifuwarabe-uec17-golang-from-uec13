@@ -24,7 +24,7 @@ import (
 // # Return
 // (bestZ int, winRate float64)
 func GetBestZByUct(
-	readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
+	readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel,
 	position *position.Position,
 	color color.Color,
 	print_calc *func(*position.Position, int, point.Point, float64, int),
@@ -68,7 +68,7 @@ func GetBestZByUct(
 
 // SearchUct - 再帰関数。 GetBestZByUct() から呼び出されます
 func SearchUct(
-	readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
+	readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel,
 	position *position.Position,
 	color color.Color,
 	nodeN int) int {

@@ -19,7 +19,7 @@ import (
 //
 // 手番が勝ったら 1、引分けなら 0、 相手が勝ったら -1
 func Playout(
-	readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
+	readonlyGameSettingsModel *gamesettingsmodel.ReadonlyGameSettingsModel,
 	position *position.Position,
 	turnColor color.Color,
 	getWinner *func(color.Color) int,
