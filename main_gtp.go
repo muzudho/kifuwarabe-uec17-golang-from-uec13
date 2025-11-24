@@ -12,8 +12,8 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
-	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_3_controllers/chapter_1_computer_player/section_1/play_computer_move_lesson_09_a"
+	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 
 	// 2 Use Cases
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
@@ -114,7 +114,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 					panic(err)
 				}
 
-				game_rule_settings.SetBoardSize(boardSize)
+				gamesettingsmodel.SetBoardSize(boardSize)
 				all_playouts.InitPosition(position)
 
 				text_io1.SendCommand("= \n\n")
@@ -134,8 +134,8 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 					panic(err)
 				}
 
-				game_rule_settings.Komi = komi_float.KomiFloat(komi)
-				text_io1.SendCommand(fmt.Sprintf("= %g\n\n", game_rule_settings.Komi))
+				gamesettingsmodel.Komi = komi_float.KomiFloat(komi)
+				text_io1.SendCommand(fmt.Sprintf("= %g\n\n", gamesettingsmodel.Komi))
 			} else {
 				text_io1.SendCommand(fmt.Sprintf("? unknown_command %s\n\n", command))
 			}

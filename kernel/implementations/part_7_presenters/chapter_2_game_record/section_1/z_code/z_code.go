@@ -6,8 +6,8 @@ import (
 
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
-	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1"
 	uct_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
+	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 )
 
 // GetGtpZ - XY座標をアルファベット、数字で表したもの。 例: Q10
@@ -19,8 +19,8 @@ func GetGtpZ(position *position.Position, z point.Point) string {
 		return "ILLEGAL" // GTP の仕様外です
 	}
 
-	var y = int(z) / game_rule_settings.SentinelWidth
-	var x = int(z) % game_rule_settings.SentinelWidth
+	var y = int(z) / gamesettingsmodel.SentinelWidth
+	var x = int(z) % gamesettingsmodel.SentinelWidth
 
 	// 筋が25（'Z'）より大きくなることは想定していません
 	var alphabet_x = 'A' + x - 1

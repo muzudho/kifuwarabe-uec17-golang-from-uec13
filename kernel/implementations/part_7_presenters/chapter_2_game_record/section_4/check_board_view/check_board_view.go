@@ -4,9 +4,9 @@ import (
 	"strings"
 
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
-	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
+	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 )
 
 // " 0" - 空点
@@ -19,7 +19,7 @@ func PrintCheckBoard(position *position.Position) {
 	var b = &strings.Builder{}
 	b.Grow(board_view.Sz8k)
 
-	var boardSize = game_rule_settings.BoardSize
+	var boardSize = gamesettingsmodel.BoardSize
 
 	// Header
 	b.WriteString("\n   ")

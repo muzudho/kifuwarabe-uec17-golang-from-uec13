@@ -9,8 +9,8 @@ import (
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	ren "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/ren"
-	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1"
 	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
+	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 )
 
 // Position - 盤
@@ -42,7 +42,7 @@ type TemporaryPosition struct {
 // CopyPosition - 盤データのコピー。
 func (position *Position) CopyPosition() *TemporaryPosition {
 	var temp = new(TemporaryPosition)
-	temp.Board = make([]color.Color, game_rule_settings.SentinelBoardArea)
+	temp.Board = make([]color.Color, gamesettingsmodel.SentinelBoardArea)
 	copy(temp.Board[:], position.board[:])
 	temp.KoZ = position.KoZ
 	return temp
@@ -62,15 +62,15 @@ func NewPosition() *Position {
 
 // InitPosition - 局面の初期化。
 func (position *Position) InitPosition() {
-	position.Record = make([]*game_record_item.GameRecordItem, game_rule_settings.MaxMovesNum)
-	position.uctChildrenSize = game_rule_settings.BoardArea + 1
+	position.Record = make([]*game_record_item.GameRecordItem, gamesettingsmodel.MaxMovesNum)
+	position.uctChildrenSize = gamesettingsmodel.BoardArea + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
-	var boardMax = game_rule_settings.SentinelBoardArea
+	var boardMax = gamesettingsmodel.SentinelBoardArea
 	position.board = make([]color.Color, boardMax)
 	position.checkBoard = make([]int, boardMax)
 	position.iteratorWithoutWall = position.CreateBoardIteratorWithoutWall()
-	game_rule_settings.Directions4Array = [4]point.Point{1, -1, point.Point(game_rule_settings.SentinelWidth), point.Point(-game_rule_settings.SentinelWidth)}
+	gamesettingsmodel.Directions4Array = [4]point.Point{1, -1, point.Point(gamesettingsmodel.SentinelWidth), point.Point(-gamesettingsmodel.SentinelWidth)}
 
 	// 枠線
 	for z := point.Point(0); z < point.Point(boardMax); z++ {
@@ -111,7 +111,7 @@ func (position *Position) CheckAt(z point.Point) int {
 
 // ColorAtXy - 指定した交点の石の色
 func (position *Position) ColorAtXy(x int, y int) color.Color {
-	return position.board[(y+1)*game_rule_settings.SentinelWidth+x+1]
+	return position.board[(y+1)*gamesettingsmodel.SentinelWidth+x+1]
 }
 
 // IsEmpty - 指定の交点は空点か？
@@ -134,15 +134,15 @@ func (position *Position) GetZ4(z point.Point) int {
 	if z == 0 {
 		return 0
 	}
-	var y = int(z) / game_rule_settings.SentinelWidth
-	var x = int(z) - y*game_rule_settings.SentinelWidth
+	var y = int(z) / gamesettingsmodel.SentinelWidth
+	var x = int(z) - y*gamesettingsmodel.SentinelWidth
 	return x*100 + y
 }
 
 // GetZFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
 // x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
 func (position *Position) GetZFromXy(x int, y int) point.Point {
-	return point.Point((y+1)*game_rule_settings.SentinelWidth + x + 1)
+	return point.Point((y+1)*gamesettingsmodel.SentinelWidth + x + 1)
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
@@ -151,8 +151,8 @@ func (position *Position) GetEmptyZ() point.Point {
 	var z point.Point
 	for {
 		// ランダムに交点を選んで、空点を見つけるまで繰り返します。
-		x = rand.Intn(game_rule_settings.BoardSize) // FIXME: 9 でいいの？ 9路盤？ → boardSize に変更
-		y = rand.Intn(game_rule_settings.BoardSize)
+		x = rand.Intn(gamesettingsmodel.BoardSize) // FIXME: 9 でいいの？ 9路盤？ → boardSize に変更
+		y = rand.Intn(gamesettingsmodel.BoardSize)
 		z = position.GetZFromXy(x, y)
 		if position.IsEmpty(z) { // 空点
 			break
@@ -183,7 +183,7 @@ func (position *Position) countLibertySub(z point.Point, color color.Color, libe
 	position.checkBoard[z] = 1
 	*renArea++
 	for i := 0; i < 4; i++ {
-		var adjZ = z + game_rule_settings.Directions4Array[i]
+		var adjZ = z + gamesettingsmodel.Directions4Array[i]
 		if position.checkBoard[adjZ] != 0 {
 			continue
 		}
@@ -201,7 +201,7 @@ func (position *Position) TakeStone(z point.Point, color1 color.Color) {
 	position.board[z] = color.None // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + game_rule_settings.Directions4Array[dir]
+		var adjZ = z + gamesettingsmodel.Directions4Array[dir]
 
 		if position.board[adjZ] == color1 { // 再帰します
 			position.TakeStone(adjZ, color1)
@@ -222,7 +222,7 @@ func (position *Position) UctChildrenSize() int {
 // CreateBoardIteratorWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
 func (position *Position) CreateBoardIteratorWithoutWall() func(func(point.Point)) {
 
-	var boardSize = game_rule_settings.BoardSize
+	var boardSize = gamesettingsmodel.BoardSize
 	var boardIterator = func(onPoint func(point.Point)) {
 
 		// UEC: 改造ポイント
@@ -316,9 +316,9 @@ func (position *Position) PutStone(z point.Point, color1 color.Color) int {
 	for dir := 0; dir < 4; dir++ { // ４方向
 		around[dir] = ren.NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
-		var adjZ = z + game_rule_settings.Directions4Array[dir] // 隣の交点
-		var adjColor = position.ColorAt(adjZ)                   // 隣(adjacent)の交点の石の色
-		if adjColor == color.None {                             // 空点
+		var adjZ = z + gamesettingsmodel.Directions4Array[dir] // 隣の交点
+		var adjColor = position.ColorAt(adjZ)                  // 隣(adjacent)の交点の石の色
+		if adjColor == color.None {                            // 空点
 			space++
 			continue
 		}
@@ -368,9 +368,9 @@ func (position *Position) PutStone(z point.Point, color1 color.Color) int {
 
 	// 石を取り上げます
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + game_rule_settings.Directions4Array[dir] // 隣接する交点
-		var lib = around[dir].LibertyArea                       // 隣接する連の呼吸点の数
-		var adjColor = around[dir].Color                        // 隣接する連の石の色
+		var adjZ = z + gamesettingsmodel.Directions4Array[dir] // 隣接する交点
+		var lib = around[dir].LibertyArea                      // 隣接する連の呼吸点の数
+		var adjColor = around[dir].Color                       // 隣接する連の石の色
 
 		if adjColor == oppColor && // 隣接する連が相手の石で（壁はここで除外されます）
 			lib == 1 && // その呼吸点は１つで、そこに今石を置いた

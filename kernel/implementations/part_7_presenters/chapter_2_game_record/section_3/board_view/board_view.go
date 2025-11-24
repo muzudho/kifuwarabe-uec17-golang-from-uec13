@@ -7,9 +7,9 @@ import (
 	// Entity
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
-	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
+	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 )
 
 var Sz8k = 8 * 1024
@@ -73,7 +73,7 @@ func PrintBoard(position *position.Position, movesNum int) {
 	var b = &strings.Builder{}
 	b.Grow(Sz8k)
 
-	var boardSize = game_rule_settings.BoardSize
+	var boardSize = gamesettingsmodel.BoardSize
 
 	// Header (numbers)
 	b.WriteString("\n   ")
@@ -86,28 +86,28 @@ func PrintBoard(position *position.Position, movesNum int) {
 	for x := 0; x < boardSize; x++ {
 		b.WriteString(horizontalEdgeLabels[position.ColorAt(point.Point(x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(game_rule_settings.SentinelWidth-1))]) // -+
+	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(gamesettingsmodel.SentinelWidth-1))]) // -+
 	b.WriteString("\n")
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(LabelOfRows[y+1])                                                                              // number
-		b.WriteString(leftVerticalEdgeLabels[position.ColorAt(point.Point((y+1)*game_rule_settings.SentinelWidth))]) // |
+		b.WriteString(LabelOfRows[y+1])                                                                             // number
+		b.WriteString(leftVerticalEdgeLabels[position.ColorAt(point.Point((y+1)*gamesettingsmodel.SentinelWidth))]) // |
 		for x := 0; x < boardSize; x++ {
 			b.WriteString(stoneLabels[position.ColorAtXy(x, y)])
 		}
-		b.WriteString(rightVerticalEdgeLabels[position.ColorAt(point.Point((y+2)*game_rule_settings.SentinelWidth-1))]) // " |"
+		b.WriteString(rightVerticalEdgeLabels[position.ColorAt(point.Point((y+2)*gamesettingsmodel.SentinelWidth-1))]) // " |"
 		b.WriteString("\n")
 	}
 
 	// Footer
 	b.WriteString("  ") // number space
-	var a = game_rule_settings.SentinelWidth * (game_rule_settings.SentinelWidth - 1)
+	var a = gamesettingsmodel.SentinelWidth * (gamesettingsmodel.SentinelWidth - 1)
 	b.WriteString(leftCornerLabels[position.ColorAt(point.Point(a))]) // +
 	for x := 0; x < boardSize; x++ {
 		b.WriteString(horizontalEdgeLabels[position.ColorAt(point.Point(a+x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(game_rule_settings.SentinelBoardArea-1))]) // -+
+	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(gamesettingsmodel.SentinelBoardArea-1))]) // -+
 	b.WriteString("\n")
 
 	// Info

@@ -1,4 +1,4 @@
-package section_1
+package gamesettingsmodel
 
 import (
 	// Entities

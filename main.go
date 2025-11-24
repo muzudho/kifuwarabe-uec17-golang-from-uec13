@@ -10,7 +10,7 @@ import (
 
 	// 1. Entities
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
-	game_rule_settings "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_2_rule_settings/section_1"
+	gamesettingsmodel "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 
 	// 2. Use Cases
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
@@ -48,13 +48,13 @@ func main() {
 		"logs/fatal.log",
 		"logs/print.log")
 
-	//coding_obj.Console.Trace("# Author: %s\n", game_rule_settings.Author)
+	//coding_obj.Console.Trace("# Author: %s\n", gamesettingsmodel.Author)
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
 	var dto1 = gamesettingsctrl.LoadGameSettings("game_settings.toml", OnFatal)
-	game_rule_settings.Komi = dto1.Game.GetKomi()
-	game_rule_settings.MaxMovesNum = dto1.Game.GetMaxMoves()
-	game_rule_settings.SetBoardSize(dto1.Game.GetBoardSize())
+	gamesettingsmodel.Komi = dto1.Game.GetKomi()
+	gamesettingsmodel.MaxMovesNum = dto1.Game.GetMaxMoves()
+	gamesettingsmodel.SetBoardSize(dto1.Game.GetBoardSize())
 	var position = position.NewPosition()
 	all_playouts.InitPosition(position)
 	position.SetBoard(gamesettingsctrl.GetBoardArray(&dto1))
