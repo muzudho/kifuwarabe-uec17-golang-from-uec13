@@ -21,7 +21,7 @@ import (
 	self_play "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_3_controllers/chapter_2_self_play/section_1/self_play"
 
 	// 6. Gateways
-	gamesettingstoml "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_6_gateways/chapter_1_game_settings/section_1/game_settings_toml"
+	gamesettingsctrl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/controller/gamesettingsctrl"
 
 	// 7. Presenters
 	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
@@ -53,13 +53,13 @@ func main() {
 	//coding_obj.Console.Trace("# Author: %s\n", game_rule_settings.Author)
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
-	var config = gamesettingstoml.LoadGameConf("game_settings.toml", OnFatal)
-	game_rule_settings.Komi = komi_float.KomiFloat(config.Komi())
-	game_rule_settings.MaxMovesNum = moves_num.MovesNum(config.MaxMovesNum())
-	game_rule_settings.SetBoardSize(config.BoardSize())
+	var gamesettings1 = gamesettingsctrl.LoadGameSettings("game_settings.toml", OnFatal)
+	game_rule_settings.Komi = komi_float.KomiFloat(gamesettings1.Game.Komi)
+	game_rule_settings.MaxMovesNum = moves_num.MovesNum(gamesettings1.Game.MaxMoves)
+	game_rule_settings.SetBoardSize(int(gamesettings1.Game.BoardSize))
 	var position = position.NewPosition()
 	all_playouts.InitPosition(position)
-	position.SetBoard(config.GetBoardArray())
+	position.SetBoard(gamesettingsctrl.GetBoardArray(&gamesettings1))
 
 	// ========================================
 	// 思考エンジンの準備　＞　テキストＩＯ
