@@ -53,7 +53,7 @@ func main() {
 	//coding_obj.Console.Trace("# Author: %s\n", game_rule_settings.Author)
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
-	var config = gamesettingstoml.LoadGameConf("input/game_settings.toml", OnFatal)
+	var config = gamesettingstoml.LoadGameConf("game_settings.toml", OnFatal)
 	game_rule_settings.Komi = komi_float.KomiFloat(config.Komi())
 	game_rule_settings.MaxMovesNum = moves_num.MovesNum(config.MaxMovesNum())
 	game_rule_settings.SetBoardSize(config.BoardSize())
