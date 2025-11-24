@@ -16,6 +16,7 @@ import (
 	node_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/node_struct"
 	playout "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/playout"
 	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 )
 
 // GetBestZByUct - Lesson08,09,09aで使用。 一番良いUCTである着手を選びます。 GetComputerMoveDuringSelfPlay などから呼び出されます。
@@ -23,6 +24,7 @@ import (
 // # Return
 // (bestZ int, winRate float64)
 func GetBestZByUct(
+	observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
 	position *position.Position,
 	color color.Color,
 	print_calc *func(*position.Position, int, point.Point, float64, int),
@@ -34,9 +36,9 @@ func GetBestZByUct(
 	var uctLoopCount = parameter_adjustment.UctLoopCount
 	for i := 0; i < uctLoopCount; i++ {
 		// 一時記憶
-		var copiedPosition = position.CopyPosition()
+		var copiedPosition = position.CopyPosition(observerGameSettingsModel)
 
-		SearchUct(position, color, next)
+		SearchUct(observerGameSettingsModel, position, color, next)
 
 		// 復元
 		position.ImportPosition(copiedPosition)
@@ -66,6 +68,7 @@ func GetBestZByUct(
 
 // SearchUct - 再帰関数。 GetBestZByUct() から呼び出されます
 func SearchUct(
+	observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
 	position *position.Position,
 	color color.Color,
 	nodeN int) int {
@@ -89,12 +92,12 @@ func SearchUct(
 
 	var winner int // 手番が勝ちなら1、引分けなら0、手番の負けなら-1 としてください
 	if c.Games <= 0 {
-		winner = -playout.Playout(position, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
+		winner = -playout.Playout(observerGameSettingsModel, position, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
 	} else {
 		if c.Next == uct_struct.NodeEmpty {
 			c.Next = node_struct.CreateNode(position)
 		}
-		winner = -SearchUct(position, color.Flip(), c.Next)
+		winner = -SearchUct(observerGameSettingsModel, position, color.Flip(), c.Next)
 	}
 	c.Rate = (c.Rate*float64(c.Games) + float64(winner)) / float64(c.Games+1)
 	c.Games++

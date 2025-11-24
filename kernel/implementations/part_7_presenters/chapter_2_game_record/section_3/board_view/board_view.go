@@ -86,28 +86,28 @@ func PrintBoard(observerGameSettingsModel *gamesettingsmodel.ObserverGameSetting
 	for x := 0; x < boardSize; x++ {
 		b.WriteString(horizontalEdgeLabels[position.ColorAt(point.Point(x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(gamesettingsmodel.SentinelWidth-1))]) // -+
+	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(observerGameSettingsModel.GetSentinelWidth()-1))]) // -+
 	b.WriteString("\n")
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(LabelOfRows[y+1])                                                                             // number
-		b.WriteString(leftVerticalEdgeLabels[position.ColorAt(point.Point((y+1)*gamesettingsmodel.SentinelWidth))]) // |
+		b.WriteString(LabelOfRows[y+1])                                                                                          // number
+		b.WriteString(leftVerticalEdgeLabels[position.ColorAt(point.Point((y+1)*observerGameSettingsModel.GetSentinelWidth()))]) // |
 		for x := 0; x < boardSize; x++ {
-			b.WriteString(stoneLabels[position.ColorAtXy(x, y)])
+			b.WriteString(stoneLabels[position.ColorAtXy(observerGameSettingsModel, x, y)])
 		}
-		b.WriteString(rightVerticalEdgeLabels[position.ColorAt(point.Point((y+2)*gamesettingsmodel.SentinelWidth-1))]) // " |"
+		b.WriteString(rightVerticalEdgeLabels[position.ColorAt(point.Point((y+2)*observerGameSettingsModel.GetSentinelWidth()-1))]) // " |"
 		b.WriteString("\n")
 	}
 
 	// Footer
 	b.WriteString("  ") // number space
-	var a = gamesettingsmodel.SentinelWidth * (gamesettingsmodel.SentinelWidth - 1)
+	var a = observerGameSettingsModel.GetSentinelWidth() * (observerGameSettingsModel.GetSentinelWidth() - 1)
 	b.WriteString(leftCornerLabels[position.ColorAt(point.Point(a))]) // +
 	for x := 0; x < boardSize; x++ {
 		b.WriteString(horizontalEdgeLabels[position.ColorAt(point.Point(a+x+1))]) // --
 	}
-	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(gamesettingsmodel.SentinelBoardArea-1))]) // -+
+	b.WriteString(rightCornerLabels[position.ColorAt(point.Point(observerGameSettingsModel.GetSentinelBoardArea()-1))]) // -+
 	b.WriteString("\n")
 
 	// Info
@@ -115,7 +115,7 @@ func PrintBoard(observerGameSettingsModel *gamesettingsmodel.ObserverGameSetting
 	if position.KoZ == point.Pass {
 		b.WriteString("_")
 	} else {
-		b.WriteString(z_code.GetGtpZ(position, position.KoZ))
+		b.WriteString(z_code.GetGtpZ(observerGameSettingsModel, position, position.KoZ))
 	}
 	if movesNum != -1 {
 		b.WriteString(",movesNum=")

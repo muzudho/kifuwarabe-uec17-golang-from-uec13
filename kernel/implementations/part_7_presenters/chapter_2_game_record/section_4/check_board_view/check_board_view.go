@@ -37,7 +37,7 @@ func PrintCheckBoard(observerGameSettingsModel *gamesettingsmodel.ObserverGameSe
 		b.WriteString(board_view.LabelOfRows[y+1])
 		b.WriteString("|")
 		for x := 0; x < boardSize; x++ {
-			var z = position.GetZFromXy(x, y)
+			var z = position.GetZFromXy(observerGameSettingsModel, x, y)
 			var number = position.CheckAt(z)
 			b.WriteString(numberLabels[number])
 		}

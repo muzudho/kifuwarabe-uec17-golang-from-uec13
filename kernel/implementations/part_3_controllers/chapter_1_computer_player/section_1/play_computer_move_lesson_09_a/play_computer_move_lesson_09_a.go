@@ -9,6 +9,7 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 
 	// Use Cases
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
@@ -25,6 +26,7 @@ import (
 // PlayComputerMoveLesson09a - コンピューター・プレイヤーの指し手。 SelfPlay, RunGtpEngine から呼び出されます。
 func PlayComputerMoveLesson09a(
 	text_io1 i_text_io.ITextIO,
+	observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel,
 	position1 *position.Position,
 	color1 color.Color) point.Point {
 
@@ -32,10 +34,11 @@ func PlayComputerMoveLesson09a(
 	all_playouts.AllPlayouts = 0
 
 	var z1, winRate1 = uct.GetBestZByUct(
+		observerGameSettingsModel,
 		position1,
 		color1,
-		uct_calc_info.CreatePrintingOfCalc(text_io1),
-		uct_calc_info.CreatePrintingOfCalcFin(text_io1))
+		uct_calc_info.CreatePrintingOfCalc(text_io1, observerGameSettingsModel),
+		uct_calc_info.CreatePrintingOfCalcFin(text_io1, observerGameSettingsModel))
 
 	if 1 < position1.MovesNum && // 初手ではないとして
 		position1.Record[position1.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで

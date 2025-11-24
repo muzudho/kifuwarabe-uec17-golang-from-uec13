@@ -14,8 +14,8 @@ func PrintSgf(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsM
 	coding_obj.Console.Print("(;GM[1]SZ[%d]KM[%.1f]PB[]PW[]\n", boardSize, gamesettingsmodel.Komi)
 	for i := 0; i < movesNum; i++ {
 		var z = gameRecord[i].GetZ()
-		var y = int(z) / gamesettingsmodel.SentinelWidth
-		var x = int(z) - y*gamesettingsmodel.SentinelWidth
+		var y = int(z) / observerGameSettingsModel.GetSentinelWidth()
+		var x = int(z) - y*observerGameSettingsModel.GetSentinelWidth()
 		var sStone = [2]string{"B", "W"}
 		coding_obj.Console.Print(";%s", sStone[i&1])
 		if z == 0 {

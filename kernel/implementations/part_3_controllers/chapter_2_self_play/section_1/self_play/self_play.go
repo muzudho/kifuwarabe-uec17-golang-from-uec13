@@ -33,13 +33,13 @@ func SelfPlay(text_io1 i_text_io.ITextIO, observerGameSettingsModel *gamesetting
 	var color = color.Black
 
 	for {
-		var z = GetComputerMoveDuringSelfPlay(text_io1, position, color)
+		var z = GetComputerMoveDuringSelfPlay(text_io1, observerGameSettingsModel, position, color)
 
 		var recItem = new(game_record_item.GameRecordItem)
 		recItem.Z = z
 		position.PutStoneOnRecord(z, color, recItem)
 
-		coding_obj.Console.Print("z=%s,color=%d", z_code.GetGtpZ(position, z), color) // テスト
+		coding_obj.Console.Print("z=%s,color=%d", z_code.GetGtpZ(observerGameSettingsModel, position, z), color) // テスト
 
 		// p.PrintCheckBoard(observerGameSettingsModel, position)                                        // テスト
 		board_view.PrintBoard(observerGameSettingsModel, position, position.MovesNum)
@@ -59,19 +59,20 @@ func SelfPlay(text_io1 i_text_io.ITextIO, observerGameSettingsModel *gamesetting
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます
-func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, position *position.Position, color color.Color) point.Point {
+func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, color color.Color) point.Point {
 
 	var start = time.Now()
 	all_playouts.AllPlayouts = 0
 
 	var z, winRate = uct.GetBestZByUct(
+		observerGameSettingsModel,
 		position,
 		color,
-		uct_calc_info.CreatePrintingOfCalc(text_io1),
-		uct_calc_info.CreatePrintingOfCalcFin(text_io1))
+		uct_calc_info.CreatePrintingOfCalc(text_io1, observerGameSettingsModel),
+		uct_calc_info.CreatePrintingOfCalcFin(text_io1, observerGameSettingsModel))
 
 	var sec = time.Since(start).Seconds()
 	text_io1.LogInfo(fmt.Sprintf("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(z), winRate, position.MovesNum, color, all_playouts.AllPlayouts))
+		sec, float64(all_playouts.AllPlayouts)/sec, position.GetZ4(observerGameSettingsModel, z), winRate, position.MovesNum, color, all_playouts.AllPlayouts))
 	return z
 }

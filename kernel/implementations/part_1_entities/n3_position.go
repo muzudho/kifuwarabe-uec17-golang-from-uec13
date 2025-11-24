@@ -40,9 +40,9 @@ type TemporaryPosition struct {
 }
 
 // CopyPosition - 盤データのコピー。
-func (position *Position) CopyPosition() *TemporaryPosition {
+func (position *Position) CopyPosition(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel) *TemporaryPosition {
 	var temp = new(TemporaryPosition)
-	temp.Board = make([]color.Color, gamesettingsmodel.SentinelBoardArea)
+	temp.Board = make([]color.Color, observerGameSettingsModel.GetSentinelBoardArea())
 	copy(temp.Board[:], position.board[:])
 	temp.KoZ = position.KoZ
 	return temp
@@ -66,11 +66,11 @@ func (position *Position) InitPosition(observerGameSettingsModel *gamesettingsmo
 	position.uctChildrenSize = observerGameSettingsModel.GetBoardArea() + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
-	var boardMax = gamesettingsmodel.SentinelBoardArea
+	var boardMax = observerGameSettingsModel.GetSentinelBoardArea()
 	position.board = make([]color.Color, boardMax)
 	position.checkBoard = make([]int, boardMax)
 	position.iteratorWithoutWall = position.CreateBoardIteratorWithoutWall(observerGameSettingsModel)
-	gamesettingsmodel.Directions4Array = [4]point.Point{1, -1, point.Point(gamesettingsmodel.SentinelWidth), point.Point(-gamesettingsmodel.SentinelWidth)}
+	gamesettingsmodel.Directions4Array = [4]point.Point{1, -1, point.Point(observerGameSettingsModel.GetSentinelWidth()), point.Point(-observerGameSettingsModel.GetSentinelWidth())}
 
 	// 枠線
 	for z := point.Point(0); z < point.Point(boardMax); z++ {
@@ -110,8 +110,8 @@ func (position *Position) CheckAt(z point.Point) int {
 }
 
 // ColorAtXy - 指定した交点の石の色
-func (position *Position) ColorAtXy(x int, y int) color.Color {
-	return position.board[(y+1)*gamesettingsmodel.SentinelWidth+x+1]
+func (position *Position) ColorAtXy(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, x int, y int) color.Color {
+	return position.board[(y+1)*observerGameSettingsModel.GetSentinelWidth()+x+1]
 }
 
 // IsEmpty - 指定の交点は空点か？
@@ -130,30 +130,30 @@ func (position *Position) SetColor(z point.Point, color color.Color) {
 }
 
 // GetZ4 - z（配列のインデックス）を XXYY形式（3～4桁の数）の座標へ変換します。
-func (position *Position) GetZ4(z point.Point) int {
+func (position *Position) GetZ4(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, z point.Point) int {
 	if z == 0 {
 		return 0
 	}
-	var y = int(z) / gamesettingsmodel.SentinelWidth
-	var x = int(z) - y*gamesettingsmodel.SentinelWidth
+	var y = int(z) / observerGameSettingsModel.GetSentinelWidth()
+	var x = int(z) - y*observerGameSettingsModel.GetSentinelWidth()
 	return x*100 + y
 }
 
 // GetZFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
 // x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
-func (position *Position) GetZFromXy(x int, y int) point.Point {
-	return point.Point((y+1)*gamesettingsmodel.SentinelWidth + x + 1)
+func (position *Position) GetZFromXy(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, x int, y int) point.Point {
+	return point.Point((y+1)*observerGameSettingsModel.GetSentinelWidth() + x + 1)
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
-func (position *Position) GetEmptyZ(observerGameSettingsModel gamesettingsmodel.ObserverGameSettingsModel) point.Point {
+func (position *Position) GetEmptyZ(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel) point.Point {
 	var x, y int
 	var z point.Point
 	for {
 		// ランダムに交点を選んで、空点を見つけるまで繰り返します。
 		x = rand.Intn(observerGameSettingsModel.GetBoardSize()) // FIXME: 9 でいいの？ 9路盤？ → boardSize に変更
 		y = rand.Intn(observerGameSettingsModel.GetBoardSize())
-		z = position.GetZFromXy(x, y)
+		z = position.GetZFromXy(observerGameSettingsModel, x, y)
 		if position.IsEmpty(z) { // 空点
 			break
 		}
@@ -231,7 +231,7 @@ func (position *Position) CreateBoardIteratorWithoutWall(observerGameSettingsMod
 			// x,y は壁無しの盤での0から始まる座標、 z は壁有りの盤での0から始まる座標
 			for y := 0; y < boardSize; y++ {
 				for x := 0; x < boardSize; x++ {
-					var z = position.GetZFromXy(x, y)
+					var z = position.GetZFromXy(observerGameSettingsModel, x, y)
 					onPoint(z)
 				}
 			}
@@ -270,7 +270,7 @@ func (position *Position) CreateBoardIteratorWithoutWall(observerGameSettingsMod
 				var num = numbers[i]
 				var y = num / 19
 				var x = num % 19
-				var z = position.GetZFromXy(x, y) // 壁を避けて計算
+				var z = position.GetZFromXy(observerGameSettingsModel, x, y) // 壁を避けて計算
 				onPoint(z)
 			}
 		}

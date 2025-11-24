@@ -20,3 +20,13 @@ func (model *ObserverGameSettingsModel) GetBoardSize() int {
 func (model *ObserverGameSettingsModel) GetBoardArea() int {
 	return model.boardSize * model.boardSize
 }
+
+// GetSentinelWidth - 枠付きの盤の一辺の交点数
+func (model *ObserverGameSettingsModel) GetSentinelWidth() int {
+	return model.boardSize + 2
+}
+
+// GetSentinelBoardArea - 壁付き盤の面積
+func (model *ObserverGameSettingsModel) GetSentinelBoardArea() int {
+	return model.GetSentinelWidth() * model.GetSentinelWidth()
+}
