@@ -7,8 +7,8 @@ import (
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
-	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	ren "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/ren"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 )
@@ -24,7 +24,7 @@ type Position struct {
 	// MovesNum - 手数
 	MovesNum int
 	// Record - 棋譜
-	Record []*game_record_item.GameRecordItem
+	Record []*gamerecord.GameRecordItem
 	// 二重ループ
 	iteratorWithoutWall func(func(point.Point))
 	// UCT計算中の子の数
@@ -62,7 +62,7 @@ func NewPosition() *Position {
 
 // InitPosition - 局面の初期化。
 func (position1 *Position) InitPosition(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel) {
-	position1.Record = make([]*game_record_item.GameRecordItem, readonlyGameSettingsModel.GetMaxMovesNum())
+	position1.Record = make([]*gamerecord.GameRecordItem, readonlyGameSettingsModel.GetMaxMovesNum())
 	position1.uctChildrenSize = readonlyGameSettingsModel.GetBoardArea() + 1
 
 	// サイズが変わっているケースに対応するため、配列の作り直し
@@ -279,7 +279,7 @@ func (position1 *Position) CreateBoardIteratorWithoutWall(readonlyGameSettingsMo
 }
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます
-func (position1 *Position) PutStoneOnRecord(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z point.Point, color color.Color, recItem *game_record_item.GameRecordItem) {
+func (position1 *Position) PutStoneOnRecord(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z point.Point, color color.Color, recItem *gamerecord.GameRecordItem) {
 	var err = position1.PutStone(readonlyGameSettingsModel, z, color)
 	if err != 0 {
 		logger.Console.Error("(PutStoneOnRecord) Err!\n")

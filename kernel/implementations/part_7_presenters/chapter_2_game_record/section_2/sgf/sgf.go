@@ -1,14 +1,14 @@
 package sgf
 
 import (
-	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 )
 
 // PrintSgf - SGF形式の棋譜表示。
-func PrintSgf(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position, movesNum int, gameRecord []*game_record_item.GameRecordItem) {
+func PrintSgf(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position, movesNum int, gameRecord []*gamerecord.GameRecordItem) {
 	var boardSize = readonlyGameSettingsModel.GetBoardSize()
 
 	logger.Console.Print("(;GM[1]SZ[%d]KM[%.1f]PB[]PW[]\n", boardSize, readonlyGameSettingsModel.GetKomi())

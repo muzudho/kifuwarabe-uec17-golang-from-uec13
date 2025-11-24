@@ -9,8 +9,8 @@ import (
 
 	// 1 Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
-	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_3_controllers/chapter_1_computer_player/section_1/play_computer_move_lesson_09_a"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 
@@ -177,7 +177,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 
 				var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
 				var z = z_code.GetZFromGtp(readonlyGameSettingsModel, position1, tokens[2])
-				var recItem = new(game_record_item.GameRecordItem)
+				var recItem = new(gamerecord.GameRecordItem)
 				recItem.Z = z
 				recItem.Time = 0
 				position1.PutStoneOnRecord(readonlyGameSettingsModel, z, color, recItem)

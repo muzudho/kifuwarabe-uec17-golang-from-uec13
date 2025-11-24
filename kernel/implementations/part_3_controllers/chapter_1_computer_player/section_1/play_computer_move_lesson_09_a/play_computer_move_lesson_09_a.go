@@ -7,7 +7,7 @@ import (
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
-	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 
@@ -51,7 +51,7 @@ func PlayComputerMoveLesson09a(
 	// FIXME: text_io1.LogInfo(fmt.Sprintf("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
 	//		sec1, float64(all_playouts.AllPlayouts)/sec1, position1.GetZ4(z1), winRate1, position1.MovesNum, color1, all_playouts.AllPlayouts))
 
-	var recItem1 = new(game_record_item.GameRecordItem)
+	var recItem1 = new(gamerecord.GameRecordItem)
 	recItem1.Z = z1
 	recItem1.Time = sec1
 	position1.PutStoneOnRecord(readonlyGameSettingsModel, z1, color1, recItem1)

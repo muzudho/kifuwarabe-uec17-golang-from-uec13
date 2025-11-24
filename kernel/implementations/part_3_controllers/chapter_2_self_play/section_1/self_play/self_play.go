@@ -7,7 +7,7 @@ import (
 	// Entities
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
-	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 
@@ -35,7 +35,7 @@ func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesetting
 	for {
 		var z = GetComputerMoveDuringSelfPlay(text_io1, readonlyGameSettingsModel, position1, color)
 
-		var recItem = new(game_record_item.GameRecordItem)
+		var recItem = new(gamerecord.GameRecordItem)
 		recItem.Z = z
 		position1.PutStoneOnRecord(readonlyGameSettingsModel, z, color, recItem)
 

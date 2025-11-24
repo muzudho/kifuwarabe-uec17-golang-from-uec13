@@ -1,4 +1,4 @@
-package game_record_item
+package gamerecord
 
 // Entities
 import "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
