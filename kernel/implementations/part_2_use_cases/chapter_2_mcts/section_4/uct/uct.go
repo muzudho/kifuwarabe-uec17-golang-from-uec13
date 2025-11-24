@@ -81,7 +81,7 @@ func SearchUct(
 		c = &pN.Children[selectI]
 		var z = c.Z
 
-		var err = position.PutStone(z, color)
+		var err = position.PutStone(readonlyGameSettingsModel, z, color)
 		if err == 0 { // 石が置けたなら
 			break
 		}

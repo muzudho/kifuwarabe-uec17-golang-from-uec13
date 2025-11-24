@@ -27,7 +27,7 @@ func InitPosition(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSetti
 	position.InitPosition(readonlyGameSettingsModel)
 
 	GettingOfWinnerOnDuringUCTPlayout = get_winner.WrapGettingOfWinner(readonlyGameSettingsModel, position)
-	IsDislike = bad_empty_triangle.WrapIsDislike(position)
+	IsDislike = bad_empty_triangle.WrapIsDislike(readonlyGameSettingsModel, position)
 
 	parameter_adjustment.AdjustParameters(readonlyGameSettingsModel, position)
 }

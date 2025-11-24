@@ -15,7 +15,7 @@ import (
 )
 
 // WrapIsDislike - 盤を束縛変数として与えます
-func WrapIsDislike(position *position.Position) *func(color.Color, point.Point) bool {
+func WrapIsDislike(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) *func(color.Color, point.Point) bool {
 	// 「手番の勝ちなら1、引き分けなら0、手番の負けなら-1を返す関数（自分視点）」を作成します
 	// * `color` - 石の色
 	var isDislike = func(color color.Color, z point.Point) bool {
@@ -23,14 +23,14 @@ func WrapIsDislike(position *position.Position) *func(color.Color, point.Point) 
 		// 432
 		// 5S1
 		// 678
-		var eastZ = z + gamesettingsmodel.Directions4Array[direction_4.East]
-		var northEastZ = z + gamesettingsmodel.Directions4Array[direction_4.North] + 1
-		var northZ = z + gamesettingsmodel.Directions4Array[direction_4.North]
-		var northWestZ = z + gamesettingsmodel.Directions4Array[direction_4.North] - 1
-		var westZ = z + gamesettingsmodel.Directions4Array[direction_4.West]
-		var southWestZ = z + gamesettingsmodel.Directions4Array[direction_4.South] - 1
-		var southZ = z + gamesettingsmodel.Directions4Array[direction_4.South]
-		var southEastZ = z + gamesettingsmodel.Directions4Array[direction_4.South] + 1
+		var eastZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.East]
+		var northEastZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.North] + 1
+		var northZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.North]
+		var northWestZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.North] - 1
+		var westZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.West]
+		var southWestZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.South] - 1
+		var southZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.South]
+		var southEastZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.South] + 1
 
 		// 東北
 		// **

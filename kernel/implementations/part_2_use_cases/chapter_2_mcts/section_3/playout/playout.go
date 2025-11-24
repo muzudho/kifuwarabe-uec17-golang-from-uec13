@@ -68,7 +68,7 @@ func Playout(
 				z = emptyArray[r]
 			}
 
-			var err = position.PutStone(z, color)
+			var err = position.PutStone(readonlyGameSettingsModel, z, color)
 			if err == 0 { // 石が置けたか、パスなら
 
 				if z == point.Pass || // パスか、

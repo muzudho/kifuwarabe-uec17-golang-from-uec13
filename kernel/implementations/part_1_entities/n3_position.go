@@ -70,7 +70,6 @@ func (position *Position) InitPosition(readonlyGameSettingsModel *gamesettingsmo
 	position.board = make([]color.Color, boardMax)
 	position.checkBoard = make([]int, boardMax)
 	position.iteratorWithoutWall = position.CreateBoardIteratorWithoutWall(readonlyGameSettingsModel)
-	gamesettingsmodel.Directions4Array = [4]point.Point{1, -1, point.Point(readonlyGameSettingsModel.GetSentinelWidth()), point.Point(-readonlyGameSettingsModel.GetSentinelWidth())}
 
 	// 枠線
 	for z := point.Point(0); z < point.Point(boardMax); z++ {
@@ -164,7 +163,7 @@ func (position *Position) GetEmptyZ(readonlyGameSettingsModel *gamesettingsmodel
 // CountLiberty - 呼吸点を数えます。
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (position *Position) CountLiberty(z point.Point, libertyArea *int, renArea *int) {
+func (position *Position) CountLiberty(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, z point.Point, libertyArea *int, renArea *int) {
 	*libertyArea = 0
 	*renArea = 0
 
@@ -174,16 +173,16 @@ func (position *Position) CountLiberty(z point.Point, libertyArea *int, renArea 
 	}
 	position.iteratorWithoutWall(onPoint)
 
-	position.countLibertySub(z, position.board[z], libertyArea, renArea)
+	position.countLibertySub(readonlyGameSettingsModel, z, position.board[z], libertyArea, renArea)
 }
 
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (position *Position) countLibertySub(z point.Point, color color.Color, libertyArea *int, renArea *int) {
+func (position *Position) countLibertySub(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, z point.Point, color color.Color, libertyArea *int, renArea *int) {
 	position.checkBoard[z] = 1
 	*renArea++
 	for i := 0; i < 4; i++ {
-		var adjZ = z + gamesettingsmodel.Directions4Array[i]
+		var adjZ = z + readonlyGameSettingsModel.GetDirections4Array()[i]
 		if position.checkBoard[adjZ] != 0 {
 			continue
 		}
@@ -191,20 +190,20 @@ func (position *Position) countLibertySub(z point.Point, color color.Color, libe
 			position.checkBoard[adjZ] = 1
 			*libertyArea++
 		} else if position.board[adjZ] == color {
-			position.countLibertySub(adjZ, color, libertyArea, renArea) // 再帰
+			position.countLibertySub(readonlyGameSettingsModel, adjZ, color, libertyArea, renArea) // 再帰
 		}
 	}
 }
 
 // TakeStone - 石を打ち上げ（取り上げ、取り除き）ます。
-func (position *Position) TakeStone(z point.Point, color1 color.Color) {
+func (position *Position) TakeStone(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, z point.Point, color1 color.Color) {
 	position.board[z] = color.None // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + gamesettingsmodel.Directions4Array[dir]
+		var adjZ = z + readonlyGameSettingsModel.GetDirections4Array()[dir]
 
 		if position.board[adjZ] == color1 { // 再帰します
-			position.TakeStone(adjZ, color1)
+			position.TakeStone(readonlyGameSettingsModel, adjZ, color1)
 		}
 	}
 }
@@ -280,8 +279,8 @@ func (position *Position) CreateBoardIteratorWithoutWall(readonlyGameSettingsMod
 }
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます
-func (position *Position) PutStoneOnRecord(z point.Point, color color.Color, recItem *game_record_item.GameRecordItem) {
-	var err = position.PutStone(z, color)
+func (position *Position) PutStoneOnRecord(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, z point.Point, color color.Color, recItem *game_record_item.GameRecordItem) {
+	var err = position.PutStone(readonlyGameSettingsModel, z, color)
 	if err != 0 {
 		coding_obj.Console.Error("(PutStoneOnRecord) Err!\n")
 		os.Exit(0)
@@ -297,7 +296,7 @@ func (position *Position) PutStoneOnRecord(z point.Point, color color.Color, rec
 //
 // # Returns
 // エラーコード
-func (position *Position) PutStone(z point.Point, color1 color.Color) int {
+func (position *Position) PutStone(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, z point.Point, color1 color.Color) int {
 	var around = [4]*ren.Ren{}   // 隣接する４つの交点
 	var libertyArea int          // 呼吸点の数
 	var renArea int              // 連の石の数
@@ -316,9 +315,9 @@ func (position *Position) PutStone(z point.Point, color1 color.Color) int {
 	for dir := 0; dir < 4; dir++ { // ４方向
 		around[dir] = ren.NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
-		var adjZ = z + gamesettingsmodel.Directions4Array[dir] // 隣の交点
-		var adjColor = position.ColorAt(adjZ)                  // 隣(adjacent)の交点の石の色
-		if adjColor == color.None {                            // 空点
+		var adjZ = z + readonlyGameSettingsModel.GetDirections4Array()[dir] // 隣の交点
+		var adjColor = position.ColorAt(adjZ)                               // 隣(adjacent)の交点の石の色
+		if adjColor == color.None {                                         // 空点
 			space++
 			continue
 		}
@@ -326,7 +325,7 @@ func (position *Position) PutStone(z point.Point, color1 color.Color) int {
 			wall++
 			continue
 		}
-		position.CountLiberty(adjZ, &libertyArea, &renArea)
+		position.CountLiberty(readonlyGameSettingsModel, adjZ, &libertyArea, &renArea)
 		around[dir].LibertyArea = libertyArea         // 呼吸点の数
 		around[dir].StoneArea = renArea               // 連の意地の数
 		around[dir].Color = adjColor                  // 石の色
@@ -368,15 +367,15 @@ func (position *Position) PutStone(z point.Point, color1 color.Color) int {
 
 	// 石を取り上げます
 	for dir := 0; dir < 4; dir++ {
-		var adjZ = z + gamesettingsmodel.Directions4Array[dir] // 隣接する交点
-		var lib = around[dir].LibertyArea                      // 隣接する連の呼吸点の数
-		var adjColor = around[dir].Color                       // 隣接する連の石の色
+		var adjZ = z + readonlyGameSettingsModel.GetDirections4Array()[dir] // 隣接する交点
+		var lib = around[dir].LibertyArea                                   // 隣接する連の呼吸点の数
+		var adjColor = around[dir].Color                                    // 隣接する連の石の色
 
 		if adjColor == oppColor && // 隣接する連が相手の石で（壁はここで除外されます）
 			lib == 1 && // その呼吸点は１つで、そこに今石を置いた
 			!position.IsEmpty(adjZ) { // 石はまだあるなら（上と右の石がくっついている、といったことを除外）
 
-			position.TakeStone(adjZ, oppColor)
+			position.TakeStone(readonlyGameSettingsModel, adjZ, oppColor)
 
 			// もし取った石の数が１個なら、その石のある隣接した交点はコウ。また、図形上、コウは１個しか出現しません
 			if around[dir].StoneArea == 1 {
@@ -386,7 +385,7 @@ func (position *Position) PutStone(z point.Point, color1 color.Color) int {
 	}
 
 	position.SetColor(z, color1)
-	position.CountLiberty(z, &libertyArea, &renArea)
+	position.CountLiberty(readonlyGameSettingsModel, z, &libertyArea, &renArea)
 
 	return 0
 }

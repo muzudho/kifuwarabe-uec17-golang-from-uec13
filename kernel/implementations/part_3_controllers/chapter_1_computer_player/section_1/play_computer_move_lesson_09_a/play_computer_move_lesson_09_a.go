@@ -54,7 +54,7 @@ func PlayComputerMoveLesson09a(
 	var recItem1 = new(game_record_item.GameRecordItem)
 	recItem1.Z = z1
 	recItem1.Time = sec1
-	position1.PutStoneOnRecord(z1, color1, recItem1)
+	position1.PutStoneOnRecord(readonlyGameSettingsModel, z1, color1, recItem1)
 
 	// FIXME: board_view.PrintBoard(readonlyGameSettingsModel, position1, position1.MovesNum)
 

@@ -11,16 +11,14 @@ const (
 	Author = "Satoshi Takahashi"
 )
 
-// Directions4Array - ４方向（東、西、南、北）の番地。水平方向、垂直方向の順で並べた。Directions4型の順番に対応
-var Directions4Array = [4]point.Point{1, -1, 9, -9}
-
 type ObserverGameSettingsModel struct {
 	// boardSize - 何路盤
 	boardSize int
 	// komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
 	komi komi_float.KomiFloat
 	// maxMovesNum - 上限手数
-	maxMovesNum moves_num.MovesNum
+	maxMovesNum      moves_num.MovesNum
+	directions4Array [4]point.Point
 }
 
 func NewReadonlyGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxMovesNum moves_num.MovesNum) *ObserverGameSettingsModel {
@@ -28,6 +26,8 @@ func NewReadonlyGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxM
 		boardSize:   boardSize,
 		komi:        komi,
 		maxMovesNum: maxMovesNum,
+		// directions4Array - ４方向（東、西、南、北）の番地。水平方向、垂直方向の順で並べた。Directions4型の順番に対応
+		directions4Array: [4]point.Point{1, -1, point.Point(boardSize + 2), point.Point(-(boardSize + 2))},
 	}
 }
 
@@ -57,4 +57,8 @@ func (model *ObserverGameSettingsModel) GetKomi() komi_float.KomiFloat {
 
 func (model *ObserverGameSettingsModel) GetMaxMovesNum() moves_num.MovesNum {
 	return model.maxMovesNum
+}
+
+func (model *ObserverGameSettingsModel) GetDirections4Array() *[4]point.Point {
+	return &model.directions4Array
 }

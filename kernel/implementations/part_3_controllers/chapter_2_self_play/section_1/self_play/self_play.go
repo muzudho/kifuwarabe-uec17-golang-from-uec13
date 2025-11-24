@@ -37,7 +37,7 @@ func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesetting
 
 		var recItem = new(game_record_item.GameRecordItem)
 		recItem.Z = z
-		position.PutStoneOnRecord(z, color, recItem)
+		position.PutStoneOnRecord(readonlyGameSettingsModel, z, color, recItem)
 
 		coding_obj.Console.Print("z=%s,color=%d", z_code.GetGtpZ(readonlyGameSettingsModel, position, z), color) // テスト
 

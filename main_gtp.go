@@ -181,7 +181,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettingstoml.Game
 				var recItem = new(game_record_item.GameRecordItem)
 				recItem.Z = z
 				recItem.Time = 0
-				position.PutStoneOnRecord(z, color, recItem)
+				position.PutStoneOnRecord(readonlyGameSettingsModel, z, color, recItem)
 
 				text_io1.SendCommand("= \n\n")
 			}

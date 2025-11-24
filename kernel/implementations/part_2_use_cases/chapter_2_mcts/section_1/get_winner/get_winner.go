@@ -34,7 +34,7 @@ func getWinner(readonlyGameSettingsModel *gamesettingsmodel.ObserverGameSettings
 			mk[1] = 0
 			mk[2] = 0
 			for dir := 0; dir < 4; dir++ {
-				mk[position.ColorAt(z+gamesettingsmodel.Directions4Array[dir])]++
+				mk[position.ColorAt(z+readonlyGameSettingsModel.GetDirections4Array()[dir])]++
 			}
 			if mk[1] != 0 && mk[2] == 0 {
 				blackArea++
