@@ -73,7 +73,8 @@ func PrintBoard(position *position.Position, movesNum int) {
 	var b = &strings.Builder{}
 	b.Grow(Sz8k)
 
-	var boardSize = gamesettingsmodel.BoardSize
+	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
+	var boardSize = observerGameSettingsModel.GetBoardSize()
 
 	// Header (numbers)
 	b.WriteString("\n   ")

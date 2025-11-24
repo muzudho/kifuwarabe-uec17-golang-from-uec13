@@ -147,12 +147,13 @@ func (position *Position) GetZFromXy(x int, y int) point.Point {
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
 func (position *Position) GetEmptyZ() point.Point {
+	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
 	var x, y int
 	var z point.Point
 	for {
 		// ランダムに交点を選んで、空点を見つけるまで繰り返します。
-		x = rand.Intn(gamesettingsmodel.BoardSize) // FIXME: 9 でいいの？ 9路盤？ → boardSize に変更
-		y = rand.Intn(gamesettingsmodel.BoardSize)
+		x = rand.Intn(observerGameSettingsModel.GetBoardSize()) // FIXME: 9 でいいの？ 9路盤？ → boardSize に変更
+		y = rand.Intn(observerGameSettingsModel.GetBoardSize())
 		z = position.GetZFromXy(x, y)
 		if position.IsEmpty(z) { // 空点
 			break

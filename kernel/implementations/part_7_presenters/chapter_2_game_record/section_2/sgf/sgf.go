@@ -9,7 +9,8 @@ import (
 
 // PrintSgf - SGF形式の棋譜表示。
 func PrintSgf(position *position.Position, movesNum int, gameRecord []*game_record_item.GameRecordItem) {
-	var boardSize = gamesettingsmodel.BoardSize
+	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
+	var boardSize = observerGameSettingsModel.GetBoardSize()
 
 	coding_obj.Console.Print("(;GM[1]SZ[%d]KM[%.1f]PB[]PW[]\n", boardSize, gamesettingsmodel.Komi)
 	for i := 0; i < movesNum; i++ {

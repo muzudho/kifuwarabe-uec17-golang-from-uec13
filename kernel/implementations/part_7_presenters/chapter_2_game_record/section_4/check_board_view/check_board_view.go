@@ -19,7 +19,8 @@ func PrintCheckBoard(position *position.Position) {
 	var b = &strings.Builder{}
 	b.Grow(board_view.Sz8k)
 
-	var boardSize = gamesettingsmodel.BoardSize
+	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
+	var boardSize = observerGameSettingsModel.GetBoardSize()
 
 	// Header
 	b.WriteString("\n   ")

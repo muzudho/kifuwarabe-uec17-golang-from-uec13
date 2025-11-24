@@ -25,7 +25,8 @@ func GetRandomPigeonX(N int) int {
 }
 
 func AdjustParameters(position *position.Position) {
-	var boardSize = gamesettingsmodel.BoardSize
+	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
+	var boardSize = observerGameSettingsModel.GetBoardSize()
 	if boardSize < 10 {
 		// 10路盤より小さいとき
 		PlayoutTrialCount = boardSize*boardSize + 200
