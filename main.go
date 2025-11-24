@@ -55,8 +55,10 @@ func main() {
 	gamesettingsmodel.Komi = dto1.Game.GetKomi()
 	gamesettingsmodel.MaxMovesNum = dto1.Game.GetMaxMoves()
 	gamesettingsmodel.SetBoardSize(dto1.Game.GetBoardSize())
+
+	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
 	var position = position.NewPosition()
-	all_playouts.InitPosition(position)
+	all_playouts.InitPosition(observerGameSettingsModel, position)
 	position.SetBoard(gamesettingsctrl.GetBoardArray(&dto1))
 
 	// ========================================
@@ -70,9 +72,9 @@ func main() {
 	// ========================================
 
 	if lessonVer == "SelfPlay" {
-		self_play.SelfPlay(text_io1, position)
+		self_play.SelfPlay(text_io1, observerGameSettingsModel, position)
 	} else {
-		LoopGtp(text_io1, position) // GTP
+		LoopGtp(text_io1, observerGameSettingsModel, position) // GTP
 	}
 }
 

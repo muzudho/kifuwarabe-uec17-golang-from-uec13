@@ -52,7 +52,8 @@ func PlayComputerMoveLesson09a(
 	recItem1.Z = z1
 	recItem1.Time = sec1
 	position1.PutStoneOnRecord(z1, color1, recItem1)
-	// FIXME: board_view.PrintBoard(position1, position1.MovesNum)
+
+	// FIXME: board_view.PrintBoard(observerGameSettingsModel, position1, position1.MovesNum)
 
 	return z1
 }

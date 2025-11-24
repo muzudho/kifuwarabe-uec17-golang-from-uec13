@@ -68,12 +68,11 @@ var leftVerticalEdgeLabels = [4]string{".", "x", "o", "|"}
 var rightVerticalEdgeLabels = [4]string{" .", " x", " o", " |"}
 
 // PrintBoard - 盤を描画。
-func PrintBoard(position *position.Position, movesNum int) {
+func PrintBoard(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position, movesNum int) {
 
 	var b = &strings.Builder{}
 	b.Grow(Sz8k)
 
-	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
 	var boardSize = observerGameSettingsModel.GetBoardSize()
 
 	// Header (numbers)

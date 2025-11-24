@@ -29,7 +29,7 @@ import (
 
 // LoopGtp - レッスン９a
 // GTP2NNGS に対応しているのでは？
-func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
+func LoopGtp(text_io1 i_text_io.ITextIO, observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
 	//coding_obj.Console.Trace("# きふわらべ UEC17 golang from UEC13 プログラム開始☆（＾～＾）\n")
 	//coding_obj.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
 
@@ -115,7 +115,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 				}
 
 				gamesettingsmodel.SetBoardSize(boardSize)
-				all_playouts.InitPosition(position)
+				all_playouts.InitPosition(observerGameSettingsModel, position)
 
 				text_io1.SendCommand("= \n\n")
 			} else {
@@ -150,7 +150,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 			// ```shell
 			// clear_board
 			// ```
-			all_playouts.InitPosition(position)
+			all_playouts.InitPosition(observerGameSettingsModel, position)
 			text_io1.SendCommand("= \n\n")
 
 		case "play":
@@ -210,7 +210,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, position *position.Position) {
 			// -board
 			// ```
 			text_io1.SendCommand("= \n")
-			board_view.PrintBoard(position, position.MovesNum)
+			board_view.PrintBoard(observerGameSettingsModel, position, position.MovesNum)
 			text_io1.SendCommand("\n\n")
 
 		default:

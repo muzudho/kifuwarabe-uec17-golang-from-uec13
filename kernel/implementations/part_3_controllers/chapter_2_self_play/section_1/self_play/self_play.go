@@ -9,6 +9,7 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/color"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/model/gamesettingsmodel"
 
 	// User Cases
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
@@ -26,7 +27,7 @@ import (
 )
 
 // SelfPlay - コンピューター同士の対局。
-func SelfPlay(text_io1 i_text_io.ITextIO, position *position.Position) {
+func SelfPlay(text_io1 i_text_io.ITextIO, observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
 	coding_obj.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
 
 	var color = color.Black
@@ -39,8 +40,9 @@ func SelfPlay(text_io1 i_text_io.ITextIO, position *position.Position) {
 		position.PutStoneOnRecord(z, color, recItem)
 
 		coding_obj.Console.Print("z=%s,color=%d", z_code.GetGtpZ(position, z), color) // テスト
-		// p.PrintCheckBoard(position)                                        // テスト
-		board_view.PrintBoard(position, position.MovesNum)
+
+		// p.PrintCheckBoard(observerGameSettingsModel, position)                                        // テスト
+		board_view.PrintBoard(observerGameSettingsModel, position, position.MovesNum)
 
 		// パスで２手目以降で棋譜の１つ前（相手）もパスなら終了します。
 		if z == point.Pass && 1 < position.MovesNum && position.Record[position.MovesNum-2].GetZ() == point.Pass {
@@ -53,7 +55,7 @@ func SelfPlay(text_io1 i_text_io.ITextIO, position *position.Position) {
 		color = color.Flip()
 	}
 
-	sgf.PrintSgf(position, position.MovesNum, position.Record)
+	sgf.PrintSgf(observerGameSettingsModel, position, position.MovesNum, position.Record)
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます

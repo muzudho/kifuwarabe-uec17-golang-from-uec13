@@ -14,12 +14,11 @@ import (
 var numberLabels = [2]string{" 0", " 1"}
 
 // PrintCheckBoard - チェックボードを描画。
-func PrintCheckBoard(position *position.Position) {
+func PrintCheckBoard(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
 
 	var b = &strings.Builder{}
 	b.Grow(board_view.Sz8k)
 
-	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
 	var boardSize = observerGameSettingsModel.GetBoardSize()
 
 	// Header

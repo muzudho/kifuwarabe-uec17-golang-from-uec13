@@ -22,13 +22,12 @@ var IsDislike *func(color.Color, point.Point) bool
 // FlagTestPlayout - ？。
 var FlagTestPlayout int
 
-func InitPosition(position *position.Position) {
+func InitPosition(observerGameSettingsModel *gamesettingsmodel.ObserverGameSettingsModel, position *position.Position) {
 	// 盤サイズが変わっていることもあるので、先に初期化します
 	position.InitPosition()
 
 	GettingOfWinnerOnDuringUCTPlayout = get_winner.WrapGettingOfWinner(position)
 	IsDislike = bad_empty_triangle.WrapIsDislike(position)
 
-	var observerGameSettingsModel = gamesettingsmodel.NewObserverGameSettingsModel(gamesettingsmodel.BoardSize)
 	parameter_adjustment.AdjustParameters(observerGameSettingsModel, position)
 }
