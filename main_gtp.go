@@ -20,7 +20,7 @@ import (
 	// 7 Presenters
 	z_code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
 	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
-	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 
 	// Interfaces
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
@@ -29,8 +29,8 @@ import (
 // LoopGtp - レッスン９a
 // GTP2NNGS に対応しているのでは？
 func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSettingsFile, position *position.Position) {
-	//coding_obj.Console.Trace("# きふわらべ UEC17 golang from UEC13 プログラム開始☆（＾～＾）\n")
-	//coding_obj.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
+	//logger.Console.Trace("# きふわらべ UEC17 golang from UEC13 プログラム開始☆（＾～＾）\n")
+	//logger.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
 
 	// GUI から 囲碁エンジン へ入力があった、と考えてください
 	var scanner = bufio.NewScanner(os.Stdin)
@@ -109,7 +109,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 				var boardSize, err = strconv.Atoi(tokens[1])
 
 				if err != nil {
-					coding_obj.Console.Fatal("command=%s", command)
+					logger.Console.Fatal("command=%s", command)
 					panic(err)
 				}
 
@@ -130,7 +130,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 				var komi, err = strconv.ParseFloat(tokens[1], 64)
 
 				if err != nil {
-					coding_obj.Console.Fatal("command=%s", command)
+					logger.Console.Fatal("command=%s", command)
 					panic(err)
 				}
 

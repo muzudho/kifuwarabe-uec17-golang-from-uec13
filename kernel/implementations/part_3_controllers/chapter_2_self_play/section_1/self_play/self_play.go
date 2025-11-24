@@ -20,7 +20,7 @@ import (
 	sgf "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_2/sgf"
 	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
 	uct_calc_info "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_3_uct/section_1/uct_calc_info"
-	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 
 	// Interfaces
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
@@ -28,7 +28,7 @@ import (
 
 // SelfPlay - コンピューター同士の対局。
 func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position *position.Position) {
-	coding_obj.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
+	logger.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
 
 	var color = color.Black
 
@@ -39,7 +39,7 @@ func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesetting
 		recItem.Z = z
 		position.PutStoneOnRecord(readonlyGameSettingsModel, z, color, recItem)
 
-		coding_obj.Console.Print("z=%s,color=%d", z_code.GetGtpZ(readonlyGameSettingsModel, position, z), color) // テスト
+		logger.Console.Print("z=%s,color=%d", z_code.GetGtpZ(readonlyGameSettingsModel, position, z), color) // テスト
 
 		// p.PrintCheckBoard(readonlyGameSettingsModel, position)                                        // テスト
 		board_view.PrintBoard(readonlyGameSettingsModel, position, position.MovesNum)

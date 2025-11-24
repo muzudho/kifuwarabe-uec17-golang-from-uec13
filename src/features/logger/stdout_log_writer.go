@@ -1,5 +1,5 @@
 // 標準出力とロガーを一緒にしただけのもの
-package coding_obj
+package logger
 
 import (
 	"fmt"
@@ -7,13 +7,13 @@ import (
 
 // StdoutLogWriter - 標準出力とロガーを一緒にしただけです
 type StdoutLogWriter struct {
-	logger *StdoutLogger
+	logger1 *StdoutLogger
 }
 
 // NewStdoutLogWriter - オブジェクト作成
-func NewStdoutLogWriter(logger *StdoutLogger) *StdoutLogWriter {
+func NewStdoutLogWriter(logger1 *StdoutLogger) *StdoutLogWriter {
 	writer := new(StdoutLogWriter)
-	writer.logger = logger
+	writer.logger1 = logger1
 	return writer
 }
 
@@ -21,11 +21,11 @@ func NewStdoutLogWriter(logger *StdoutLogger) *StdoutLogWriter {
 func (writer *StdoutLogWriter) Print(text string, args ...interface{}) {
 	fmt.Printf(text, args...) // 標準出力
 	// FIXME: CgfGoBan では StdErr 使ったら不具合起こす。
-	//writer.logger.Print(text, args...) // ログ
+	//writer.logger1.Print(text, args...) // ログ
 }
 
 // Log - ログだけ
 func (writer *StdoutLogWriter) Log(text string, args ...interface{}) {
 	// FIXME: CgfGoBan では StdErr 使ったら不具合起こす。
-	//writer.logger.Print(text, args...) // ログ
+	//writer.logger1.Print(text, args...) // ログ
 }

@@ -1,4 +1,4 @@
-package coding_obj
+package logger
 
 import (
 	"fmt"

@@ -16,7 +16,7 @@ import (
 	node_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/node_struct"
 	playout "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/playout"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
-	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 )
 
 // GetBestZByUct - Lesson08,09,09aで使用。 一番良いUCTである着手を選びます。 GetComputerMoveDuringSelfPlay などから呼び出されます。
@@ -129,7 +129,7 @@ func selectBestUcb(nodeN int) int {
 
 	// 異常終了
 	if selectI == -1 {
-		coding_obj.Console.Error("Err! select\n")
+		logger.Console.Error("Err! select\n")
 		os.Exit(0)
 	}
 

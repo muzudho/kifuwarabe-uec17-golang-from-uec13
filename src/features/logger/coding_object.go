@@ -1,4 +1,4 @@
-package coding_obj
+package logger
 
 // GtpLog - Gtp用ロガー
 var GtpLog StdoutLogger = *new(StdoutLogger)

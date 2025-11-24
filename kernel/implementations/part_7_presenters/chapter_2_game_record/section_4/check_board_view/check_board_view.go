@@ -6,7 +6,7 @@ import (
 	position "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities"
 	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
-	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
+	logger "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 )
 
 // " 0" - 空点
@@ -51,5 +51,5 @@ func PrintCheckBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSetting
 	}
 	b.WriteString("-+\n")
 
-	coding_obj.Console.Print(b.String())
+	logger.Console.Print(b.String())
 }

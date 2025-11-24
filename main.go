@@ -22,7 +22,7 @@ import (
 
 	// 7. Presenters
 	text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_1_io/section_1"
-	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 
 	// Interfaces
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
@@ -36,8 +36,8 @@ func main() {
 	rand.Seed(time.Now().UnixNano())
 
 	// ログの書込み先設定
-	coding_obj.GtpLog.SetPath("logs/gtp_print.log")
-	coding_obj.ConsoleLog.SetPath(
+	logger.GtpLog.SetPath("logs/gtp_print.log")
+	logger.ConsoleLog.SetPath(
 		"logs/trace.log",
 		"logs/debug.log",
 		"logs/info.log",
@@ -47,7 +47,7 @@ func main() {
 		"logs/fatal.log",
 		"logs/print.log")
 
-	//coding_obj.Console.Trace("# Author: %s\n", gamesettings.Author)
+	//logger.Console.Trace("# Author: %s\n", gamesettings.Author)
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
 	var dto1 = gamesettings.LoadGameSettings("game_settings.toml", OnFatal)
@@ -74,5 +74,5 @@ func main() {
 }
 
 func OnFatal(errorMessage string) {
-	coding_obj.Console.Fatal("%s", errorMessage)
+	logger.Console.Fatal("%s", errorMessage)
 }

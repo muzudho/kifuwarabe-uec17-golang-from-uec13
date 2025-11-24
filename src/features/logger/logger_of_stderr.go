@@ -1,4 +1,4 @@
-package coding_obj
+package logger
 
 // StderrLogger - エラー出力と一緒に使うロガー。
 type StderrLogger struct {
@@ -12,7 +12,7 @@ type StderrLogger struct {
 	printPath  string
 }
 
-func (logger *StderrLogger) SetPath(
+func (logger1 *StderrLogger) SetPath(
 	tracePath string,
 	debugPath string,
 	infoPath string,
@@ -22,52 +22,52 @@ func (logger *StderrLogger) SetPath(
 	fatalPath string,
 	printPath string) {
 
-	logger.tracePath = tracePath
-	logger.debugPath = debugPath
-	logger.infoPath = infoPath
-	logger.noticePath = noticePath
-	logger.warnPath = warnPath
-	logger.errorPath = errorPath
-	logger.fatalPath = fatalPath
-	logger.printPath = printPath
+	logger1.tracePath = tracePath
+	logger1.debugPath = debugPath
+	logger1.infoPath = infoPath
+	logger1.noticePath = noticePath
+	logger1.warnPath = warnPath
+	logger1.errorPath = errorPath
+	logger1.fatalPath = fatalPath
+	logger1.printPath = printPath
 }
 
 // Trace - ログファイルに書き込みます。
-func (logger *StderrLogger) Trace(text string, args ...interface{}) {
-	write(logger.tracePath, text, args...)
+func (logger1 *StderrLogger) Trace(text string, args ...interface{}) {
+	write(logger1.tracePath, text, args...)
 }
 
 // Debug - ログファイルに書き込みます。
-func (logger *StderrLogger) Debug(text string, args ...interface{}) {
-	write(logger.debugPath, text, args...)
+func (logger1 *StderrLogger) Debug(text string, args ...interface{}) {
+	write(logger1.debugPath, text, args...)
 }
 
 // Info - ログファイルに書き込みます。
-func (logger *StderrLogger) Info(text string, args ...interface{}) {
-	write(logger.infoPath, text, args...)
+func (logger1 *StderrLogger) Info(text string, args ...interface{}) {
+	write(logger1.infoPath, text, args...)
 }
 
 // Notice - ログファイルに書き込みます。
-func (logger *StderrLogger) Notice(text string, args ...interface{}) {
-	write(logger.noticePath, text, args...)
+func (logger1 *StderrLogger) Notice(text string, args ...interface{}) {
+	write(logger1.noticePath, text, args...)
 }
 
 // Warn - ログファイルに書き込みます。
-func (logger *StderrLogger) Warn(text string, args ...interface{}) {
-	write(logger.warnPath, text, args...)
+func (logger1 *StderrLogger) Warn(text string, args ...interface{}) {
+	write(logger1.warnPath, text, args...)
 }
 
 // Error - ログファイルに書き込みます。
-func (logger *StderrLogger) Error(text string, args ...interface{}) {
-	write(logger.errorPath, text, args...)
+func (logger1 *StderrLogger) Error(text string, args ...interface{}) {
+	write(logger1.errorPath, text, args...)
 }
 
 // Fatal - ログファイルに書き込みます。
-func (logger *StderrLogger) Fatal(text string, args ...interface{}) {
-	write(logger.fatalPath, text, args...)
+func (logger1 *StderrLogger) Fatal(text string, args ...interface{}) {
+	write(logger1.fatalPath, text, args...)
 }
 
 // Print - ログファイルに書き込みます。 StdoutLogWriter から呼び出してください。
-func (logger *StderrLogger) Print(text string, args ...interface{}) {
-	write(logger.printPath, text, args...)
+func (logger1 *StderrLogger) Print(text string, args ...interface{}) {
+	write(logger1.printPath, text, args...)
 }

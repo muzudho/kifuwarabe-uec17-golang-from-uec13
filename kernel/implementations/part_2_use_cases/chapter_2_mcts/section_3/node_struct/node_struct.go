@@ -8,7 +8,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/child"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/node"
-	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 )
 
 // Nodes -ノードの配列？
@@ -21,7 +21,7 @@ var NodeNum = 0
 func CreateNode(position *position.Position) int {
 
 	if NodeNum == uct_struct.NodeMax {
-		coding_obj.Console.Error("node over Err\n")
+		logger.Console.Error("node over Err\n")
 		os.Exit(0)
 	}
 	var pN = &Nodes[NodeNum]

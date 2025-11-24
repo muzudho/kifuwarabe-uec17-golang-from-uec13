@@ -10,7 +10,7 @@ import (
 	game_record_item "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/game_record_item"
 	ren "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/ren"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
-	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 )
 
 // Position - 盤
@@ -282,7 +282,7 @@ func (position *Position) CreateBoardIteratorWithoutWall(readonlyGameSettingsMod
 func (position *Position) PutStoneOnRecord(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z point.Point, color color.Color, recItem *game_record_item.GameRecordItem) {
 	var err = position.PutStone(readonlyGameSettingsModel, z, color)
 	if err != 0 {
-		coding_obj.Console.Error("(PutStoneOnRecord) Err!\n")
+		logger.Console.Error("(PutStoneOnRecord) Err!\n")
 		os.Exit(0)
 	}
 
