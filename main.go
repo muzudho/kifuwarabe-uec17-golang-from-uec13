@@ -21,7 +21,7 @@ import (
 	self_play "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_3_controllers/chapter_2_self_play/section_1/self_play"
 
 	// 6. Gateways
-	game_conf_toml "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_6_gateways/chapter_1_game_config/section_1/game_conf_toml"
+	gamesettingstoml "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_6_gateways/chapter_1_game_settings/section_1/game_settings_toml"
 
 	// 7. Presenters
 	coding_obj "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_0_logger/section_1/coding_obj"
@@ -53,7 +53,7 @@ func main() {
 	//coding_obj.Console.Trace("# Author: %s\n", game_rule_settings.Author)
 
 	// 設定は囲碁GUIから与えられて上書きされる想定です。設定ファイルはデフォルト設定です
-	var config = game_conf_toml.LoadGameConf("input/game_conf.toml", OnFatal)
+	var config = gamesettingstoml.LoadGameConf("input/game_settings.toml", OnFatal)
 	game_rule_settings.Komi = komi_float.KomiFloat(config.Komi())
 	game_rule_settings.MaxMovesNum = moves_num.MovesNum(config.MaxMovesNum())
 	game_rule_settings.SetBoardSize(config.BoardSize())

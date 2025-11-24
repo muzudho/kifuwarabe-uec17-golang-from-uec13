@@ -42,15 +42,15 @@ GoGo をベースとしています
 ![202201go1.png](./doc/img/202201go1.png)  
 
 👆 CgfGoBan の `cgfgoban.exe` ファイルと同じディレクトリーに、  
-以下の図を参考に `📂input/game_conf.toml` と `📂logs`（空ディレクトリー） と、`📂output`（空ディレクトリー） を置いてください  
-`game_conf.toml` は、この Git hub の `📂input` の中に置いてあります  
+以下の図を参考に `📂input/game_settings.toml` と `📂logs`（空ディレクトリー） と、`📂output`（空ディレクトリー） を置いてください  
+`game_settings.toml` は、この Git hub の `📂input` の中に置いてあります  
 
 ```plain
 📂 cgfgoban108
 |
 +----📂 input
 |    |
-|    +----📄 game_conf.toml (設定ファイル)
+|    +----📄 game_settings.toml (設定ファイル)
 |
 +----📂 logs （空っぽ）
 |
@@ -60,7 +60,7 @@ GoGo をベースとしています
 
 ```
 
-game_conf.toml テキストファイルの内容は以下の通りです  
+game_settings.toml テキストファイルの内容は以下の通りです  
 
 ```toml
 [Game]
