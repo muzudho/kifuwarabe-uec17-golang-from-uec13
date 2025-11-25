@@ -2,10 +2,10 @@ package get_winner
 
 import (
 	// Entities
-	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
 
@@ -51,7 +51,7 @@ func getWinner(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel
 	whiteSum = kind[2] + whiteArea
 	score = blackSum - whiteSum
 	var win = 0
-	if 0 < komi_float.KomiFloat(score)-readonlyGameSettingsModel.GetKomi() {
+	if 0 < models.KomiFloat(score)-readonlyGameSettingsModel.GetKomi() {
 		win = 1
 	}
 	if turnColor == 2 {

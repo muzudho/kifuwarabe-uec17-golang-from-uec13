@@ -7,11 +7,11 @@ package game_domain
 
 import (
 	// Entities
-	direction_4 "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/direction_4"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
+	direction4type "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/direction4"
 )
 
 // WrapIsDislike - 盤を束縛変数として与えます
@@ -23,14 +23,14 @@ func WrapIsDislike(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsM
 		// 432
 		// 5S1
 		// 678
-		var eastZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.East]
-		var northEastZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.North] + 1
-		var northZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.North]
-		var northWestZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.North] - 1
-		var westZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.West]
-		var southWestZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.South] - 1
-		var southZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.South]
-		var southEastZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction_4.South] + 1
+		var eastZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction4type.East]
+		var northEastZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction4type.North] + 1
+		var northZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction4type.North]
+		var northWestZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction4type.North] - 1
+		var westZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction4type.West]
+		var southWestZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction4type.South] - 1
+		var southZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction4type.South]
+		var southEastZ = z + readonlyGameSettingsModel.GetDirections4Array()[direction4type.South] + 1
 
 		// 東北
 		// **

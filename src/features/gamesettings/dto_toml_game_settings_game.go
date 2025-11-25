@@ -1,8 +1,8 @@
 package gamesettings
 
 import (
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/moves_num"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 )
 
 // Game - [Game] テーブル
@@ -13,8 +13,8 @@ type Game struct {
 	BoardData string
 }
 
-func (game *Game) GetKomi() komi_float.KomiFloat {
-	return komi_float.KomiFloat(game.Komi)
+func (game *Game) GetKomi() models.KomiFloat {
+	return models.KomiFloat(game.Komi)
 }
 
 func (game *Game) GetBoardSize() int {

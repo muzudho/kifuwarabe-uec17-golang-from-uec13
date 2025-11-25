@@ -1,9 +1,9 @@
 package gamesettings
 
 import (
-	komi_float "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/komi_float"
 	moves_num "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/moves_num"
 	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 )
 
 const (
@@ -15,13 +15,13 @@ type ReadonlyGameSettingsModel struct {
 	// boardSize - 何路盤
 	boardSize int
 	// komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
-	komi komi_float.KomiFloat
+	komi models.KomiFloat
 	// maxMovesNum - 上限手数
 	maxMovesNum      moves_num.MovesNum
 	directions4Array [4]point.Point
 }
 
-func NewReadonlyGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxMovesNum moves_num.MovesNum) *ReadonlyGameSettingsModel {
+func NewReadonlyGameSettingsModel(boardSize int, komi models.KomiFloat, maxMovesNum moves_num.MovesNum) *ReadonlyGameSettingsModel {
 	return &ReadonlyGameSettingsModel{
 		boardSize:   boardSize,
 		komi:        komi,
@@ -32,33 +32,33 @@ func NewReadonlyGameSettingsModel(boardSize int, komi komi_float.KomiFloat, maxM
 }
 
 // GetBoardSize - 壁無し盤の１辺の長さ
-func (model *ReadonlyGameSettingsModel) GetBoardSize() int {
-	return model.boardSize
+func (model1 *ReadonlyGameSettingsModel) GetBoardSize() int {
+	return model1.boardSize
 }
 
 // GetBoardArea - 壁無し盤の面積
-func (model *ReadonlyGameSettingsModel) GetBoardArea() int {
-	return model.boardSize * model.boardSize
+func (model1 *ReadonlyGameSettingsModel) GetBoardArea() int {
+	return model1.boardSize * model1.boardSize
 }
 
 // GetSentinelWidth - 枠付きの盤の一辺の交点数
-func (model *ReadonlyGameSettingsModel) GetSentinelWidth() int {
-	return model.boardSize + 2
+func (model1 *ReadonlyGameSettingsModel) GetSentinelWidth() int {
+	return model1.boardSize + 2
 }
 
 // GetSentinelBoardArea - 壁付き盤の面積
-func (model *ReadonlyGameSettingsModel) GetSentinelBoardArea() int {
-	return model.GetSentinelWidth() * model.GetSentinelWidth()
+func (model1 *ReadonlyGameSettingsModel) GetSentinelBoardArea() int {
+	return model1.GetSentinelWidth() * model1.GetSentinelWidth()
 }
 
-func (model *ReadonlyGameSettingsModel) GetKomi() komi_float.KomiFloat {
-	return model.komi
+func (model1 *ReadonlyGameSettingsModel) GetKomi() models.KomiFloat {
+	return model1.komi
 }
 
-func (model *ReadonlyGameSettingsModel) GetMaxMovesNum() moves_num.MovesNum {
-	return model.maxMovesNum
+func (model1 *ReadonlyGameSettingsModel) GetMaxMovesNum() moves_num.MovesNum {
+	return model1.maxMovesNum
 }
 
-func (model *ReadonlyGameSettingsModel) GetDirections4Array() *[4]point.Point {
-	return &model.directions4Array
+func (model1 *ReadonlyGameSettingsModel) GetDirections4Array() *[4]point.Point {
+	return &model1.directions4Array
 }
