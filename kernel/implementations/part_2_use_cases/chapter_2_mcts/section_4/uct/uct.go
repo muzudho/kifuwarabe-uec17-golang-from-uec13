@@ -7,7 +7,6 @@ import (
 
 	// Entities
 
-	playout "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/playout"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
@@ -91,7 +90,7 @@ func SearchUct(
 
 	var winner int // 手番が勝ちなら1、引分けなら0、手番の負けなら-1 としてください
 	if c.Games <= 0 {
-		winner = -playout.Playout(readonlyGameSettingsModel, position1, color.Flip(), mcts.GettingOfWinnerOnDuringUCTPlayout, mcts.IsDislike)
+		winner = -mcts.Playout(readonlyGameSettingsModel, position1, color.Flip(), mcts.GettingOfWinnerOnDuringUCTPlayout, mcts.IsDislike)
 	} else {
 		if c.Next == uctstruct.NodeEmpty {
 			c.Next = nodestruct.CreateNode(position1)
