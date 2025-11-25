@@ -9,9 +9,8 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 
 	// Use Cases
-	get_winner "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/get_winner"
-	parameter_adjustment "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/parameter_adjustment"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/bademptytriangle"
+	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
 )
 
 // AllPlayouts - プレイアウトした回数。
@@ -27,8 +26,8 @@ func InitPosition(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsMo
 	// 盤サイズが変わっていることもあるので、先に初期化します
 	position1.InitPosition(readonlyGameSettingsModel)
 
-	GettingOfWinnerOnDuringUCTPlayout = get_winner.WrapGettingOfWinner(readonlyGameSettingsModel, position1)
+	GettingOfWinnerOnDuringUCTPlayout = mcts.WrapGettingOfWinner(readonlyGameSettingsModel, position1)
 	IsDislike = bademptytriangle.WrapIsDislike(readonlyGameSettingsModel, position1)
 
-	parameter_adjustment.AdjustParameters(readonlyGameSettingsModel, position1)
+	mcts.AdjustParameters(readonlyGameSettingsModel, position1)
 }

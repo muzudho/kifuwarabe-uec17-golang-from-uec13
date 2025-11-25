@@ -4,10 +4,10 @@ import (
 	"math/rand"
 
 	// Entities
-	parameter_adjustment "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/parameter_adjustment"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
 	models "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
@@ -31,7 +31,7 @@ func Playout(
 	var previousZ models.Point = 0
 	var boardMax = readonlyGameSettingsModel.GetSentinelBoardArea()
 
-	var playoutTrialCount = parameter_adjustment.PlayoutTrialCount
+	var playoutTrialCount = mcts.PlayoutTrialCount
 	for trial := 0; trial < playoutTrialCount; trial++ {
 		var emptyArray = make([]models.Point, boardMax)
 		var emptyLength int // 残りの空点の数
@@ -49,7 +49,7 @@ func Playout(
 
 		var r = 0
 		var dislikeZ = models.Pass
-		var randomPigeonX = parameter_adjustment.GetRandomPigeonX(emptyLength) // 見切りを付ける試行回数を算出
+		var randomPigeonX = mcts.GetRandomPigeonX(emptyLength) // 見切りを付ける試行回数を算出
 		var i int
 		for i = 0; i < randomPigeonX; i++ {
 			if emptyLength == 0 { // 空点が無ければパスします

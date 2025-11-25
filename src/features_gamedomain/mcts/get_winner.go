@@ -1,4 +1,4 @@
-package get_winner
+package mcts
 
 import (
 	// Entities

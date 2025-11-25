@@ -7,7 +7,6 @@ import (
 
 	// Entities
 
-	parameter_adjustment "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/parameter_adjustment"
 	uct_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	node_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/node_struct"
@@ -34,7 +33,7 @@ func GetBestZByUct(
 	// UCT計算フェーズ
 	node_struct.NodeNum = 0 // カウンターリセット
 	var next = node_struct.CreateNode(position1)
-	var uctLoopCount = parameter_adjustment.UctLoopCount
+	var uctLoopCount = mcts.UctLoopCount
 	for i := 0; i < uctLoopCount; i++ {
 		// 一時記憶
 		var copiedPosition = position1.CopyPosition(readonlyGameSettingsModel)

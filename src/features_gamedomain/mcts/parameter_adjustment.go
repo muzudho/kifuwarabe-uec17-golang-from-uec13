@@ -1,4 +1,4 @@
-package parameter_adjustment
+package mcts
 
 import (
 	// Entities
