@@ -3,11 +3,10 @@ package mcts
 import (
 	"math/rand"
 
-	// Entities
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
-	models "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
-	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
 
 // Playout - 最後まで石を打ちます。得点を返します

@@ -5,8 +5,6 @@ import (
 	"math/rand"
 	"os"
 
-	// Entities
-
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
@@ -14,7 +12,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts/nodestruct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts/uctstruct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
-	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
 
 // GetBestZByUct - Lesson08,09,09aで使用。 一番良いUCTである着手を選びます。 GetComputerMoveDuringSelfPlay などから呼び出されます。

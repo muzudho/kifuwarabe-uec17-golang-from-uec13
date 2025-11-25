@@ -4,13 +4,11 @@ import (
 	"math/rand"
 	"os"
 
-	// Entities
-
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
-	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
 
 // Position - 盤

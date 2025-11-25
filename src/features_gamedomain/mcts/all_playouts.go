@@ -1,15 +1,11 @@
 package mcts
 
 import (
-	// Entities
-
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
-	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
-
-	// Use Cases
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/bademptytriangle"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
 
 // AllPlayouts - プレイアウトした回数。

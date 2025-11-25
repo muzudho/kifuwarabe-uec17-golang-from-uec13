@@ -2,8 +2,6 @@ package gamerecord
 
 import "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 
-// Entities
-
 // GameRecordItem - 棋譜の1手分
 type GameRecordItem struct {
 	// Z - 着手

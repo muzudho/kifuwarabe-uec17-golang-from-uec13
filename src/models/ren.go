@@ -1,6 +1,5 @@
 package models
 
-// Entities
 import color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 
 // Ren - 連

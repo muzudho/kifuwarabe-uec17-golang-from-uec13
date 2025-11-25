@@ -8,22 +8,12 @@ import (
 	"math/rand"
 	"time"
 
-	// 1. Entities
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
-
-	// 2. Use Cases
-	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
-	mctsimpl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mctsimpl"
-
-	// 3. Controllers
-
-	// 6. Gateways
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
-
-	// 7. Presenters
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/textio"
-	// Interfaces
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mctsimpl"
 )
 
 func main() {

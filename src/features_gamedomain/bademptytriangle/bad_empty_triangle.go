@@ -6,12 +6,10 @@ package bademptytriangle
 // xx
 
 import (
-	// Entities
-
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
-	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 	direction4type "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/direction4"
 )
 

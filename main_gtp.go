@@ -7,23 +7,16 @@ import (
 	"strconv"
 	"strings"
 
-	// 1 Entities
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordpresenter"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordusecase"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/textio"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mctsimpl"
-	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
-
-	// 2 Use Cases
-	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
-
-	// 7 Presenters
-
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
-	// Interfaces
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
 
 // LoopGtp - レッスン９a

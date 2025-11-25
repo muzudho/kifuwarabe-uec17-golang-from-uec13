@@ -1,7 +1,6 @@
 package mcts
 
 import (
-	// Entities
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 )
