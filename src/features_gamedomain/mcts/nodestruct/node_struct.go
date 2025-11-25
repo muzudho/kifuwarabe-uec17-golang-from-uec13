@@ -1,9 +1,8 @@
-package node_struct
+package nodestruct
 
 import (
 	"os"
 
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/node"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
@@ -12,7 +11,7 @@ import (
 )
 
 // Nodes -ノードの配列？
-var Nodes = [uctstruct.NodeMax]node.Node{}
+var Nodes = [uctstruct.NodeMax]mcts.Node{}
 
 // NodeNum - ノード数？
 var NodeNum = 0
@@ -42,7 +41,7 @@ func CreateNode(position1 *position.Position) int {
 }
 
 // CreateNode から呼び出されます。
-func addChild(pN *node.Node, z models.Point) {
+func addChild(pN *mcts.Node, z models.Point) {
 	var n = pN.ChildNum
 	pN.Children[n].Z = z
 	pN.Children[n].Games = 0

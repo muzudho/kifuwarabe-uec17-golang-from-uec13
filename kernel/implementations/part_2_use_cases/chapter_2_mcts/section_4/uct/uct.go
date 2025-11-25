@@ -7,12 +7,12 @@ import (
 
 	// Entities
 
-	node_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/node_struct"
 	playout "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/playout"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts/nodestruct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts/uctstruct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
@@ -30,8 +30,8 @@ func GetBestZByUct(
 	print_calc_fin *func(*position.Position, models.Point, float64, int, int, int)) (models.Point, float64) {
 
 	// UCT計算フェーズ
-	node_struct.NodeNum = 0 // カウンターリセット
-	var next = node_struct.CreateNode(position1)
+	nodestruct.NodeNum = 0 // カウンターリセット
+	var next = nodestruct.CreateNode(position1)
 	var uctLoopCount = mcts.UctLoopCount
 	for i := 0; i < uctLoopCount; i++ {
 		// 一時記憶
@@ -46,7 +46,7 @@ func GetBestZByUct(
 	// ベスト値検索フェーズ
 	var bestI = -1
 	var max = -999
-	var pN = &node_struct.Nodes[next]
+	var pN = &nodestruct.Nodes[next]
 	for i := 0; i < pN.ChildNum; i++ {
 		var c = &pN.Children[i]
 		if c.Games > max {
@@ -59,7 +59,7 @@ func GetBestZByUct(
 
 	// 結果
 	var bestZ = pN.Children[bestI].Z
-	// FIXME: (*print_calc_fin)(position1, bestZ, pN.Children[bestI].Rate, max, mcts.AllPlayouts, node_struct.NodeNum)
+	// FIXME: (*print_calc_fin)(position1, bestZ, pN.Children[bestI].Rate, max, mcts.AllPlayouts, nodestruct.NodeNum)
 	//text_io1.LogInfo("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
 	//	p.GetGtpZ(position1, bestZ), pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
 	return bestZ, pN.Children[bestI].Rate
@@ -72,7 +72,7 @@ func SearchUct(
 	color color.Color,
 	nodeN int) int {
 
-	var pN = &node_struct.Nodes[nodeN]
+	var pN = &nodestruct.Nodes[nodeN]
 	var c *mcts.Child
 
 	for {
@@ -94,7 +94,7 @@ func SearchUct(
 		winner = -playout.Playout(readonlyGameSettingsModel, position1, color.Flip(), mcts.GettingOfWinnerOnDuringUCTPlayout, mcts.IsDislike)
 	} else {
 		if c.Next == uctstruct.NodeEmpty {
-			c.Next = node_struct.CreateNode(position1)
+			c.Next = nodestruct.CreateNode(position1)
 		}
 		winner = -SearchUct(readonlyGameSettingsModel, position1, color.Flip(), c.Next)
 	}
@@ -106,7 +106,7 @@ func SearchUct(
 
 // 一番良い UCB を選びます。 SearchUct から呼び出されます。
 func selectBestUcb(nodeN int) int {
-	var pN = &node_struct.Nodes[nodeN]
+	var pN = &nodestruct.Nodes[nodeN]
 	var selectI = -1
 	var maxUcb = -999.0
 	var ucb = 0.0
