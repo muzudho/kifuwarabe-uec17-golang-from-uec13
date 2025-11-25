@@ -4,11 +4,11 @@ import (
 	"math/rand"
 
 	// Entities
-	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	parameter_adjustment "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/parameter_adjustment"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	models "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
 
@@ -23,23 +23,23 @@ func Playout(
 	position1 *position.Position,
 	turnColor color.Color,
 	getWinner *func(color.Color) int,
-	isDislike *func(color.Color, point.Point) bool) int {
+	isDislike *func(color.Color, models.Point) bool) int {
 
 	all_playouts.AllPlayouts++
 
 	var color = turnColor
-	var previousZ point.Point = 0
+	var previousZ models.Point = 0
 	var boardMax = readonlyGameSettingsModel.GetSentinelBoardArea()
 
 	var playoutTrialCount = parameter_adjustment.PlayoutTrialCount
 	for trial := 0; trial < playoutTrialCount; trial++ {
-		var emptyArray = make([]point.Point, boardMax)
+		var emptyArray = make([]models.Point, boardMax)
 		var emptyLength int // 残りの空点の数
-		var z point.Point
+		var z models.Point
 
 		// 空点を記憶します
 		// TODO 空点を差分更新できないか？ 毎回スキャンは重くないか？
-		var onPoint = func(z point.Point) {
+		var onPoint = func(z models.Point) {
 			if position1.IsEmpty(z) { // 空点なら
 				emptyArray[emptyLength] = z
 				emptyLength++
@@ -48,12 +48,12 @@ func Playout(
 		position1.IterateWithoutWall(onPoint)
 
 		var r = 0
-		var dislikeZ = point.Pass
+		var dislikeZ = models.Pass
 		var randomPigeonX = parameter_adjustment.GetRandomPigeonX(emptyLength) // 見切りを付ける試行回数を算出
 		var i int
 		for i = 0; i < randomPigeonX; i++ {
 			if emptyLength == 0 { // 空点が無ければパスします
-				z = point.Pass
+				z = models.Pass
 			} else {
 
 				// UEC: 改造ポイント
@@ -71,7 +71,7 @@ func Playout(
 			var err = position1.PutStone(readonlyGameSettingsModel, z, color)
 			if err == 0 { // 石が置けたか、パスなら
 
-				if z == point.Pass || // パスか、
+				if z == models.Pass || // パスか、
 					!(*isDislike)(color, z) { // 石を置きたくないわけでなければ
 					break // 確定
 				}

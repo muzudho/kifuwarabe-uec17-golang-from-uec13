@@ -3,12 +3,12 @@ package node_struct
 import (
 	"os"
 
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/child"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/node"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 )
 
 // Nodes -ノードの配列？
@@ -29,7 +29,7 @@ func CreateNode(position1 *position.Position) int {
 	pN.Children = make([]child.Child, position1.UctChildrenSize())
 	pN.ChildGameSum = 0
 
-	var onPoint = func(z point.Point) {
+	var onPoint = func(z models.Point) {
 		if position1.IsEmpty(z) { // 空点なら
 			addChild(pN, z)
 		}
@@ -42,7 +42,7 @@ func CreateNode(position1 *position.Position) int {
 }
 
 // CreateNode から呼び出されます。
-func addChild(pN *node.Node, z point.Point) {
+func addChild(pN *node.Node, z models.Point) {
 	var n = pN.ChildNum
 	pN.Children[n].Z = z
 	pN.Children[n].Games = 0

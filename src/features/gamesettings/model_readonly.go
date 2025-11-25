@@ -1,8 +1,6 @@
 package gamesettings
 
 import (
-	moves_num "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/moves_num"
-	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 )
 
@@ -17,17 +15,17 @@ type ReadonlyGameSettingsModel struct {
 	// komi - コミ。 6.5 といった数字を入れるだけ。実行速度優先で 64bitに。
 	komi models.KomiFloat
 	// maxMovesNum - 上限手数
-	maxMovesNum      moves_num.MovesNum
-	directions4Array [4]point.Point
+	maxMovesNum      models.MovesNum
+	directions4Array [4]models.Point
 }
 
-func NewReadonlyGameSettingsModel(boardSize int, komi models.KomiFloat, maxMovesNum moves_num.MovesNum) *ReadonlyGameSettingsModel {
+func NewReadonlyGameSettingsModel(boardSize int, komi models.KomiFloat, maxMovesNum models.MovesNum) *ReadonlyGameSettingsModel {
 	return &ReadonlyGameSettingsModel{
 		boardSize:   boardSize,
 		komi:        komi,
 		maxMovesNum: maxMovesNum,
 		// directions4Array - ４方向（東、西、南、北）の番地。水平方向、垂直方向の順で並べた。Directions4型の順番に対応
-		directions4Array: [4]point.Point{1, -1, point.Point(boardSize + 2), point.Point(-(boardSize + 2))},
+		directions4Array: [4]models.Point{1, -1, models.Point(boardSize + 2), models.Point(-(boardSize + 2))},
 	}
 }
 
@@ -55,10 +53,10 @@ func (model1 *ReadonlyGameSettingsModel) GetKomi() models.KomiFloat {
 	return model1.komi
 }
 
-func (model1 *ReadonlyGameSettingsModel) GetMaxMovesNum() moves_num.MovesNum {
+func (model1 *ReadonlyGameSettingsModel) GetMaxMovesNum() models.MovesNum {
 	return model1.maxMovesNum
 }
 
-func (model1 *ReadonlyGameSettingsModel) GetDirections4Array() *[4]point.Point {
+func (model1 *ReadonlyGameSettingsModel) GetDirections4Array() *[4]models.Point {
 	return &model1.directions4Array
 }

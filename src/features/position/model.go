@@ -5,11 +5,12 @@ import (
 	"os"
 
 	// Entities
-	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+
 	ren "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/ren"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
 
@@ -20,13 +21,13 @@ type Position struct {
 	// 呼吸点を数えるための一時盤
 	checkBoard []int
 	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
-	KoZ point.Point
+	KoZ models.Point
 	// MovesNum - 手数
 	MovesNum int
 	// Record - 棋譜
 	Record []*gamerecord.GameRecordItem
 	// 二重ループ
-	iteratorWithoutWall func(func(point.Point))
+	iteratorWithoutWall func(func(models.Point))
 	// UCT計算中の子の数
 	uctChildrenSize int
 }
@@ -36,7 +37,7 @@ type TemporaryPosition struct {
 	// 盤
 	Board []color.Color
 	// KoZ - コウの交点。Idx（配列のインデックス）表示。 0 ならコウは無し？
-	KoZ point.Point
+	KoZ models.Point
 }
 
 // CopyPosition - 盤データのコピー。
@@ -72,12 +73,12 @@ func (position1 *Position) InitPosition(readonlyGameSettingsModel *gamesettings.
 	position1.iteratorWithoutWall = position1.CreateBoardIteratorWithoutWall(readonlyGameSettingsModel)
 
 	// 枠線
-	for z := point.Point(0); z < point.Point(boardMax); z++ {
+	for z := models.Point(0); z < models.Point(boardMax); z++ {
 		position1.SetColor(z, color.Wall)
 	}
 
 	// 盤上
-	var onPoint = func(z point.Point) {
+	var onPoint = func(z models.Point) {
 		position1.SetColor(z, 0)
 	}
 	position1.iteratorWithoutWall(onPoint)
@@ -99,12 +100,12 @@ func (position1 *Position) SetBoard(board []color.Color) {
 }
 
 // ColorAt - 指定した交点の石の色
-func (position1 *Position) ColorAt(z point.Point) color.Color {
+func (position1 *Position) ColorAt(z models.Point) color.Color {
 	return position1.board[z]
 }
 
 // CheckAt - 指定した交点のチェック
-func (position1 *Position) CheckAt(z point.Point) int {
+func (position1 *Position) CheckAt(z models.Point) int {
 	return position1.checkBoard[z]
 }
 
@@ -114,12 +115,12 @@ func (position1 *Position) ColorAtXy(readonlyGameSettingsModel *gamesettings.Rea
 }
 
 // IsEmpty - 指定の交点は空点か？
-func (position1 *Position) IsEmpty(z point.Point) bool {
+func (position1 *Position) IsEmpty(z models.Point) bool {
 	return position1.board[z] == color.None
 }
 
 // SetColor - 盤データ。
-func (position1 *Position) SetColor(z point.Point, color color.Color) {
+func (position1 *Position) SetColor(z models.Point, color color.Color) {
 	// TODO 消す
 	// if z == Point(11) && color == Empty { // テスト
 	// 	panic(fmt.Sprintf("z=%d color=%d SentinelWidth=%d", z, color, SentinelWidth))
@@ -129,7 +130,7 @@ func (position1 *Position) SetColor(z point.Point, color color.Color) {
 }
 
 // GetZ4 - z（配列のインデックス）を XXYY形式（3～4桁の数）の座標へ変換します。
-func (position1 *Position) GetZ4(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z point.Point) int {
+func (position1 *Position) GetZ4(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z models.Point) int {
 	if z == 0 {
 		return 0
 	}
@@ -140,14 +141,14 @@ func (position1 *Position) GetZ4(readonlyGameSettingsModel *gamesettings.Readonl
 
 // GetZFromXy - x,y 形式の座標を、 z （配列のインデックス）へ変換します。
 // x,y は壁を含まない領域での 0 から始まる座標です。 z は壁を含む盤上での座標です
-func (position1 *Position) GetZFromXy(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, x int, y int) point.Point {
-	return point.Point((y+1)*readonlyGameSettingsModel.GetSentinelWidth() + x + 1)
+func (position1 *Position) GetZFromXy(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, x int, y int) models.Point {
+	return models.Point((y+1)*readonlyGameSettingsModel.GetSentinelWidth() + x + 1)
 }
 
 // GetEmptyZ - 空点の z （配列のインデックス）を返します。
-func (position1 *Position) GetEmptyZ(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel) point.Point {
+func (position1 *Position) GetEmptyZ(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel) models.Point {
 	var x, y int
-	var z point.Point
+	var z models.Point
 	for {
 		// ランダムに交点を選んで、空点を見つけるまで繰り返します。
 		x = rand.Intn(readonlyGameSettingsModel.GetBoardSize()) // FIXME: 9 でいいの？ 9路盤？ → boardSize に変更
@@ -163,12 +164,12 @@ func (position1 *Position) GetEmptyZ(readonlyGameSettingsModel *gamesettings.Rea
 // CountLiberty - 呼吸点を数えます。
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (position1 *Position) CountLiberty(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z point.Point, libertyArea *int, renArea *int) {
+func (position1 *Position) CountLiberty(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z models.Point, libertyArea *int, renArea *int) {
 	*libertyArea = 0
 	*renArea = 0
 
 	// チェックボードの初期化
-	var onPoint = func(z point.Point) {
+	var onPoint = func(z models.Point) {
 		position1.checkBoard[z] = 0
 	}
 	position1.iteratorWithoutWall(onPoint)
@@ -178,7 +179,7 @@ func (position1 *Position) CountLiberty(readonlyGameSettingsModel *gamesettings.
 
 // * `libertyArea` - 呼吸点の数
 // * `renArea` - 連の石の数
-func (position1 *Position) countLibertySub(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z point.Point, color color.Color, libertyArea *int, renArea *int) {
+func (position1 *Position) countLibertySub(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z models.Point, color color.Color, libertyArea *int, renArea *int) {
 	position1.checkBoard[z] = 1
 	*renArea++
 	for i := 0; i < 4; i++ {
@@ -196,7 +197,7 @@ func (position1 *Position) countLibertySub(readonlyGameSettingsModel *gamesettin
 }
 
 // TakeStone - 石を打ち上げ（取り上げ、取り除き）ます。
-func (position1 *Position) TakeStone(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z point.Point, color1 color.Color) {
+func (position1 *Position) TakeStone(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z models.Point, color1 color.Color) {
 	position1.board[z] = color.None // 石を消します
 
 	for dir := 0; dir < 4; dir++ {
@@ -209,7 +210,7 @@ func (position1 *Position) TakeStone(readonlyGameSettingsModel *gamesettings.Rea
 }
 
 // IterateWithoutWall - 盤イテレーター
-func (position1 *Position) IterateWithoutWall(onPoint func(point.Point)) {
+func (position1 *Position) IterateWithoutWall(onPoint func(models.Point)) {
 	position1.iteratorWithoutWall(onPoint)
 }
 
@@ -219,10 +220,10 @@ func (position1 *Position) UctChildrenSize() int {
 }
 
 // CreateBoardIteratorWithoutWall - 盤の（壁を除く）全ての交点に順にアクセスする boardIterator 関数を生成します
-func (position1 *Position) CreateBoardIteratorWithoutWall(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel) func(func(point.Point)) {
+func (position1 *Position) CreateBoardIteratorWithoutWall(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel) func(func(models.Point)) {
 
 	var boardSize = readonlyGameSettingsModel.GetBoardSize()
-	var boardIterator = func(onPoint func(point.Point)) {
+	var boardIterator = func(onPoint func(models.Point)) {
 
 		// UEC: 改造ポイント
 		// 壁周りは後回しにしたい。
@@ -279,7 +280,7 @@ func (position1 *Position) CreateBoardIteratorWithoutWall(readonlyGameSettingsMo
 }
 
 // PutStoneOnRecord - SelfPlay, RunGtpEngine から呼び出されます
-func (position1 *Position) PutStoneOnRecord(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z point.Point, color color.Color, recItem *gamerecord.GameRecordItem) {
+func (position1 *Position) PutStoneOnRecord(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z models.Point, color color.Color, recItem *gamerecord.GameRecordItem) {
 	var err = position1.PutStone(readonlyGameSettingsModel, z, color)
 	if err != 0 {
 		logger.Console.Error("(PutStoneOnRecord) Err!\n")
@@ -296,7 +297,7 @@ func (position1 *Position) PutStoneOnRecord(readonlyGameSettingsModel *gamesetti
 //
 // # Returns
 // エラーコード
-func (position1 *Position) PutStone(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z point.Point, color1 color.Color) int {
+func (position1 *Position) PutStone(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z models.Point, color1 color.Color) int {
 	var around = [4]*ren.Ren{}   // 隣接する４つの交点
 	var libertyArea int          // 呼吸点の数
 	var renArea int              // 連の石の数
@@ -306,7 +307,7 @@ func (position1 *Position) PutStone(readonlyGameSettingsModel *gamesettings.Read
 	var myBreathFriend = 0       // 呼吸できる自分の石と隣接している向きの数
 	var captureSum = 0           // アゲハマの数
 
-	if z == point.Pass { // 投了なら、コウを消して関数を正常終了
+	if z == models.Pass { // 投了なら、コウを消して関数を正常終了
 		position1.KoZ = 0
 		return 0
 	}

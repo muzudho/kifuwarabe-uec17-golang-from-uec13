@@ -1,21 +1,22 @@
 package gamerecord
 
+import "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
+
 // Entities
-import "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
 
 // GameRecordItem - 棋譜の1手分
 type GameRecordItem struct {
 	// Z - 着手
-	Z point.Point
+	Z models.Point
 	// Time - 消費時間
 	Time float64
 }
 
 // SetZ - 着手
-func (recItem *GameRecordItem) SetZ(z point.Point) {
+func (recItem *GameRecordItem) SetZ(z models.Point) {
 	recItem.Z = z
 }
-func (recItem *GameRecordItem) GetZ() point.Point {
+func (recItem *GameRecordItem) GetZ() models.Point {
 	return recItem.Z
 }
 

@@ -2,9 +2,10 @@ package all_playouts
 
 import (
 	// Entities
-	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 
 	// Use Cases
@@ -17,7 +18,7 @@ import (
 var AllPlayouts int
 
 var GettingOfWinnerOnDuringUCTPlayout *func(color.Color) int
-var IsDislike *func(color.Color, point.Point) bool
+var IsDislike *func(color.Color, models.Point) bool
 
 // FlagTestPlayout - ？。
 var FlagTestPlayout int

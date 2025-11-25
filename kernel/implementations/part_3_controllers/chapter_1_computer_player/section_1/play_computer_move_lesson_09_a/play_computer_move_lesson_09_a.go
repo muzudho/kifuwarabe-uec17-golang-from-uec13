@@ -5,10 +5,11 @@ import (
 	"time"
 
 	// Entities
-	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 
 	// Use Cases
@@ -28,7 +29,7 @@ func PlayComputerMoveLesson09a(
 	text_io1 i_text_io.ITextIO,
 	readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel,
 	position1 *position.Position,
-	color1 color.Color) point.Point {
+	color1 color.Color) models.Point {
 
 	var st1 = time.Now()
 	all_playouts.AllPlayouts = 0

@@ -6,7 +6,7 @@ import (
 	"os"
 
 	// Entities
-	point "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_1/point"
+
 	child "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/child"
 	parameter_adjustment "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/parameter_adjustment"
 	uct_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
@@ -16,6 +16,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
 
@@ -27,8 +28,8 @@ func GetBestZByUct(
 	readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel,
 	position1 *position.Position,
 	color color.Color,
-	print_calc *func(*position.Position, int, point.Point, float64, int),
-	print_calc_fin *func(*position.Position, point.Point, float64, int, int, int)) (point.Point, float64) {
+	print_calc *func(*position.Position, int, models.Point, float64, int),
+	print_calc_fin *func(*position.Position, models.Point, float64, int, int, int)) (models.Point, float64) {
 
 	// UCT計算フェーズ
 	node_struct.NodeNum = 0 // カウンターリセット
