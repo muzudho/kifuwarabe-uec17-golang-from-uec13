@@ -1,4 +1,4 @@
-package all_playouts
+package mcts
 
 import (
 	// Entities
@@ -10,7 +10,6 @@ import (
 
 	// Use Cases
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/bademptytriangle"
-	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
 )
 
 // AllPlayouts - プレイアウトした回数。
@@ -26,8 +25,8 @@ func InitPosition(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsMo
 	// 盤サイズが変わっていることもあるので、先に初期化します
 	position1.InitPosition(readonlyGameSettingsModel)
 
-	GettingOfWinnerOnDuringUCTPlayout = mcts.WrapGettingOfWinner(readonlyGameSettingsModel, position1)
+	GettingOfWinnerOnDuringUCTPlayout = WrapGettingOfWinner(readonlyGameSettingsModel, position1)
 	IsDislike = bademptytriangle.WrapIsDislike(readonlyGameSettingsModel, position1)
 
-	mcts.AdjustParameters(readonlyGameSettingsModel, position1)
+	AdjustParameters(readonlyGameSettingsModel, position1)
 }

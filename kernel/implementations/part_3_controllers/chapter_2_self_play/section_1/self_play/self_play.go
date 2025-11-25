@@ -13,8 +13,8 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 
 	// User Cases
-	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	uct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
+	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
 
 	// Presenters
 	z_code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
@@ -63,7 +63,7 @@ func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesetting
 func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position, color color.Color) models.Point {
 
 	var start = time.Now()
-	all_playouts.AllPlayouts = 0
+	mcts.AllPlayouts = 0
 
 	var z, winRate = uct.GetBestZByUct(
 		readonlyGameSettingsModel,
@@ -74,6 +74,6 @@ func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSetti
 
 	var sec = time.Since(start).Seconds()
 	text_io1.LogInfo(fmt.Sprintf("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-		sec, float64(all_playouts.AllPlayouts)/sec, position1.GetZ4(readonlyGameSettingsModel, z), winRate, position1.MovesNum, color, all_playouts.AllPlayouts))
+		sec, float64(mcts.AllPlayouts)/sec, position1.GetZ4(readonlyGameSettingsModel, z), winRate, position1.MovesNum, color, mcts.AllPlayouts))
 	return z
 }

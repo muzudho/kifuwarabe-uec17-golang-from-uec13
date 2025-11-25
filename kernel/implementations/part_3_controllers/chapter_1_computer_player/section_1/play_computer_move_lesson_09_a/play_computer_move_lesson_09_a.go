@@ -9,11 +9,11 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 
 	// Use Cases
-	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	uct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_4/uct"
 
 	// Presenters
@@ -32,7 +32,7 @@ func PlayComputerMoveLesson09a(
 	color1 color.Color) models.Point {
 
 	var st1 = time.Now()
-	all_playouts.AllPlayouts = 0
+	mcts.AllPlayouts = 0
 
 	var z1, winRate1 = uct.GetBestZByUct(
 		readonlyGameSettingsModel,
@@ -50,7 +50,7 @@ func PlayComputerMoveLesson09a(
 
 	var sec1 = time.Since(st1).Seconds()
 	// FIXME: text_io1.LogInfo(fmt.Sprintf("%.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",
-	//		sec1, float64(all_playouts.AllPlayouts)/sec1, position1.GetZ4(z1), winRate1, position1.MovesNum, color1, all_playouts.AllPlayouts))
+	//		sec1, float64(mcts.AllPlayouts)/sec1, position1.GetZ4(z1), winRate1, position1.MovesNum, color1, mcts.AllPlayouts))
 
 	var recItem1 = new(gamerecord.GameRecordItem)
 	recItem1.Z = z1

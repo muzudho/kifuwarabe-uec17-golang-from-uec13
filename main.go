@@ -12,7 +12,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 
 	// 2. Use Cases
-	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
+	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
 
 	// 3. Controllers
 	self_play "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_3_controllers/chapter_2_self_play/section_1/self_play"
@@ -53,7 +53,7 @@ func main() {
 	var dto1 = gamesettings.LoadGameSettings("game_settings.toml", OnFatal)
 	var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(dto1.Game.GetBoardSize(), dto1.Game.GetKomi(), dto1.Game.GetMaxMoves())
 	var position1 = position.NewPosition()
-	all_playouts.InitPosition(readonlyGameSettingsModel, position1)
+	mcts.InitPosition(readonlyGameSettingsModel, position1)
 	position1.SetBoard(gamesettings.GetBoardArray(&dto1))
 
 	// ========================================

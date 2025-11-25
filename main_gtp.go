@@ -15,7 +15,7 @@ import (
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 
 	// 2 Use Cases
-	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
+	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
 
 	// 7 Presenters
 	z_code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
@@ -115,7 +115,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 
 				gameSettingsDto1.Game.BoardSize = int8(boardSize)
 				var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-				all_playouts.InitPosition(readonlyGameSettingsModel, position1)
+				mcts.InitPosition(readonlyGameSettingsModel, position1)
 
 				text_io1.SendCommand("= \n\n")
 			} else {
@@ -151,7 +151,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 			// clear_board
 			// ```
 			var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-			all_playouts.InitPosition(readonlyGameSettingsModel, position1)
+			mcts.InitPosition(readonlyGameSettingsModel, position1)
 			text_io1.SendCommand("= \n\n")
 
 		case "play":

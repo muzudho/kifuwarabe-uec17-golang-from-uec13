@@ -4,7 +4,6 @@ import (
 	"math/rand"
 
 	// Entities
-	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
@@ -25,7 +24,7 @@ func Playout(
 	getWinner *func(color.Color) int,
 	isDislike *func(color.Color, models.Point) bool) int {
 
-	all_playouts.AllPlayouts++
+	mcts.AllPlayouts++
 
 	var color = turnColor
 	var previousZ models.Point = 0
@@ -88,7 +87,7 @@ func Playout(
 		}
 
 		// テストのときは棋譜を残します
-		if all_playouts.FlagTestPlayout != 0 {
+		if mcts.FlagTestPlayout != 0 {
 			position1.Record[position1.MovesNum].SetZ(z)
 			position1.MovesNum++
 		}

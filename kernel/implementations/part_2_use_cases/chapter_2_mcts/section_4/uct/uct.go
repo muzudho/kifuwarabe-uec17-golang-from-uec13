@@ -7,7 +7,6 @@ import (
 
 	// Entities
 
-	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	node_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/node_struct"
 	playout "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/playout"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
@@ -60,7 +59,7 @@ func GetBestZByUct(
 
 	// 結果
 	var bestZ = pN.Children[bestI].Z
-	// FIXME: (*print_calc_fin)(position1, bestZ, pN.Children[bestI].Rate, max, all_playouts.AllPlayouts, node_struct.NodeNum)
+	// FIXME: (*print_calc_fin)(position1, bestZ, pN.Children[bestI].Rate, max, mcts.AllPlayouts, node_struct.NodeNum)
 	//text_io1.LogInfo("(UCT Calculated    ) bestZ=%s,rate=%.4f,games=%d,playouts=%d,nodes=%d\n",
 	//	p.GetGtpZ(position1, bestZ), pN.Children[bestI].Rate, max, AllPlayouts, NodeNum)
 	return bestZ, pN.Children[bestI].Rate
@@ -92,7 +91,7 @@ func SearchUct(
 
 	var winner int // 手番が勝ちなら1、引分けなら0、手番の負けなら-1 としてください
 	if c.Games <= 0 {
-		winner = -playout.Playout(readonlyGameSettingsModel, position1, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
+		winner = -playout.Playout(readonlyGameSettingsModel, position1, color.Flip(), mcts.GettingOfWinnerOnDuringUCTPlayout, mcts.IsDislike)
 	} else {
 		if c.Next == uctstruct.NodeEmpty {
 			c.Next = node_struct.CreateNode(position1)
