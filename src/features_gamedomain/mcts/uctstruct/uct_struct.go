@@ -1,4 +1,4 @@
-package uct_struct
+package uctstruct
 
 // UCT
 const (

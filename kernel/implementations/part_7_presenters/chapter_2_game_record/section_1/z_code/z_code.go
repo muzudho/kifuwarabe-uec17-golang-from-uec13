@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	uct_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts/uctstruct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 )
 
@@ -15,7 +15,7 @@ func GetGtpZ(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, 
 	switch z {
 	case 0:
 		return "PASS"
-	case uct_struct.IllegalZ:
+	case uctstruct.IllegalZ:
 		return "ILLEGAL" // GTP の仕様外です
 	}
 

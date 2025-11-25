@@ -3,16 +3,16 @@ package node_struct
 import (
 	"os"
 
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/node"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
-	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts/uctstruct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 )
 
 // Nodes -ノードの配列？
-var Nodes = [uct_struct.NodeMax]node.Node{}
+var Nodes = [uctstruct.NodeMax]node.Node{}
 
 // NodeNum - ノード数？
 var NodeNum = 0
@@ -20,7 +20,7 @@ var NodeNum = 0
 // CreateNode - ノード作成。 searchUctV8, GetBestZByUct, searchUctLesson09 から呼び出されます。
 func CreateNode(position1 *position.Position) int {
 
-	if NodeNum == uct_struct.NodeMax {
+	if NodeNum == uctstruct.NodeMax {
 		logger.Console.Error("node over Err\n")
 		os.Exit(0)
 	}
@@ -47,6 +47,6 @@ func addChild(pN *node.Node, z models.Point) {
 	pN.Children[n].Z = z
 	pN.Children[n].Games = 0
 	pN.Children[n].Rate = 0.0
-	pN.Children[n].Next = uct_struct.NodeEmpty
+	pN.Children[n].Next = uctstruct.NodeEmpty
 	pN.ChildNum++
 }

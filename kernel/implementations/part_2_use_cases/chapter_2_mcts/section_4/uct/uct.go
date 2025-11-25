@@ -7,14 +7,14 @@ import (
 
 	// Entities
 
-	uct_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	all_playouts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/all_playouts"
 	node_struct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/node_struct"
 	playout "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_3/playout"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
-	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts/uctstruct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 )
@@ -86,7 +86,7 @@ func SearchUct(
 			break
 		}
 
-		c.Z = uct_struct.IllegalZ
+		c.Z = uctstruct.IllegalZ
 		// code.Console.Debug("ILLEGAL:z=%04d\n", GetZ4(z))
 	}
 
@@ -94,7 +94,7 @@ func SearchUct(
 	if c.Games <= 0 {
 		winner = -playout.Playout(readonlyGameSettingsModel, position1, color.Flip(), all_playouts.GettingOfWinnerOnDuringUCTPlayout, all_playouts.IsDislike)
 	} else {
-		if c.Next == uct_struct.NodeEmpty {
+		if c.Next == uctstruct.NodeEmpty {
 			c.Next = node_struct.CreateNode(position1)
 		}
 		winner = -SearchUct(readonlyGameSettingsModel, position1, color.Flip(), c.Next)
@@ -113,7 +113,7 @@ func selectBestUcb(nodeN int) int {
 	var ucb = 0.0
 	for i := 0; i < pN.ChildNum; i++ {
 		var c = &pN.Children[i]
-		if c.Z == uct_struct.IllegalZ {
+		if c.Z == uctstruct.IllegalZ {
 			continue
 		}
 		if c.Games == 0 {
