@@ -1,4 +1,4 @@
-package board_view
+package gamerecordusecase
 
 import (
 	"strconv"
@@ -6,7 +6,6 @@ import (
 
 	// Entity
 
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordusecase"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
@@ -116,7 +115,7 @@ func PrintBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsMode
 	if position1.KoZ == models.Pass {
 		b.WriteString("_")
 	} else {
-		b.WriteString(gamerecordusecase.GetGtpZ(readonlyGameSettingsModel, position1, position1.KoZ))
+		b.WriteString(GetGtpZ(readonlyGameSettingsModel, position1, position1.KoZ))
 	}
 	if movesNum != -1 {
 		b.WriteString(",movesNum=")

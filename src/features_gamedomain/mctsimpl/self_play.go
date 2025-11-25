@@ -7,6 +7,7 @@ import (
 	// Entities
 
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordpresenter"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordusecase"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
@@ -19,7 +20,6 @@ import (
 
 	// Presenters
 
-	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
 	uct_calc_info "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_3_uct/section_1/uct_calc_info"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 
@@ -43,7 +43,7 @@ func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesetting
 		logger.Console.Print("z=%s,color=%d", gamerecordusecase.GetGtpZ(readonlyGameSettingsModel, position1, z), color) // テスト
 
 		// p.PrintCheckBoard(readonlyGameSettingsModel, position1)                                        // テスト
-		board_view.PrintBoard(readonlyGameSettingsModel, position1, position1.MovesNum)
+		gamerecordpresenter.PrintBoard(readonlyGameSettingsModel, position1, position1.MovesNum)
 
 		// パスで２手目以降で棋譜の１つ前（相手）もパスなら終了します。
 		if z == models.Pass && 1 < position1.MovesNum && position1.Record[position1.MovesNum-2].GetZ() == models.Pass {

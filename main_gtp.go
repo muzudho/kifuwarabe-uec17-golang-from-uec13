@@ -9,6 +9,7 @@ import (
 
 	// 1 Entities
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordpresenter"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordusecase"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
@@ -20,7 +21,6 @@ import (
 
 	// 7 Presenters
 
-	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 
 	// Interfaces
@@ -216,7 +216,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 			// ```
 			text_io1.SendCommand("= \n")
 			var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-			board_view.PrintBoard(readonlyGameSettingsModel, position1, position1.MovesNum)
+			gamerecordpresenter.PrintBoard(readonlyGameSettingsModel, position1, position1.MovesNum)
 			text_io1.SendCommand("\n\n")
 
 		default:
