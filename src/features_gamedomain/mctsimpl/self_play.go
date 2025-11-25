@@ -20,7 +20,6 @@ import (
 
 	// Presenters
 
-	uct_calc_info "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_3_uct/section_1/uct_calc_info"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 
 	// Interfaces
@@ -69,8 +68,8 @@ func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSetti
 		readonlyGameSettingsModel,
 		position1,
 		color,
-		uct_calc_info.CreatePrintingOfCalc(text_io1, readonlyGameSettingsModel),
-		uct_calc_info.CreatePrintingOfCalcFin(text_io1, readonlyGameSettingsModel))
+		gamerecordpresenter.CreatePrintingOfCalc(text_io1, readonlyGameSettingsModel),
+		gamerecordpresenter.CreatePrintingOfCalcFin(text_io1, readonlyGameSettingsModel))
 
 	var sec = time.Since(start).Seconds()
 	text_io1.LogInfo(fmt.Sprintf("(GetComputerMoveDuringSelfPlay) %.1f sec, %.0f playout/sec, play_z=%04d,rate=%.4f,movesNum=%d,color=%d,playouts=%d\n",

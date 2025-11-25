@@ -7,6 +7,7 @@ import (
 	// Entities
 
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordpresenter"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
@@ -17,8 +18,6 @@ import (
 	uct "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts/uct"
 
 	// Presenters
-
-	uct_calc_info "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_3_uct/section_1/uct_calc_info"
 
 	// Interfaces
 	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
@@ -38,8 +37,8 @@ func PlayComputerMoveLesson09a(
 		readonlyGameSettingsModel,
 		position1,
 		color1,
-		uct_calc_info.CreatePrintingOfCalc(text_io1, readonlyGameSettingsModel),
-		uct_calc_info.CreatePrintingOfCalcFin(text_io1, readonlyGameSettingsModel))
+		gamerecordpresenter.CreatePrintingOfCalc(text_io1, readonlyGameSettingsModel),
+		gamerecordpresenter.CreatePrintingOfCalcFin(text_io1, readonlyGameSettingsModel))
 
 	if 1 < position1.MovesNum && // 初手ではないとして
 		position1.Record[position1.MovesNum-1].GetZ() == 0 && // １つ前の手がパスで

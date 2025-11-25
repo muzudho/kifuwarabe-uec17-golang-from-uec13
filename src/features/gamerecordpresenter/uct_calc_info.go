@@ -1,4 +1,4 @@
-package uct_calc_info
+package gamerecordpresenter
 
 import (
 	"fmt"
