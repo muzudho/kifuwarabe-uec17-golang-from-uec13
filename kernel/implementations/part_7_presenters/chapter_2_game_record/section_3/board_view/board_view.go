@@ -6,7 +6,7 @@ import (
 
 	// Entity
 
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordusecase"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
@@ -116,7 +116,7 @@ func PrintBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsMode
 	if position1.KoZ == models.Pass {
 		b.WriteString("_")
 	} else {
-		b.WriteString(z_code.GetGtpZ(readonlyGameSettingsModel, position1, position1.KoZ))
+		b.WriteString(gamerecordusecase.GetGtpZ(readonlyGameSettingsModel, position1, position1.KoZ))
 	}
 	if movesNum != -1 {
 		b.WriteString(",movesNum=")

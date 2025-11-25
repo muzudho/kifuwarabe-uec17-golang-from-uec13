@@ -9,6 +9,7 @@ import (
 
 	// 1 Entities
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordusecase"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mctsimpl"
@@ -18,7 +19,7 @@ import (
 	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
 
 	// 7 Presenters
-	z_code "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_1/z_code"
+
 	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 
@@ -176,7 +177,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 				}
 
 				var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-				var z = z_code.GetZFromGtp(readonlyGameSettingsModel, position1, tokens[2])
+				var z = gamerecordusecase.GetZFromGtp(readonlyGameSettingsModel, position1, tokens[2])
 				var recItem = new(gamerecord.GameRecordItem)
 				recItem.Z = z
 				recItem.Time = 0
@@ -203,7 +204,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 
 			var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
 			var z = mctsimpl.PlayComputerMoveLesson09a(text_io1, readonlyGameSettingsModel, position1, color1)
-			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", z_code.GetGtpZ(readonlyGameSettingsModel, position1, z)))
+			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", gamerecordusecase.GetGtpZ(readonlyGameSettingsModel, position1, z)))
 
 		// ========================================
 		// 独自実装

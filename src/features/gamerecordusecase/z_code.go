@@ -1,4 +1,4 @@
-package z_code
+package gamerecordusecase
 
 import (
 	"fmt"
