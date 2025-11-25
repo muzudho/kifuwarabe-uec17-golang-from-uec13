@@ -1,4 +1,4 @@
-package self_play
+package mctsimpl
 
 import (
 	"fmt"

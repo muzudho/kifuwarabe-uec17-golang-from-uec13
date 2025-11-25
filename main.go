@@ -13,9 +13,9 @@ import (
 
 	// 2. Use Cases
 	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
+	mctsimpl "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mctsimpl"
 
 	// 3. Controllers
-	self_play "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_3_controllers/chapter_2_self_play/section_1/self_play"
 
 	// 6. Gateways
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
@@ -67,7 +67,7 @@ func main() {
 	// ========================================
 
 	if lessonVer == "SelfPlay" {
-		self_play.SelfPlay(text_io1, readonlyGameSettingsModel, position1)
+		mctsimpl.SelfPlay(text_io1, readonlyGameSettingsModel, position1)
 	} else {
 		LoopGtp(text_io1, &dto1, position1) // GTP
 	}

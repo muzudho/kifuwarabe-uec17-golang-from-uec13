@@ -8,10 +8,10 @@ import (
 	"strings"
 
 	// 1 Entities
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_3_controllers/chapter_1_computer_player/section_1/play_computer_move_lesson_09_a"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mctsimpl"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 
 	// 2 Use Cases
@@ -202,7 +202,7 @@ func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSett
 			}
 
 			var readonlyGameSettingsModel = gamesettings.NewReadonlyGameSettingsModel(gameSettingsDto1.Game.GetBoardSize(), gameSettingsDto1.Game.GetKomi(), gameSettingsDto1.Game.GetMaxMoves())
-			var z = play_computer_move_lesson_09_a.PlayComputerMoveLesson09a(text_io1, readonlyGameSettingsModel, position1, color1)
+			var z = mctsimpl.PlayComputerMoveLesson09a(text_io1, readonlyGameSettingsModel, position1, color1)
 			text_io1.SendCommand(fmt.Sprintf("= %s\n\n", z_code.GetGtpZ(readonlyGameSettingsModel, position1, z)))
 
 		// ========================================

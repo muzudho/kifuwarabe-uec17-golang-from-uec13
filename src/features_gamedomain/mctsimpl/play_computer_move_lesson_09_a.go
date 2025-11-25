@@ -1,4 +1,4 @@
-package play_computer_move_lesson_09_a
+package mctsimpl
 
 import (
 	"math"
