@@ -1,9 +1,8 @@
-package check_board_view
+package gamerecordpresenter
 
 import (
 	"strings"
 
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordpresenter"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	logger "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
@@ -17,14 +16,14 @@ var numberLabels = [2]string{" 0", " 1"}
 func PrintCheckBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position) {
 
 	var b = &strings.Builder{}
-	b.Grow(gamerecordpresenter.Sz8k)
+	b.Grow(Sz8k)
 
 	var boardSize = readonlyGameSettingsModel.GetBoardSize()
 
 	// Header
 	b.WriteString("\n   ")
 	for x := 0; x < boardSize; x++ {
-		b.WriteString(gamerecordpresenter.LabelOfColumns[x+1])
+		b.WriteString(LabelOfColumns[x+1])
 	}
 	b.WriteString("\n  +")
 	for x := 0; x < boardSize; x++ {
@@ -34,7 +33,7 @@ func PrintCheckBoard(readonlyGameSettingsModel *gamesettings.ReadonlyGameSetting
 
 	// Body
 	for y := 0; y < boardSize; y++ {
-		b.WriteString(gamerecordpresenter.LabelOfRows[y+1])
+		b.WriteString(LabelOfRows[y+1])
 		b.WriteString("|")
 		for x := 0; x < boardSize; x++ {
 			var z = position1.GetZFromXy(readonlyGameSettingsModel, x, y)
