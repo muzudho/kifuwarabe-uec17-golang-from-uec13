@@ -1,4 +1,4 @@
-package game_domain
+package bademptytriangle
 
 // Empty triangle (アキ三角)
 //

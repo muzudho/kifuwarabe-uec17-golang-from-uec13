@@ -6,7 +6,6 @@ import (
 
 	// Entities
 
-	ren "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_1_entities/chapter_1_go_conceptual/section_2/ren"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
@@ -298,14 +297,14 @@ func (position1 *Position) PutStoneOnRecord(readonlyGameSettingsModel *gamesetti
 // # Returns
 // エラーコード
 func (position1 *Position) PutStone(readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, z models.Point, color1 color.Color) int {
-	var around = [4]*ren.Ren{}   // 隣接する４つの交点
-	var libertyArea int          // 呼吸点の数
-	var renArea int              // 連の石の数
-	var oppColor = color1.Flip() //相手(opponent)の石の色
-	var space = 0                // 隣接している空点への向きの数
-	var wall = 0                 // 隣接している壁への向きの数
-	var myBreathFriend = 0       // 呼吸できる自分の石と隣接している向きの数
-	var captureSum = 0           // アゲハマの数
+	var around = [4]*models.Ren{} // 隣接する４つの交点
+	var libertyArea int           // 呼吸点の数
+	var renArea int               // 連の石の数
+	var oppColor = color1.Flip()  //相手(opponent)の石の色
+	var space = 0                 // 隣接している空点への向きの数
+	var wall = 0                  // 隣接している壁への向きの数
+	var myBreathFriend = 0        // 呼吸できる自分の石と隣接している向きの数
+	var captureSum = 0            // アゲハマの数
 
 	if z == models.Pass { // 投了なら、コウを消して関数を正常終了
 		position1.KoZ = 0
@@ -314,7 +313,7 @@ func (position1 *Position) PutStone(readonlyGameSettingsModel *gamesettings.Read
 
 	// 呼吸点を計算します
 	for dir := 0; dir < 4; dir++ { // ４方向
-		around[dir] = ren.NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
+		around[dir] = models.NewRen(0, 0, 0) // 呼吸点の数, 連の石の数, 石の色
 
 		var adjZ = z + readonlyGameSettingsModel.GetDirections4Array()[dir] // 隣の交点
 		var adjColor = position1.ColorAt(adjZ)                              // 隣(adjacent)の交点の石の色
