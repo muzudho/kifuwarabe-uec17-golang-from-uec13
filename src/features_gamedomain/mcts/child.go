@@ -1,4 +1,4 @@
-package child
+package mcts
 
 import "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 

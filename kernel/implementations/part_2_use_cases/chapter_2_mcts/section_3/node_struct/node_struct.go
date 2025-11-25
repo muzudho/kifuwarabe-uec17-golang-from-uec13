@@ -3,11 +3,11 @@ package node_struct
 import (
 	"os"
 
-	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/child"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_1/uct_struct"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_2_use_cases/chapter_2_mcts/section_2/node"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	mcts "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mcts"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 )
 
@@ -26,7 +26,7 @@ func CreateNode(position1 *position.Position) int {
 	}
 	var pN = &Nodes[NodeNum]
 	pN.ChildNum = 0
-	pN.Children = make([]child.Child, position1.UctChildrenSize())
+	pN.Children = make([]mcts.Child, position1.UctChildrenSize())
 	pN.ChildGameSum = 0
 
 	var onPoint = func(z models.Point) {
