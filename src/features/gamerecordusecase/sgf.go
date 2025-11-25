@@ -1,4 +1,4 @@
-package sgf
+package gamerecordusecase
 
 import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecord"

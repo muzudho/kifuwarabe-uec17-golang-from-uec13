@@ -19,7 +19,6 @@ import (
 
 	// Presenters
 
-	sgf "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_2/sgf"
 	board_view "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_2_game_record/section_3/board_view"
 	uct_calc_info "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/implementations/part_7_presenters/chapter_3_uct/section_1/uct_calc_info"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
@@ -57,7 +56,7 @@ func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesetting
 		color = color.Flip()
 	}
 
-	sgf.PrintSgf(readonlyGameSettingsModel, position1, position1.MovesNum, position1.Record)
+	gamerecordusecase.PrintSgf(readonlyGameSettingsModel, position1, position1.MovesNum, position1.Record)
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます
