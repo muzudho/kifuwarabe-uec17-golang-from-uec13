@@ -13,6 +13,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordusecase"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/textio"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features_gamedomain/mctsimpl"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 
@@ -22,14 +23,12 @@ import (
 	// 7 Presenters
 
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
-
 	// Interfaces
-	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 )
 
 // LoopGtp - レッスン９a
 // GTP2NNGS に対応しているのでは？
-func LoopGtp(text_io1 i_text_io.ITextIO, gameSettingsDto1 *gamesettings.GameSettingsFile, position1 *position.Position) {
+func LoopGtp(text_io1 textio.ITextIO, gameSettingsDto1 *gamesettings.GameSettingsFile, position1 *position.Position) {
 	//logger.Console.Trace("# きふわらべ UEC17 golang from UEC13 プログラム開始☆（＾～＾）\n")
 	//logger.Console.Trace("# 何か標準入力しろだぜ☆（＾～＾）\n")
 

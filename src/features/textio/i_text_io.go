@@ -1,4 +1,4 @@
-package i_text_io
+package textio
 
 type ITextIO interface {
 	// SendCommand - コマンド出力

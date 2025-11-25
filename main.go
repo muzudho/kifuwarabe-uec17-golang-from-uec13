@@ -23,9 +23,7 @@ import (
 	// 7. Presenters
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/textio"
-
 	// Interfaces
-	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 )
 
 func main() {
@@ -60,7 +58,7 @@ func main() {
 	// 思考エンジンの準備　＞　テキストＩＯ
 	// ========================================
 
-	var text_io1 i_text_io.ITextIO = textio.NewTextIO()
+	var text_io1 textio.ITextIO = textio.NewTextIO()
 
 	// ========================================
 	// その他

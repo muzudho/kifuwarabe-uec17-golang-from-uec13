@@ -11,6 +11,7 @@ import (
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamerecordusecase"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/gamesettings"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/position"
+	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/textio"
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models"
 	color "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/models/color"
 
@@ -21,13 +22,11 @@ import (
 	// Presenters
 
 	"github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/src/features/logger"
-
 	// Interfaces
-	i_text_io "github.com/muzudho/kifuwarabe-uec17-golang-from-uec13/kernel/interfaces/part_1_facility/chapter_1_io/section_1/i_text_io"
 )
 
 // SelfPlay - コンピューター同士の対局。
-func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position) {
+func SelfPlay(text_io1 textio.ITextIO, readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position) {
 	logger.Console.Trace("# GoGo SelfPlay 自己対局開始☆（＾～＾）\n")
 
 	var color = color.Black
@@ -59,7 +58,7 @@ func SelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesetting
 }
 
 // GetComputerMoveDuringSelfPlay - コンピューターの指し手。 SelfplayLesson09 から呼び出されます
-func GetComputerMoveDuringSelfPlay(text_io1 i_text_io.ITextIO, readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position, color color.Color) models.Point {
+func GetComputerMoveDuringSelfPlay(text_io1 textio.ITextIO, readonlyGameSettingsModel *gamesettings.ReadonlyGameSettingsModel, position1 *position.Position, color color.Color) models.Point {
 
 	var start = time.Now()
 	mcts.AllPlayouts = 0
